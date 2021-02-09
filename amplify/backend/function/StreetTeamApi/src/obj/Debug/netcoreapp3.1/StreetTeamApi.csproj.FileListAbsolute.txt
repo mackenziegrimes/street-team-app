@@ -1,0 +1,17 @@
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/StreetTeamApi.deps.json
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/StreetTeamApi.runtimeconfig.json
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/StreetTeamApi.runtimeconfig.dev.json
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/StreetTeamApi.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/StreetTeamApi.pdb
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/Amazon.Lambda.APIGatewayEvents.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/Amazon.Lambda.Core.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/Amazon.Lambda.Serialization.Json.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.csprojAssemblyReference.cache
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.AssemblyInfoInputs.cache
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.AssemblyInfo.cs
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.csproj.CoreCompileInputs.cache
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.csproj.CopyComplete
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.pdb
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Debug/netcoreapp3.1/StreetTeamApi.genruntimeconfig.cache

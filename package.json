@@ -3,36 +3,53 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "@reach/router": "^1.3.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "aws-amplify": "^3.0.24",
     "aws-amplify-react": "^4.1.23",
+    "axios": "^0.20.0",
+    "clipboard": "^2.0.6",
+    "create-styled-element": "^0.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-react": "^7.21.3",
+    "polished": "^3.6.7",
+    "query-string": "^6.13.6",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.3.0",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-icons": "^3.11.0",
+    "react-scripts": "3.4.3",
+    "react-toast-notifications": "^2.4.0",
+    "react-use-clipboard": "1.0.1",
+    "styled-components": "^5.2.0",
+    "tonality": "^0.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "echo 'Linting...' && eslint --ignore-path .gitignore . && echo 'Lint complete.'",
+    "lint": "echo 'Linting...' && eslint --ignore-path .gitignore . --fix && echo 'Lint complete.'",
     "format": "npm run -s lint -- --fix && echo 'Lint complete.'",
-    "watch": "watch 'clear && yarn -s unit-tests | tap-nirvana && yarn -s format' src",
+    "watch": "watch 'clear && npm -s unit-tests | tap-nirvana && npm -s format' src",
     "debug": "NODE_ENV=test node --inspect-brk -r @babel/register -r @babel/polyfill ./src/index.test.js",
-    "validate": "yarn -s unit-tests && yarn -s lint && yarn -s functional-tests --app 'yarn start' --app-init-delay 4000",
+    "validate": "npm -s unit-tests && npm -s lint && npm -s functional-tests --app 'npm start' --app-init-delay 4000",
     "functional-tests": "testcafe 'chrome:headless' src/functional-tests/"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn -s validate"
+      "pre-commit": "npm test -- --watchAll=false"
     }
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "plugin:prettier/recommended"
+      "plugin:prettier/react"
     ],
     "plugins": [
       "simple-import-sort"

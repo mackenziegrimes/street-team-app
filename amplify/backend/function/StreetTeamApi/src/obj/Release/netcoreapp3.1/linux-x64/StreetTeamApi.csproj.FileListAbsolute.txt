@@ -1,0 +1,12 @@
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Release/netcoreapp3.1/linux-x64/StreetTeamApi.deps.json
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Release/netcoreapp3.1/linux-x64/StreetTeamApi.runtimeconfig.json
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Release/netcoreapp3.1/linux-x64/StreetTeamApi.runtimeconfig.dev.json
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Release/netcoreapp3.1/linux-x64/StreetTeamApi.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/bin/Release/netcoreapp3.1/linux-x64/StreetTeamApi.pdb
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Release/netcoreapp3.1/linux-x64/StreetTeamApi.csprojAssemblyReference.cache
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Release/netcoreapp3.1/linux-x64/StreetTeamApi.AssemblyInfoInputs.cache
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Release/netcoreapp3.1/linux-x64/StreetTeamApi.AssemblyInfo.cs
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Release/netcoreapp3.1/linux-x64/StreetTeamApi.csproj.CoreCompileInputs.cache
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Release/netcoreapp3.1/linux-x64/StreetTeamApi.dll
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Release/netcoreapp3.1/linux-x64/StreetTeamApi.pdb
+/home/ec2-user/environment/street-team-app/amplify/backend/function/StreetTeamApi/src/obj/Release/netcoreapp3.1/linux-x64/StreetTeamApi.genruntimeconfig.cache

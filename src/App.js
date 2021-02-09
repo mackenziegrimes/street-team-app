@@ -1,65 +1,70 @@
-import React, { useState } from 'react';
 import './App.css';
 
-import { API, graphqlOperation } from "aws-amplify"
-import { createTodo } from "./graphql/mutations"
-import { listTodos } from "./graphql/queries"
+import { Router } from '@reach/router';
+import React, { useState } from 'react';
+import axios from 'axios';
+import Registration from './Contest/2_Registration';
+import Landing from './Contest/1_Landing';
+import EmailRegistration from './Contest/3_EmailRegistration';
+import ContestPage1 from './Contest/4_ContestPage1';
+import ReferralPage from './Contest/5_ReferralPage';
+import SpotifyFollowArtist from './Contest/6_SpotifyFollowArtist';
+import SpotifySaveSong from './Contest/7_SpotifySaveSong';
+import Login from "./Contest/A1_Login";
+import CreateContestPage from './Contest/A2_CreateContest';
+
+// import { API, graphqlOperation } from "aws-amplify";
+// import { createTodo } from "./graphql/mutations";
+// import { listTodos } from "./graphql/queries";
 import sum from './sum';
 
 function App() {
-  //todo items
-  const [todoName, setTodoName] = useState('')
-  const [todoItems, setTodoItems] = useState([])
+  // const [todoName, setTodoName] = useState('')
+  // const [todoItems, setTodoItems] = useState([])
 
-  const addTodo = async () => {
-    await API.graphql(
-      graphqlOperation(createTodo, { input: { name: todoName } })
-    )
-    setTodoName('')
-    updateTodos()
-  }
+  // const addTodo = async () => {
+  //   await API.graphql(
+  //     graphqlOperation(createTodo, { input: { name: todoName } })
+  //   )
+  //   setTodoName('')
+  //   updateTodos()
+  // }
 
-  const handleChange = (evt) => {
-    setTodoName(evt.target.value)
-  }
+  // const handleChange = (evt) => {
+  //   setTodoName(evt.target.value)
+  // }
 
-  const updateTodos = async () => {
-    const allTodos = await API.graphql(graphqlOperation(listTodos))
-    setTodoItems(allTodos.data.listTodos.items)
-  }
+  // const updateTodos = async () => {
+  //   const allTodos = await API.graphql(graphqlOperation(listTodos))
+  //   setTodoItems(allTodos.data.listTodos.items)
+  // }
 
-  updateTodos()
+  // updateTodos()
 
-  //counter items
-  const [number, setNumber] = useState(0);
+  // <Button> Counter +1 </Button>
 
-  function handleClick() {
-    setNumber(sum(number, 1));
-  }
-
+  // counter items
 
   return (
-    <div className="App">
-      <img class="App-logo" alt="baby" src="../baby.png"></img>
-      <h1>Win a Baby</h1>
-      <h3>Enter for a chance to win a happy, healthy baby girl</h3>
-
-      <p>CONTEST ENDS IN: <i>HH:MM:SS</i></p>
-      <input type="text" value={todoName} onChange={handleChange} />
-
-      <button onClick={addTodo}>Add an Item to this List</button>
-
-      <ul>
-        {todoItems.map((item) => {
-          return <li key={item.id}>{ item.name }</li>
-        })}
-      </ul>
-
-      <button className="increment-button" onClick={handleClick}>
-          +1 Counter
-      </button>
-      <p className="number">{number}</p>
-    </div>
+      <Router>
+        <Landing path="/landingpage" />
+        <Registration path="/registration" />
+        <EmailRegistration path="/register-email" />
+        <ContestPage1 path="/contest" />
+        <ReferralPage path="/referral"/>
+        <Login path="/login" />
+        <CreateContestPage path="/" />
+        <SpotifyFollowArtist path="/spotify-follow-artist"/>
+        <SpotifySaveSong path="/spotify-save-song"/>
+      </Router>
+    // <div>
+    //   <div>
+    //   <Background />
+    //   </div>
+    //   <div>
+    //     <CenterBox />
+    //   </div>
+    // </div>
   );
 }
 
