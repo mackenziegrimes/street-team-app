@@ -15,7 +15,7 @@ import { IoIosCheckbox } from "react-icons/io"
 import EmailForm from "../EmailForm";
 
 
-function EmailRegistrationCard({contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) {
+function EmailRegistrationCard({contestId,contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) {
   return (
     <div>
       <Card>

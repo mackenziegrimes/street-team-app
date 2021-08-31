@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Text from "./Text"
 
-function PointsBox({totalPoints,totalReferrals,bonusPoints,totalEntries,includeText,userName}) {
+function PointsBox({totalPoints,totalReferrals,bonusPoints,totalEntries,includeText,enduserFullName}) {
     
     let pointsInfoText = "";
     let referralText = "";
@@ -53,7 +53,7 @@ function PointsBox({totalPoints,totalReferrals,bonusPoints,totalEntries,includeT
                 <h5 className="countdown-label" > points </h5>
             </div>
             <div className="points-info-box">
-                <h4 className="points-info-text-header fade-light"> {userName} </h4>
+                <h4 className="points-info-text-header fade-light"> {enduserFullName} </h4>
                 <p className="points-info-text-referrals fade-light"> {totalReferralsText} </p>
                 <p className="points-info-text fade-light"> {pointsInfoText} </p>
             </div>

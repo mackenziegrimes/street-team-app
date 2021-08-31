@@ -26,7 +26,7 @@ function EmailForm () {
                 <input type="phone" className="form-control" id="exampleInputPhone1" placeholder="Your Phone Number..." />
               </div>
               <div class="button-container">
-                <Link class="link-button" to="/contest-page-1">
+                <Link class="link-button" to="/contest">
                 <Button type="Submit" className="btn-default complete-registration-button button-text-box">
                   <div className= "complete-registration-color-gradient button-text-box dark">
                     <div className="complete-registration-button-icon">

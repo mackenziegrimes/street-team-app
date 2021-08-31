@@ -52,21 +52,19 @@ import NavbarSteps from './NavbarSteps';
   }
   
 
-function NavbarCreateProject({setSelectedTab,selectedTab}) {
+const NavbarCreateProject = ({setSelectedTab,selectedTab,activeStep,setActiveStep}) => {
   
   const [connectStepStatus, setConnectStepStatus] = useState("");
   const [detailsStepStatus, setDetailsStepStatus] = useState("");
   const [fanActionsStepStatus, setFanActionsStepStatus] = useState("");
   const [integrationsStepStatus, setIntegrationsStepStatus] = useState("");
   const [reviewStepStatus, setReviewStepStatus] = useState("");
-  
-  const [activeStep, setActiveStep] = useState(2);
 
     return(
         <div>
           <div class="sidebar-header"> 
             <div class="sidebar-title"> Your Contest </div>
-            <div class="sidebar-description"> Grow Your Fanbase </div>
+            <div class="sidebar-description"> Build Your Audience </div>
           </div>
           <div class="sidebar-progress-box"> 
             <div class="sidebar-progress-section"> 
@@ -75,12 +73,18 @@ function NavbarCreateProject({setSelectedTab,selectedTab}) {
                 <div class="sidebar-title-box-text"> Initial Setup </div>
               </div>
               <NavbarSteps 
+              // handleOnClick={() => {setSelectedTab('get-started')}}
               stepIcon= {FaFacebook}
               stepText= "Get Started"
-              stepStatus = "step-complete"
+              stepStatus= {connectStepStatus}
+              setStepStatus= {setConnectStepStatus}
               setSelectedTab= {setSelectedTab}
               selectedTab= {selectedTab}
+              isSelected= {selectedTab==='get-started'}
+              isActive= {activeStep===0}
               isComplete= {activeStep > 0}
+              isInactive= {connectStepStatus==='inactive'}
+              isWarning= {connectStepStatus==='warning'}
               />
               <NavbarSteps 
               handleOnClick={() => {setSelectedTab('connect-account'); setActiveStep(1)}}
@@ -131,6 +135,7 @@ function NavbarCreateProject({setSelectedTab,selectedTab}) {
               isWarning= {connectStepStatus==='warning'}
               />
             </div>
+            {/*
             <div class="sidebar-progress-section"> 
               <div class="sidebar-progress-section-title-box">
                 <div class="sidebar-title-box-icon "> <FaFire /> </div>
@@ -150,6 +155,7 @@ function NavbarCreateProject({setSelectedTab,selectedTab}) {
               isWarning= {connectStepStatus==='warning'}
               />
             </div>
+            */}
             <div class="sidebar-progress-section"> 
               <div class="sidebar-progress-section-title-box">
                 <div class="sidebar-title-box-icon "> <MdLaunch /> </div>

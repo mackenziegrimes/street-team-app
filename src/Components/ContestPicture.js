@@ -1,7 +1,7 @@
 import React from 'react';
 
-function ContestPicture() {
+function CardPicture() {
   return <div />;
 }
 
-export default ContestPicture;
+export default CardPicture;

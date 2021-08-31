@@ -19,10 +19,8 @@ function SpotifySaveSong() {
       //if token is not null then take the token and call the spotify api for following the artist.
         SpotifyAPISaveSongCall(token1);
         SpotifyRedirectToContest();
-        content = token1;
     } else {
         //if there is no token then redirect to spotify api to get token
-        content = search;
         SpotifyRedirectBack();
     }
   return (
@@ -55,7 +53,11 @@ function SpotifySaveSong() {
     
   }
   function SpotifyRedirectToContest() {
-      window.location.href = "https://f1bf79aaf3f3461a991df7b204943be0.vfs.cloud9.us-west-2.amazonaws.com/";
+    
+      const search1 = window.location.href;
+      const a1 = search1.search("#");
+      const first1 = search1.substr(a1);
+      window.location.href = "https://f1bf79aaf3f3461a991df7b204943be0.vfs.cloud9.us-west-2.amazonaws.com/contest/"+first1;
     
   }
 

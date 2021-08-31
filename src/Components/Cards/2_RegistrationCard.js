@@ -15,7 +15,7 @@ import { FaFacebook } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 
 
-function RegistrationCard({contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) {
+function RegistrationCard({contestId,contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) {
   return (
     <div>
       <Card>

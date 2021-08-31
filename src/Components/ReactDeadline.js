@@ -58,7 +58,12 @@ class Timer extends Component {
   render() {
     const { days, hours, minutes, seconds, expired } = this.state;
     if (expired) {
-      return <div className="expired">Expired :(</div>;
+      return ( <div className="countdown-container">
+                  <div class="countdown-column">
+                    <h1 class="countdown-number"> Expired :( </h1>
+                  </div>
+                </div>
+              )
     }
     return (
     <div>

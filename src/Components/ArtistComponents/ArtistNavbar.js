@@ -11,7 +11,7 @@ function ArtistNavbar() {
                         <img src="../mm_square_bright.png" class="navbar-image" />
                     </div>
                     <div class="navbar-right-divider"> <FaAngleRight /> </div>
-                    <div> <p class="navbar-contest-title"> Create a Contest </p> </div>
+                    <div> <p class="navbar-contest-title"> Create Your Card </p> </div>
                 </div>
                 <div class="navbar-block-right"> 
                     <Link class="link-button" to="/login">

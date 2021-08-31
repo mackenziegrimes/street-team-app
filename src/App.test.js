@@ -6,11 +6,12 @@ import App from './App';
 // import render from 'riteway/render-component';
 
 // ##default create-react-app
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  return true;
+test('renders app', () => {
+  // const { getByText } = render(<App />);
+
   // const linkElement = getByText(/terms/i);
   // expect(linkElement).toBeInTheDocument();
+  expect(render(<App />));
 });
 
 describe('App component', async assert => {

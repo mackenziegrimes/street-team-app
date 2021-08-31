@@ -61,7 +61,12 @@ function Text({
   }
 
   if (contrast) {
-    styles.fontSize = contrast * base
+    if (base)
+    {
+      styles.fontSize = contrast * base;
+      
+    }
+  
   }
 
   if (lineHeight) {

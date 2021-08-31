@@ -21,27 +21,32 @@ import ArtistNavbar from "../ArtistComponents/ArtistNavbar"
 import NavbarCreateProject from "../ArtistComponents/NavbarCreateProject"
 import ConnectAccount from "../ArtistComponents/RightBoxes/ConnectAccount"
 import EnterDetails from "../ArtistComponents/RightBoxes/EnterDetails"
+import FanActions from "../ArtistComponents/RightBoxes/FanActions"
+import ReviewContest from "../ArtistComponents/RightBoxes/ReviewContest"
+import GetStarted from "../ArtistComponents/RightBoxes/GetStarted"
 
 
 import Text from "../Text";
 
+const CreateContest = ({contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) => {
+  
+  const [selectedTab, setSelectedTab] = useState('fan-actions');
+  const [activeStep, setActiveStep] = useState(3);
+  
   const TABS = {
+    'get-started': <GetStarted />,
     'connect-account': <ConnectAccount />,
     'enter-details': <EnterDetails />,
-    'fan-actions': null,
+    'fan-actions': <FanActions />,
     'add-integrations': null,
-    'review-contest': null,
+    'review-contest': <ReviewContest activeStep={activeStep} />,
   }
-
-function CreateContest({contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) {
-  
-  const [selectedTab, setSelectedTab] = useState('enter-details');
   
   return (
     <div class="artist-wrapper"> <hr class="navbar-divider" />
       <div class="create-contest-wrapper"> 
         <div class="create-contest-left-container">
-          <NavbarCreateProject setSelectedTab={setSelectedTab} selectedTab={selectedTab}/>
+          <NavbarCreateProject activeStep={activeStep} setActiveStep={setActiveStep} setSelectedTab={setSelectedTab} selectedTab={selectedTab}/>
         </div>
         <div class="create-contest-right-container"> 
           <div class="create-contest-right-box"> 

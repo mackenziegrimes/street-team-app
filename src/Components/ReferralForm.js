@@ -12,7 +12,7 @@ import useClipboard from "react-use-clipboard";
 // import ToastBody from 'react-bootstrap/ToastBody'
 // import ToastHeader from 'react-bootstrap/ToastHeader'
 
-function ReferralForm ({refUrl}) {
+function CopyActionPageLink ({refUrl}) {
 
   const noPadding = {
     paddingTop: 0,
@@ -68,7 +68,7 @@ function ReferralForm ({refUrl}) {
               </div>
             </div>
             <div class="referral-button-points-box color"> 
-              <div class="referral-points-total nudge-left dark"> +500 </div>
+              <div class="referral-points-total nudge-left dark"> +250 </div>
               <div class="referral-points-label dark"> points </div>
             </div>
           </div>
@@ -76,4 +76,4 @@ function ReferralForm ({refUrl}) {
         )
 }
 
-export default ReferralForm
+export default CopyActionPageLink

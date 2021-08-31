@@ -52,12 +52,12 @@ function ProgressBox({progressStep}) {
     
     
     return(
-        <div className="progress-container">
+        <div className="progress-container center">
             <Link to="/registration">
                 <div className={"progress-number-box " + progressStep1}> <Text color="white" base="16" family="Oswald" weight="550"> 1 </Text> </div>
             </Link>
                 <hr className="progress-divider" />
-            <Link to="/contest-page-1">
+            <Link to="/contest">
                 <div className={"progress-number-box " + progressStep2}> <Text color="white" base="16" family="Oswald" weight="550"> 2 </Text> </div>
             </Link>
                 <hr className="progress-divider" />

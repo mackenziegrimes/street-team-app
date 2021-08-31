@@ -22,12 +22,17 @@ import { FaCheckCircle } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { MdLibraryMusic } from "react-icons/md";
 
+import { gql, useMutation } from '@apollo/react-hooks';
+import { updateEnduser,updateContestSubscription } from '../../graphql/mutations';
+
 import Text from "../Text"
 
-function ReferralCard({contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) {
+function ReferralCard({contestId,enduserId,enduserReferrals,totalPoints,userFirstName,userLastName,contestHeadline,contestDescription,buttonText,contestDeadline,contestImg}) {
   
   const [buttonClickedSpotifyFollow, setClickedSpotifyFollow] = useState(false);
-  
+  const [updateEnduserData] = useMutation(gql(updateEnduser))
+  const [updateContestSubscriptionData] = useMutation(gql(updateContestSubscription))
+
   return (
     <div>
       <Card>
@@ -53,23 +58,23 @@ function ReferralCard({contestHeadline,contestDescription,buttonText,contestDead
               <hr width="46%" align="left" margin-top="0" font-weight="bold"/>
               <Text family="Open Sans" base="14" color="white">
               <p>
-              Explode your points and multiply your chances of winning 
-              for every friend you sign up. Earn <Text weight="bold" color="white" base="14"> 3x bonus points for every point they earn 
+              Explode your points and multiply your chances of winning with 
+              every friend you sign up. Earn <Text weight="bold" color="white" base="14"> 3x bonus points for every point they earn 
               and 2x </Text> of the friends they sign up.
               </p>
               </Text>
             </Card.Title>
             <div className="register-button-box">
-              <ReferralForm refUrl="streetteam.modernmusician.me/win-a-baby?referrer=1" />
+              <ReferralForm refUrl={"app.modern-musician.com/" + contestId + "?referrer=" + enduserId} />
             </div>
             <p class="referral-terms-text"> *Points are only awarded when a friend enters with your link <Text weight="600"> using a valid account </Text>.* </p>
           </div>
           <PointsBox 
-          totalPoints={720} 
+          totalPoints={totalPoints} 
           includeText={true}
-          userName="Michael Walker"
-          totalReferrals={3}
-          bonusPoints={520}
+          userName={userFirstName + " " + userLastName}
+          totalReferrals={enduserReferrals}
+          bonusPoints={0}
           />
         </Card.Body>
       </Card>
