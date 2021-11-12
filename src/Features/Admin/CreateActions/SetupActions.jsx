@@ -77,6 +77,7 @@ export const SetupActions = ({
   };
 
   const onSubmit = () => {
+    setShow(true);
     let newTargetUrl = '';
     const actionButtons = actionPageData?.actionButtons?.items;
     // handle sendEmailUrl

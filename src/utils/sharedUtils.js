@@ -54,3 +54,35 @@ export const getBackendApiUrl = () => {
 const productionFacebookAppId = `1889301381171290`;
 const devFacebookAppId = '871609296874018';
 export const facebookAppId = isProduction() ? productionFacebookAppId : devFacebookAppId
+
+
+export const trackInAmplitude = async (eventName, deviceId, userId, artistId) => {
+  if(!eventName || !deviceId || !artistId){
+    return
+  }
+  const params = { "artistID": artistId,
+  "platform": "Amplitude",
+  "event": {
+      "event_type": eventName,
+      "device_id": deviceId, 
+  }}
+  if(userId){
+    // this is an optional parameter
+    params['event']['user_id']=userId;
+  }
+  const trackUrl = getBackendApiUrl() + `/track-event`;
+  const response = await fetch(trackUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  })
+    .then(rsp => rsp.json())
+    .then(json => {
+      if (json.error && json.error.message) {
+        console.error(json.error.message);
+      } else {
+        console.log(`results are`, json);
+        return json
+      }
+    });
+}

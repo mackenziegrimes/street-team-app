@@ -185,7 +185,7 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
             backgroundColor: theme.colors.primary,
           }}
         >
-          Configure Facebook Messanger Integration
+          Configure Facebook Messenger Integration
         </Button>
       ) : (
         <SelectList

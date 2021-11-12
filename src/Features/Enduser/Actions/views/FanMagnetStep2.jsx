@@ -7,6 +7,8 @@ import { PageHeader } from '../../../../Components/Page/PageHeader';
 //   SURVEY_SELECTION,
 // } from '../../../../Context/FanMagnetContext';
 import { useHistory } from 'react-router-dom';
+import anonymousId from 'anonymous-id';
+import { trackInAmplitude } from '../../../../utils/sharedUtils';
 
 export const SURVEY_SELECTION = {
   LOVE_IT: 'I loved it!',
@@ -37,7 +39,7 @@ const MagnetButton = styled(FanMagnetButton)`
   }
 `;
 
-export const FanMagnetStep2 = () => {
+export const FanMagnetStep2 = ({artistId}) => {
   // const { setFanMagnetSurvey } = useContext();
   const history = useHistory();
   const continueToNextStep = () => {
@@ -61,6 +63,7 @@ export const FanMagnetStep2 = () => {
         handleClick={() => {
           // setFanMagnetSurvey(SURVEY_SELECTION.LOVE_IT);
           continueToNextStep();
+          trackInAmplitude('Enjoyed',anonymousId(),null,artistId);
         }}
       >
         <span>👍</span>

@@ -19,6 +19,8 @@ import {
   PageHeader,
   StyledPageContainer,
 } from '../../../../Components/Page';
+import anonymousId from 'anonymous-id';
+import { trackInAmplitude } from '../../../../utils/sharedUtils';
 
 const PlayerContainer = styled.div`
   padding: 20px 0;
@@ -28,6 +30,7 @@ const PlayerContainer = styled.div`
 export const LandingPage = () => {
   const [authState, setAuthState] = useState();
   const [userId, setUserId] = useState();
+  const [artistId, setArtistId] = useState();
   const [dynamicClient, setDynamicClient] = useState();
   const [dataFetched, setDataFetched] = useState(false);
   const [soundCloudURL, setSoundCloudURL] = useState('');
@@ -99,6 +102,13 @@ export const LandingPage = () => {
       if (continueButton) {
         setContineButtonDetails(continueButton);
       }
+      const id = actionPageData.ArtistByRoute.items[0]?.id
+      if(id && !artistId){
+        //if we don't have the id yet, set it
+        console.log('setting artist ID to ',id);
+        setArtistId(id);
+      }
+
     }
   }, [actionPageData]);
 
@@ -106,6 +116,16 @@ export const LandingPage = () => {
     const timer = setTimeout(() => setIsButtonActive(true), 30000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(()=> {
+    if(artistId){
+      //sets an anonymousId in the cookies (to be use for tracking purposes)
+      anonymousId()
+      console.log(anonymousId())
+      //track 
+      trackInAmplitude('Clicked',anonymousId(),null,artistId);
+    }
+  },[artistId])
 
   if (loading || !dataFetched)
     return (
@@ -151,7 +171,10 @@ export const LandingPage = () => {
             activeColor={continueButtonDetails.textColor || '#202021'}
             inactiveBgColor="#544c2e"
             margin="60px 0 45px"
-            handleClick={() => setCurrentStep(2)}
+            handleClick={() => {
+              setCurrentStep(2)
+              trackInAmplitude('Listened',anonymousId(),null,artistId);
+            }}
           >
             <span>
               <Icon
@@ -166,7 +189,7 @@ export const LandingPage = () => {
           </FanMagnetButton>
         </React.Fragment>
       )}
-      {currentStep === 2 && <FanMagnetStep2 />}
+      {currentStep === 2 && <FanMagnetStep2 artistId={artistId}/>}
     </PageContainer>
   );
 };

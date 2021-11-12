@@ -20,6 +20,8 @@ import {
 } from '../../../../Components/Page';
 import { Spinner } from '../../../../Components/UI/Spinner';
 import { Auth } from 'aws-amplify';
+import anonymousId from 'anonymous-id';
+import { trackInAmplitude } from '../../../../utils/sharedUtils';
 
 export const ActionsView = () => {
   const [actionValues, setActionValues] = useState([]);
@@ -28,6 +30,7 @@ export const ActionsView = () => {
   const [totalPoints, setTotalPoints] = useState(0);
   const [userId, setUserId] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
+  const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
 
   // get user info from logged in Auth (this should live in the utils directory)
@@ -181,6 +184,10 @@ export const ActionsView = () => {
 
   useEffect(() => {
     if (actionPageData && actionPageData?.ArtistByRoute?.items?.length > 0) {
+      const artist = actionPageData.ArtistByRoute.items[0];
+      if(artist){
+        setArtistId(artist.id)
+      }
       // this is currently assuming that 1) artist exsists at this route & 2) only one action page exists at this page route
       const actionPage =
         actionPageData.ArtistByRoute.items[0].actionPages.items[0];
@@ -208,6 +215,13 @@ export const ActionsView = () => {
       setActionValues(values);
     }
   }, [actionPageData]);
+
+  useEffect(()=> {
+    if(artistId && userId){
+      anonymousId()
+      trackInAmplitude('Completed',anonymousId(),userId,artistId);
+    }
+  },[artistId])
 
   useEffect(() => {
     if (
