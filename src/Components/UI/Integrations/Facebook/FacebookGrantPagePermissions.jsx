@@ -110,9 +110,14 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
         }
         console.log(`got the following response`, response.authResponse);
         if (!facebookPages) {
-          const facebookUserId = response.authResponse.userID;
-          const accessToken = response.authResponse.accessToken;
-          let input = {facebookUserId:facebookUserId, accessToken:accessToken, userId:userId};
+          const facebookUserId = response?.authResponse?.userID;
+          const accessToken = response?.authResponse?.accessToken;
+          let input = {userId:userId};
+          if(facebookUserId && accessToken){
+            //if the facebook user is actively logged in, use the credentials
+            input.facebookUserId=facebookUserId;
+            input.accessToken=accessToken;
+          }
           console.log(`test1 -- getting FB pages with facebook creds`, input)
           setLoading(true);
           getFBPageOptionsFromInternalAPI(input).then(res => {
@@ -155,17 +160,22 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
     // TODO this should be a PUT eventually got to change the API first though
     // these values come from the API response from the fb.login response (response.authResponse)
     try {
-      const facebookAccessToken = facebookLoginObject.accessToken;
-      const facebookUserId = facebookLoginObject.userID;
+      const facebookAccessToken = facebookLoginObject?.accessToken;
+      const facebookUserId = facebookLoginObject?.userID;
       console.log(
         `updating database with these values`,
         userId,
         facebookAccessToken,
         facebookUserId,
-        facebookPageID
+        facebookPageID,
+        artistId
       );
+      let updateUrl = `${apiUrl}/store-facebook-page-integration?userId=${userId}&artistID=${artistId}&facebookPageId=${facebookPageID}`;
+      if(facebookUserId && facebookAccessToken){
+        updateUrl = updateUrl + `&facebookUserAccessToken=${facebookAccessToken}&facebookUserId=${facebookUserId}`;
+      }
       await fetch(
-        `${apiUrl}/store-facebook-page-integration?userId=${userId}&facebookUserAccessToken=${facebookAccessToken}&facebookUserId=${facebookUserId}&artistID=${artistId}&facebookPageId=${facebookPageID}`,
+        updateUrl,
         {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
