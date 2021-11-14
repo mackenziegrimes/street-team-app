@@ -122,6 +122,7 @@ export const useGetActionPage = () => {
     // todo this should be done using environment variables, but for now this works -2021-11-11 SG
     let createUrl = `${getBackendApiUrl()}/create-action-page`;
     console.log(params);
+    try{
     const pagesData = await fetch(createUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -137,6 +138,11 @@ export const useGetActionPage = () => {
           refetchUserData();
         }
       });
+    }
+    catch(err){
+      console.error(`creating action page failed due to error:`);
+      console.error(err);
+    }
   };
 
   useEffect(() => {

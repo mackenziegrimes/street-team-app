@@ -15,7 +15,7 @@ let apiUrl = getBackendApiUrl();
 // TODO we'll want to read the saved data from the database at some point soon, but for now the user can just re-connect if they feel so inclined.
 export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
   const theme = useTheme();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const [facebookPages, setFacebookPages] = useState();
   const [facebookLoginObject, setFacebookLoginObject] = useState();
   const [formValue, setFormValue] = useState({
@@ -53,6 +53,10 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
   }, []);
 
   useEffect(()=>{
+    if(userId && artistId){
+      //initially this should be loading until we know if there are existing pages or not
+      setLoading(false);
+    }
     if (!facebookPages && userId && artistId) {
       console.log(`test1`,userId);
       //we don't really need the artistId here, but if there isn't one, the page isn't really done loading
@@ -160,35 +164,38 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
     // TODO this should be a PUT eventually got to change the API first though
     // these values come from the API response from the fb.login response (response.authResponse)
     try {
-      const facebookAccessToken = facebookLoginObject?.accessToken;
-      const facebookUserId = facebookLoginObject?.userID;
-      console.log(
-        `updating database with these values`,
-        userId,
-        facebookAccessToken,
-        facebookUserId,
-        facebookPageID,
-        artistId
-      );
-      let updateUrl = `${apiUrl}/store-facebook-page-integration?userId=${userId}&artistID=${artistId}&facebookPageId=${facebookPageID}`;
-      if(facebookUserId && facebookAccessToken){
-        updateUrl = updateUrl + `&facebookUserAccessToken=${facebookAccessToken}&facebookUserId=${facebookUserId}`;
-      }
-      await fetch(
-        updateUrl,
-        {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
+      if(facebookPageID!==''){
+        const facebookAccessToken = facebookLoginObject?.accessToken;
+        const facebookUserId = facebookLoginObject?.userID;
+        console.log(`facebookPageID`,facebookPageID);
+        console.log(
+          `updating database with these values`,
+          userId,
+          facebookAccessToken,
+          facebookUserId,
+          facebookPageID,
+          artistId
+        );
+        let updateUrl = `${apiUrl}/store-facebook-page-integration?userId=${userId}&artistID=${artistId}&facebookPageId=${facebookPageID}`;
+        if(facebookUserId && facebookAccessToken){
+          updateUrl = updateUrl + `&facebookUserAccessToken=${facebookAccessToken}&facebookUserId=${facebookUserId}`;
         }
-      )
-        .then(rsp => rsp.json())
-        .then(json => {
-          if (json.error && json.error.message) {
-            console.error(json.error.message);
-          } else {
-            console.log(json);
+        await fetch(
+          updateUrl,
+          {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
           }
-        });
+        )
+          .then(rsp => rsp.json())
+          .then(json => {
+            if (json.error && json.error.message) {
+              console.error(json.error.message);
+            } else {
+              console.log(json);
+            }
+          });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -197,7 +204,7 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
   console.log(`facebookPages`, facebookPages);
 
   const selectOptions = useMemo(() => {
-    const pleaseSelectOption = { value: '', label: `[please select a page]` };
+    const pleaseSelectOption = { value: '', label: `[please select a page]` , isDisabled:true};
     let pages = [];
     if (facebookPages) {
       pages = facebookPages.map(item => {
