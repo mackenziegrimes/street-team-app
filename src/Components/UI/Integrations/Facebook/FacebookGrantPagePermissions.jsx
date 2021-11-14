@@ -51,17 +51,33 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
     if (!window.FB) createScript();
   }, []);
 
+  useEffect(()=>{
+    if (!facebookPages && userId) {
+      console.log(`test1`,userId);
+      getFBPageOptionsFromInternalAPI({userId : userId}).then(res => {
+        console.log(`internal API resrponse`, res);
+      });
+    }
+  },[userId])
+
   // useEffect(()=>{
   //     if(facebookLoginObject){
   //         console.log(facebookLoginObject);
   //         getFBPageList(facebookLoginObject);
   // }},facebookLoginState)
 
-  const getFBPageOptionsFromInternalAPI = async authObject => {
-    const { userID, accessToken } = authObject;
+  const getFBPageOptionsFromInternalAPI = async (authObject) => {
+    const { userId, accessToken,facebookUserId } = authObject;
+    console.log(`test1 inside user id is`,userId)
+    let fetchUrl = `${apiUrl}/get-available-facebook-pages?&userId=${userId}`
+    if(accessToken && facebookUserId){
+      //if we have an updated access token, supply it. otherwise we just use the one stored in the database for this artist user
+      fetchUrl = fetchUrl + `&accessToken=${accessToken}&facebookUserId=${facebookUserId}`
+    }
     try {
+      console.log(`test1 --- calling fetch with`,fetchUrl)
       await fetch(
-        `${apiUrl}/get-available-facebook-pages?accessToken=${accessToken}&userID=${userID}`,
+        fetchUrl,
         { method: 'GET', headers: { 'Content-Type': 'application/json' } }
       )
         .then(rsp => rsp.json())
@@ -70,7 +86,7 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
             console.error(json.error.message);
           } else {
             console.log(`facebookOptionsAre`, json);
-            const returnData = json.data.data.map(item => {
+            const returnData = json?.data?.data?.map(item => {
               const returnObject = { id: item.id, name: item.name };
               return returnObject;
             });
@@ -92,7 +108,11 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
         }
         console.log(`got the following response`, response.authResponse);
         if (!facebookPages) {
-          getFBPageOptionsFromInternalAPI(response.authResponse).then(res => {
+          const facebookUserId = response.authResponse.userID;
+          const accessToken = response.authResponse.accessToken;
+          let input = {facebookUserId:facebookUserId, accessToken:accessToken, userId:userId};
+          console.log(`test1 -- getting FB pages with facebook creds`, input)
+          getFBPageOptionsFromInternalAPI(input).then(res => {
             console.log(`internal API resrponse`, res);
           });
         }

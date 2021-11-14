@@ -21,7 +21,7 @@ export const useGetActionPage = () => {
   const [error, setError] = useState();
   const [createActionPageError, setCreateActionPageError] = useState();
 
-  const { userId, artistName } = useCurrentAuthUser();
+  let { userId, artistName } = useCurrentAuthUser();
 
   const getArtistByEnduser = `query GetArtistUserActionPageData($id: ID!, $pageRoute: String) {
     getArtistUser(id: $id) {
@@ -152,8 +152,12 @@ export const useGetActionPage = () => {
     if (!responseActionPageData && !userError) {
       try {
         // if an action page doesn't exist, create one and pull the data again
-        if (!createActionPageError && userId && artistName) {
+        if (!createActionPageError && userId) {
           console.log('creating new action page');
+          if(!artistName){
+            console.log(`no artist name available, use default of 'artist'`);
+            artistName=`artist`;
+          }
           // this single API endpoint will create the user, artist, and page if necessary
           createActionPageForUser(userId, artistName);
         }

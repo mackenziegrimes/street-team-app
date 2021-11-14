@@ -30,6 +30,7 @@ export const ActionsView = () => {
   const [totalPoints, setTotalPoints] = useState(0);
   const [userId, setUserId] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
+  const [userData, setUserData] = useState();
   const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
 
@@ -39,10 +40,11 @@ export const ActionsView = () => {
   })
     .then(user => {
       setUserId(user.username);
-      console.log(`Load additional settings for user: ${user.username}`);
+      console.log(`Load additional settings for user: ${user.attributes}`);
       // console.log("User Info:");
       // console.log(user);
       setUserEmail(user.attributes.email);
+      setUserData(user.attributes);
       // console.log("Enduser Fullname:");
       console.log(user.attributes.email);
       // TBD

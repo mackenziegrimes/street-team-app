@@ -38,6 +38,7 @@ type ArtistIntegrations
       ]
     )
     @key(name: "byArtist", fields: ["artistID", "id"])
+    @key(name: "byServiceAccountId", fields: ["serviceAccountId", "serviceName"])
     {
     """
     Artist User manages an Artist Type giving them permissions to access and edit that artists records
@@ -87,16 +88,16 @@ type ArtistUser
   @auth(
     rules: [
       { allow: owner, operations: [create, read, update, delete] }
-      { allow: public, provider: iam, operations: [read] }
-      { allow: groups, groups: ["everyone"], operations: [read] }
     ]
   )
   @key(name: "byArtist", fields: ["artistID", "id"])
+  @key(name: "byFacebookUserID", fields: ["facebookUserID", "id"])
   {
   """
   Artist User manages an Artist Type giving them permissions to access and edit that artists records
   Right now artist users and artists are one-to-one, in the future probably want a single artist user to be able to manage multiple artists
   Also, in the future we'll want to build out a per user integrations data structure. Right now we're just storing this data on the ArtistUser record
+  Permissions are set up such that only the user can view/edit their data (this is particularly important with the user's FB tokens)
   """
   id: ID!
   username: String
@@ -107,6 +108,7 @@ type ArtistUser
   artistID: ID
   artist: Artist @connection(fields: ["artistID"])
   actionPages: [ActionPage] @connection(keyName: "byCreatorUser", fields: ["id"])
+  facebookUserID: String
   facebookLongLivedUserAccessToken: String
 }
 
