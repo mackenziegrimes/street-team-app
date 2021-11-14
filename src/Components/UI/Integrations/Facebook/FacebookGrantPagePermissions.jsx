@@ -5,6 +5,7 @@ import { Button } from '../../Button';
 import { SelectList } from '../../SelectList';
 import { useTheme } from '../../../../Hooks/useTheme';
 import { getBackendApiUrl , facebookAppId} from '../../../../utils/sharedUtils';
+import { Spinner } from '../../Spinner';
 // import { ConsoleLogger } from '@aws-amplify/core';
 
 // todo this should be done using environment variables, but for now this works -2021-11-11 SG
@@ -14,7 +15,7 @@ let apiUrl = getBackendApiUrl();
 // TODO we'll want to read the saved data from the database at some point soon, but for now the user can just re-connect if they feel so inclined.
 export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
   const theme = useTheme();
-
+  const [loading, setLoading] = useState();
   const [facebookPages, setFacebookPages] = useState();
   const [facebookLoginObject, setFacebookLoginObject] = useState();
   const [formValue, setFormValue] = useState({
@@ -52,13 +53,14 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
   }, []);
 
   useEffect(()=>{
-    if (!facebookPages && userId) {
+    if (!facebookPages && userId && artistId) {
       console.log(`test1`,userId);
+      //we don't really need the artistId here, but if there isn't one, the page isn't really done loading
       getFBPageOptionsFromInternalAPI({userId : userId}).then(res => {
         console.log(`internal API resrponse`, res);
       });
     }
-  },[userId])
+  },[userId, artistId])
 
   // useEffect(()=>{
   //     if(facebookLoginObject){
@@ -112,8 +114,10 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
           const accessToken = response.authResponse.accessToken;
           let input = {facebookUserId:facebookUserId, accessToken:accessToken, userId:userId};
           console.log(`test1 -- getting FB pages with facebook creds`, input)
+          setLoading(true);
           getFBPageOptionsFromInternalAPI(input).then(res => {
             console.log(`internal API resrponse`, res);
+            setLoading(false);
           });
         }
         setFacebookLoginObject(response.authResponse);
@@ -193,21 +197,24 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
 
     return [pleaseSelectOption, ...pages];
   }, [facebookPages]);
-
+  if(loading){
+    return (<div><Spinner animation="border" role="status" variant="light" /></div>)
+  }
   return (
     <div>
       {!facebookPages ? (
         <Button
-          onClick={addPageMessagingPermission}
-          style={{
-            fontWeight: theme.fontWeights.semibold,
-            fontFamily: theme.fonts.heading,
-            backgroundColor: theme.colors.primary,
-          }}
-        >
-          Configure Facebook Messenger Integration
-        </Button>
+        onClick={addPageMessagingPermission}
+        style={{
+          fontWeight: theme.fontWeights.semibold,
+          fontFamily: theme.fonts.heading,
+          backgroundColor: theme.colors.primary,
+        }}
+      >
+        Configure Facebook Messenger Integration
+      </Button>
       ) : (
+        <div>
         <SelectList
           hideLabel
           label="Facebook Page"
@@ -222,6 +229,18 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
           placeholder="Facebook Page..."
           options={selectOptions}
         />
+        <p> or </p>
+        <Button
+          onClick={addPageMessagingPermission}
+          style={{
+            fontWeight: theme.fontWeights.semibold,
+            fontFamily: theme.fonts.heading,
+            backgroundColor: theme.colors.gray,
+          }}
+        >
+          Connect a different Facebook Account
+        </Button>
+        </div>
       )}
     </div>
   );
