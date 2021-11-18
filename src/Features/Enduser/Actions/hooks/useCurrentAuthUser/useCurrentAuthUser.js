@@ -14,10 +14,10 @@ export const useCurrentAuthUser = () => {
     .then(user => {
       console.log(`current AuthenticatedUser response`,user)
       setUserId(user.username);
-      setFirstName(user?.attributes?.firstName);
-      setLastName(user?.attributes?.lastName);
+      setFirstName(user?.attributes?.firstName || user?.attributes?.given_name || user?.attributes?.name);
+      setLastName(user?.attributes?.lastName || user?.attributes?.family_name);
       setEmail(user?.attributes?.email);
-      setPhone(user?.attributes?.phone);
+      setPhone(user?.attributes?.phone_number);
     })
     .catch(err => console.error(err));
 

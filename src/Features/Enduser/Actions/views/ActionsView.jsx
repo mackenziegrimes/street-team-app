@@ -8,12 +8,11 @@ import Container from 'react-bootstrap/Container';
 
 import { useParams } from 'react-router-dom';
 import {
-  createEnduserPageSubscription,
-  createEnduser,
-  createEnduserPageSubscriptionCompletedActions,
+  createEnduser
 } from '../../../../graphql/mutations';
 import { getEnduser } from '../../../../graphql/queries';
 import { getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID } from '../graphql/getEnduserActionPageData';
+import { createEnduserPageSubscription, createEnduserPageSubscriptionCompletedActions } from '../graphql/createEnduserPageSubscription';
 import { ActionPage } from '../../../../Components/ActionPage';
 import {
   StyledPageContainer,
@@ -29,32 +28,11 @@ export const ActionsView = () => {
   const [actionPageID, setActionPageID] = useState(0);
   const [enduserPageSubscriptionID, setEnduserPageSubscriptionID] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
-  // const [userId, setUserId] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
-  const [userData, setUserData] = useState();
   const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
 
-  // get user info from logged in Auth (this should live in the utils directory)
-  // Auth.currentAuthenticatedUser({
-  //   bypassCache: false, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-  // })
-  //   .then(user => {
-  //     setUserId(user.username);
-  //     console.log(`Load additional settings for user: ${user.attributes}`);
-  //     // console.log("User Info:");
-  //     // console.log(user);
-  //     setUserEmail(user.attributes.email);
-  //     setUserData(user.attributes);
-  //     // console.log("Enduser Fullname:");
-  //     console.log(user.attributes.email);
-  //     // TBD
-  //     console.log(user);
-  //   })
-  //   .catch(err => console.log(err));
-
   let { userId, email ,firstName, lastName, phone} = useCurrentAuthUser();
-  console.log(`current auth user is `, userId, email, firstName, lastName, phone);
+  console.log(`current auth user is `, userId,`email: ` ,email, `firstName: `, firstName, `lastName: `, lastName, phone);
 
   // get the user data for the user -- used for making sure an enduser exists
   // this could be obtained with the rest of the action page data, but we're likely going to move this logic into a centralized place since we'll need to be verifying a user record exists on lots of pages
@@ -138,9 +116,11 @@ export const ActionsView = () => {
       variables: {
         input: {
           id: userId,
-          email: userEmail,
-          firstName: userData?.firstName,
-          lastName: userData?.lastName,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          profileName: firstName + lastName,
         },
       },
     });
@@ -244,7 +224,7 @@ export const ActionsView = () => {
         const newSubscriptionData = addSubscription({
           variables: {
             input: {
-              actionPageID,
+              actionPageID: actionPageID,
               enduserID: userId,
             },
           },
