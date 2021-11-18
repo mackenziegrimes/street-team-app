@@ -108,10 +108,15 @@ export const SecureViewWrapper = ({ userRole, children }) => {
 
   // set the initial authState if the current user is already authenticated (in the case of oauth redirect, it will be)
   if (authState === undefined) {
+    try{
     Auth.currentAuthenticatedUser().then(authData => {
       setAuthState(AuthState.SignedIn);
       setUserId(authData);
-    });
+    }).catch(error => console.log(`2 -- error in signing in current auth user`, error));
+  }
+  catch(err){
+    console.error(`1 -- unable to login current auth user`,err)
+  }
   }
 
   // use this useEffect to changes state

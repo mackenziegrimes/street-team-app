@@ -22,35 +22,39 @@ import { Spinner } from '../../../../Components/UI/Spinner';
 import { Auth } from 'aws-amplify';
 import anonymousId from 'anonymous-id';
 import { trackInAmplitude } from '../../../../utils/sharedUtils';
+import { useCurrentAuthUser } from '../hooks/useCurrentAuthUser'
 
 export const ActionsView = () => {
   const [actionValues, setActionValues] = useState([]);
   const [actionPageID, setActionPageID] = useState(0);
   const [enduserPageSubscriptionID, setEnduserPageSubscriptionID] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
-  const [userId, setUserId] = useState(null);
+  // const [userId, setUserId] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [userData, setUserData] = useState();
   const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
 
   // get user info from logged in Auth (this should live in the utils directory)
-  Auth.currentAuthenticatedUser({
-    bypassCache: false, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-  })
-    .then(user => {
-      setUserId(user.username);
-      console.log(`Load additional settings for user: ${user.attributes}`);
-      // console.log("User Info:");
-      // console.log(user);
-      setUserEmail(user.attributes.email);
-      setUserData(user.attributes);
-      // console.log("Enduser Fullname:");
-      console.log(user.attributes.email);
-      // TBD
-      console.log(user);
-    })
-    .catch(err => console.log(err));
+  // Auth.currentAuthenticatedUser({
+  //   bypassCache: false, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+  // })
+  //   .then(user => {
+  //     setUserId(user.username);
+  //     console.log(`Load additional settings for user: ${user.attributes}`);
+  //     // console.log("User Info:");
+  //     // console.log(user);
+  //     setUserEmail(user.attributes.email);
+  //     setUserData(user.attributes);
+  //     // console.log("Enduser Fullname:");
+  //     console.log(user.attributes.email);
+  //     // TBD
+  //     console.log(user);
+  //   })
+  //   .catch(err => console.log(err));
+
+  let { userId, email ,firstName, lastName, phone} = useCurrentAuthUser();
+  console.log(`current auth user is `, userId, email, firstName, lastName, phone);
 
   // get the user data for the user -- used for making sure an enduser exists
   // this could be obtained with the rest of the action page data, but we're likely going to move this logic into a centralized place since we'll need to be verifying a user record exists on lots of pages
@@ -135,6 +139,8 @@ export const ActionsView = () => {
         input: {
           id: userId,
           email: userEmail,
+          firstName: userData?.firstName,
+          lastName: userData?.lastName,
         },
       },
     });
@@ -220,8 +226,8 @@ export const ActionsView = () => {
 
   useEffect(()=> {
     if(artistId && userId){
-      anonymousId()
-      trackInAmplitude('Completed',anonymousId(),userId,artistId);
+      anonymousId();
+      // trackInAmplitude('Completed',anonymousId(),userId,artistId);
     }
   },[artistId])
 
