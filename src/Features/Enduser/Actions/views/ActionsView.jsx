@@ -207,7 +207,7 @@ export const ActionsView = () => {
   useEffect(()=> {
     if(artistId && userId){
       anonymousId();
-      // trackInAmplitude('Completed',anonymousId(),userId,artistId);
+      trackInAmplitude('Completed',anonymousId(),userId,artistId);
     }
   },[artistId])
 
