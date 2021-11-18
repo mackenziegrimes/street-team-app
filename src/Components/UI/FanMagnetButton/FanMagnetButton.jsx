@@ -15,7 +15,7 @@ const StyledButton = styled.button`
 
   @media (max-width: 600px) {
     padding: 18px 21px !important;
-    font-size: 20px;
+    font-size: 25px;
   }
 `;
 
@@ -28,7 +28,7 @@ const StyledButtonInner = styled.div`
     margin-right: 18px;
 
     @media (max-width: 600px) {
-      transform: scale(0.8);
+      transform: scale(0.75);
     }
   }
 `;

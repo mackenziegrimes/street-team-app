@@ -180,7 +180,7 @@ export const LandingPage = () => {
               <Icon
                 color="#202021"
                 name={continueButtonDetails.buttonIcon || 'Gift'}
-                size={70}
+                size={50}
               />
             </span>
             <div>
