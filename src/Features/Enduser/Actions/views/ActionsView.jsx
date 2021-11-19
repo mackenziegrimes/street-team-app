@@ -156,6 +156,25 @@ export const ActionsView = () => {
         },
       },
     });
+
+    //use the id to figure out which button to track in amplitude
+    const clickedAction = actionButtonList.find(item => item.id===id);
+    //TODO this needs to be cleaner and in a method somewhere -SG 2021-11-19
+    //TODO also, after data migration, we should move all of these to reference serviceAction and not button icon
+    let trackedName;
+    if(clickedAction.buttonIcon==='Gift'){
+      trackedName = 'Starter Pack'
+    }
+    else if(clickedAction.buttonIcon==='Group'){
+      trackedName = 'Community'
+    }
+    else if(clickedAction.buttonIcon==='Music'){
+      trackedName = 'MusicHub'
+    }
+    else if(clickedAction.serviceAction === 'ScheduleLink'){
+      trackedName = 'Meet & Greet'
+    }
+    trackInAmplitude(`${trackedName} Clicked`,anonymousId(),userId,artistId);
     console.log(`newSubscription data is ${newCompletedActionRecord}`);
   };
 
@@ -207,7 +226,7 @@ export const ActionsView = () => {
   useEffect(()=> {
     if(artistId && userId){
       anonymousId();
-      // trackInAmplitude('Completed',anonymousId(),userId,artistId);
+      trackInAmplitude('Tribal Accelerator Visited',anonymousId(),userId,artistId);
     }
   },[artistId])
 
