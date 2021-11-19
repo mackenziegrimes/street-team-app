@@ -162,6 +162,20 @@ export const ActionsView = () => {
     //TODO this needs to be cleaner and in a method somewhere -SG 2021-11-19
     //TODO also, after data migration, we should move all of these to reference serviceAction and not button icon
     let trackedName;
+
+    // if(clickedAction.serviceAction==='StarterPackLink'){
+    //   trackedName = 'Starter Pack'
+    // }
+    // else if(clickedAction.serviceAction==='JoinLink'){
+    //   trackedName = 'Community'
+    // }
+    // else if(clickedAction.serviceAction==='FollowLink'){
+    //   trackedName = 'MusicHub'
+    // }
+    // else if(clickedAction.serviceAction==='EmailLink'){
+    //   trackedName = 'Send Email'
+    // }
+
     if(clickedAction.buttonIcon==='Gift'){
       trackedName = 'Starter Pack'
     }
@@ -173,6 +187,9 @@ export const ActionsView = () => {
     }
     else if(clickedAction.serviceAction === 'ScheduleLink'){
       trackedName = 'Meet & Greet'
+    }
+    else if(clickedAction.buttonIcon === 'Email'){
+      trackedName = 'Send Email'
     }
     trackInAmplitude(`${trackedName} Clicked`,anonymousId(),userId,artistId);
     console.log(`newSubscription data is ${newCompletedActionRecord}`);
