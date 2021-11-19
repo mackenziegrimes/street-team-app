@@ -95,6 +95,7 @@ export const SetupLanding = ({
     preActionText: 'Claim Your Free Gift',
     postActionText: 'Gift Claimed',
     textColor: 'white',
+    serviceAction: 'StarterPackLink',
   };
 
   const saveLandingPage = () => {
