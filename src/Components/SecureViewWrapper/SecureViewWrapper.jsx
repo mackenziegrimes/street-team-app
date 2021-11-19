@@ -200,10 +200,10 @@ export const SecureViewWrapper = ({ userRole, children }) => {
           <Terms>
             <a href="https://www.modern-musician.com/terms" target="_blank">
             {userRole ==='admin'?  `By using this platform, I acknowledge that I have reviewed and
-              agreed to our Terms of Use and Privacy Policy`
+              agreed to the Terms of Use and Privacy Policy`
               :
               `By using this platform, I acknowledge that I have reviewed and
-              agreed to our Terms of Use and Privacy Policy.`}
+              agreed to the Terms of Use and Privacy Policy.`}
             </a>
           </Terms>
         </React.Fragment>

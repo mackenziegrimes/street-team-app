@@ -84,7 +84,7 @@ export const apiActionsConfig = {
     buttonIcon: 'GiCutDiamond',
     // targetURL: newTargetUrl,
     backgroundColor: '#481EAA',
-    pointValue: 100,
+    pointValue: 80,
     position: 3,
     preActionText: 'Book a Meet & Greet',
     postActionText: 'Meet & Greet Booked',
