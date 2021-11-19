@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as MaterialDesign from 'react-icons/md';
 import * as Heroicons from 'react-icons/hi';
 import * as FontAwesome from 'react-icons/fa';
+import * as GameIcons from 'react-icons/gi';
 
 // TEMPORARY back compat
 const checkIconOld = name => {
@@ -46,6 +47,9 @@ const checkIcon = name => {
       break;
     case 'Fa':
       library = FontAwesome;
+      break;
+    case 'Gi':
+      library = GameIcons;
       break;
     default:
       library = FontAwesome;

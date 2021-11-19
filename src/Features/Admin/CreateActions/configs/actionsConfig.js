@@ -17,7 +17,7 @@ export const selectActionsConfig = [
     id: 'scheduleMeeting',
     label: 'Book a Meet and Greet',
     subText: 'Setup one-on-ones with your fans...',
-    icon: 'FaCalendarCheck',
+    icon: 'GiCutDiamond',
     inputPlaceholder: 'Enter Meet & Greet URL',
   },
   {
@@ -81,7 +81,7 @@ export const apiActionsConfig = {
   },
   scheduleMeeting: {
     // actionPageID: actionPageId,
-    buttonIcon: 'FaCalendarCheck',
+    buttonIcon: 'GiCutDiamond',
     // targetURL: newTargetUrl,
     backgroundColor: '#481EAA',
     pointValue: 100,
