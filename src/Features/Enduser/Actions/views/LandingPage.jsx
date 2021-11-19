@@ -123,7 +123,7 @@ export const LandingPage = () => {
       anonymousId()
       console.log(anonymousId())
       //track 
-      trackInAmplitude('Clicked',anonymousId(),null,artistId);
+      trackInAmplitude('Fan Magnet Clicked',anonymousId(),null,artistId);
     }
   },[artistId])
 
@@ -173,14 +173,14 @@ export const LandingPage = () => {
             margin="60px 0 45px"
             handleClick={() => {
               setCurrentStep(2)
-              trackInAmplitude('Listened',anonymousId(),null,artistId);
+              trackInAmplitude('Fan Magnet Listened',anonymousId(),null,artistId);
             }}
           >
             <span>
               <Icon
                 color="#202021"
                 name={continueButtonDetails.buttonIcon || 'Gift'}
-                size={70}
+                size={50}
               />
             </span>
             <div>

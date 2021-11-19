@@ -14,6 +14,13 @@ export const selectActionsConfig = [
     inputPlaceholder: 'Enter Follow Music URL',
   },
   {
+    id: 'scheduleMeeting',
+    label: 'Book a Meet and Greet',
+    subText: 'Setup one-on-ones with your fans...',
+    icon: 'GiCutDiamond',
+    inputPlaceholder: 'Enter Meet & Greet URL',
+  },
+  {
     id: 'email',
     label: 'Send Me An Email',
     subText: 'Get Emails From Fans...',
@@ -22,14 +29,6 @@ export const selectActionsConfig = [
   },
 ];
 
-// active={isButtonActive}
-// activeBgColor={continueButtonDetails.backgroundColor || "#807650"}
-// color={continueButtonDetails.textColor || "#202021"}
-// inactiveBgColor="#544c2e"
-// handleClick={() => setCurrentStep(2)}
-// ctaText={continueButtonDetails.preActionText || "CLAIM YOUR FREE GIFT"}
-// iconName={continueButtonDetails.buttonIcon || "Gift"}
-
 export const apiActionsConfig = {
   email: {
     // actionPageID: actionPageId,
@@ -37,10 +36,11 @@ export const apiActionsConfig = {
     // targetURL: newTargetUrl,
     backgroundColor: '#FED93E',
     pointValue: 10,
-    position: 3,
+    position: 4,
     preActionText: 'Send Me an Email',
     postActionText: 'Email Sent!',
     textColor: 'black',
+    serviceAction: 'EmailLink',
   },
   vipGroup: {
     // actionPageID: actionPageId,
@@ -53,6 +53,7 @@ export const apiActionsConfig = {
     preActionText: 'Join the Community',
     postActionText: 'Community Joined',
     textColor: 'black',
+    serviceAction: 'JoinLink',
   },
   starterPack: {
     // actionPageID: actionPageId,
@@ -60,10 +61,11 @@ export const apiActionsConfig = {
     // targetURL: inputValues.starterPackUrl,
     backgroundColor: '#43C052',
     pointValue: 50,
-    position: 4,
+    position: 5,
     preActionText: 'Claim Your Free Gift',
     postActionText: 'Gift Claimed',
     textColor: 'white',
+    serviceAction: 'StarterPackLink',
   },
   followMusic: {
     // actionPageID: actionPageId,
@@ -75,5 +77,18 @@ export const apiActionsConfig = {
     preActionText: 'Follow My Music',
     postActionText: 'Music Followed',
     textColor: 'white',
+    serviceAction: 'FollowLink',
+  },
+  scheduleMeeting: {
+    // actionPageID: actionPageId,
+    buttonIcon: 'GiCutDiamond',
+    // targetURL: newTargetUrl,
+    backgroundColor: '#481EAA',
+    pointValue: 100,
+    position: 3,
+    preActionText: 'Book a Meet & Greet',
+    postActionText: 'Meet & Greet Booked',
+    textColor: 'white',
+    serviceAction: 'ScheduleLink',
   },
 };

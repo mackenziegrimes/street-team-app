@@ -107,6 +107,10 @@ export const CreateActionPage = ({ type }) => {
         if (element.serviceAction === 'ContinueButton') {
           landingIds.continue = element?.id;
         }
+        if(element.serviceAction === 'ScheduleLink'){
+          checked.scheduleMeeting = true;
+          values.scheduleMeeting = element.targetURL;
+        }
       }
       setActionChecked(checked);
       setActionValue(values);

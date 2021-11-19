@@ -8,7 +8,7 @@ export const StyledPageHeader = styled.div`
   padding: 20px 0;
 
   @media (max-width: 600px) {
-    font-size: 30px;
+    font-size: 40px;
   }
 `;
 

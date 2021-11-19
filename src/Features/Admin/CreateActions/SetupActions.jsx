@@ -176,6 +176,40 @@ export const SetupActions = ({
         }
       }
     }
+    // handle scheduleMeeting
+    if (actionValue?.scheduleMeeting && actionChecked?.scheduleMeeting) {
+      const scheduleUrl = actionValue.scheduleMeeting;
+      let recordExists = false;
+      const inputVariables = {
+        ...apiActionsConfig.scheduleMeeting,
+        actionPageID: actionPageData.id,
+        targetURL: scheduleUrl,
+      };
+      if (actionPageData?.id) {
+        // if the action buttons exist in the pageData, update them
+        if (actionButtons) {
+          const scheduleButton = actionButtons.find(
+            element => element.serviceAction === 'ScheduleLink'
+          );
+          if (scheduleButton) {
+            // update  the button
+            inputVariables.id = scheduleButton.id;
+            updateActionButton({
+              variables: {
+                input: inputVariables,
+              },
+            });
+            recordExists = true; // don't go on to create a new record
+          }
+        }
+        if (!recordExists && !loadingActionPageButton) {
+          // create the button record
+          addActionPageButton({
+            variables: { input: inputVariables },
+          });
+        }
+      }
+    }
 
     return {
       isLoading: false,

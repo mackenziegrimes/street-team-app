@@ -65,10 +65,11 @@ const ButtonInnerText = styled.div`
 `;
 
 const StyledPageHeader = styled(PageHeader)`
-  font-size: 40px;
+  font-size: 65px;
 
   @media (max-width: 600px) {
-    font-size: 30px;
+    font-size: 60px;
+    transform: scale(0.9);
   }
 `;
 
@@ -88,8 +89,8 @@ const Terms = styled.div`
   a {
     color: white;
     font-family: 'Open Sans';
-    font-size: 16px;
-    text-decoration: underline;
+    font-size: 14px;
+    opacity: 0.8;
   }
 `;
 
@@ -168,7 +169,7 @@ export const SecureViewWrapper = ({ userRole, children }) => {
     <PageContainer pageContentPadding="50px 95px">
       {!showSignupForm && (
         <React.Fragment>
-          <StyledPageHeader>{userRole ==='admin'? `Login to your account` : `Unlock Your Free Gift`}</StyledPageHeader>
+          <StyledPageHeader>{userRole ==='admin'? `Login to your account` : `Get Your Free Starter Pack`}</StyledPageHeader>
           <StyledButton
             active
             activeBgColor="transparent linear-gradient(90deg, #4363A7 0%, #345BAC 88%, #3357A5 100%) 0% 0% no-repeat padding-box;"
@@ -193,7 +194,7 @@ export const SecureViewWrapper = ({ userRole, children }) => {
               <Icon color="white" name="FaEnvelope" size={70} />
             </span>
             <div>
-              <ButtonInnerText>Connect With Email</ButtonInnerText>
+              <ButtonInnerText>Continue With Email</ButtonInnerText>
             </div>
           </StyledButton>
           <Terms>
@@ -201,8 +202,8 @@ export const SecureViewWrapper = ({ userRole, children }) => {
             {userRole ==='admin'?  `By using this platform, I acknowledge that I have reviewed and
               agreed to our Terms of Use and Privacy Policy`
               :
-              `By accepting this gift, I acknowledge that I have reviewed and
-              agreed to our Terms of Use, Contest Rules, and Privacy Policy.`}
+              `By using this platform, I acknowledge that I have reviewed and
+              agreed to our Terms of Use and Privacy Policy.`}
             </a>
           </Terms>
         </React.Fragment>

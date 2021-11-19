@@ -26,7 +26,7 @@ const PageContent = styled(Container)`
 
   @media (max-width: 600px) {
     border-radius: 0;
-    padding: 15px;
+    padding: 40px;
     margin: auto;
   }
 `;
