@@ -22,6 +22,7 @@ import {
 import anonymousId from 'anonymous-id';
 import { trackInAmplitude } from '../../../../utils/sharedUtils';
 import { isLocal } from '../../../../utils/sharedUtils';
+import { StyledPageIcon } from '../../../../Components/SecureViewWrapper/SecureViewWrapper';
 
 const PlayerContainer = styled.div`
   padding: 20px 0;
@@ -154,7 +155,39 @@ export const LandingPage = () => {
     );
   }
 
-  const actionPageInfo = actionPageData.ArtistByRoute.items[0].actionPages.items[0] 
+  const actionPageInfo = actionPageData.ArtistByRoute.items[0].actionPages.items[0];
+
+  const LandingIconHeader = styled(StyledPageIcon)`
+  margin-bottom: -15px;
+  `
+
+  const ClaimFreeGiftButton = styled(FanMagnetButton)`
+  margin: 30px 0 20px 0;
+  font-size: 40px;
+  font-weight: 500;
+  padding: 25px 17px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
+
+  div {
+    width: auto;
+  }
+  
+  span {
+    font-size: 55px;
+    margin-right: 25px;
+    display: flex;
+
+    @media (max-width: 600px) {
+      margin-right: 10px;
+      font-size: 45px;
+    }
+  }`
 
   return (
     <PageContainer>
@@ -162,11 +195,12 @@ export const LandingPage = () => {
         <React.Fragment>
           {/* <PageHeader>{actionPageInfo.heading}</PageHeader> */}
           {/* TODO at some point we'll want this to be configurable */}
+          <LandingIconHeader> 🎁 </LandingIconHeader>
           <PageHeader>Listen for 30 seconds to unlock a free gift!</PageHeader>
           <PlayerContainer>
             <PlayWidget sourceUrl={soundCloudURL} />
           </PlayerContainer>
-          <FanMagnetButton
+          <ClaimFreeGiftButton
             active={isButtonActive}
             activeBgColor={continueButtonDetails.backgroundColor || '#f5d772'}
             activeColor={continueButtonDetails.textColor || '#202021'}
@@ -187,7 +221,7 @@ export const LandingPage = () => {
             <div>
               {continueButtonDetails.preActionText || 'CLAIM YOUR FREE GIFT'}
             </div>
-          </FanMagnetButton>
+          </ClaimFreeGiftButton>
         </React.Fragment>
       )}
       {currentStep === 2 && <FanMagnetStep2 artistId={artistId}/>}
