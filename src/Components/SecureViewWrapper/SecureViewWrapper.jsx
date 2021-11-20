@@ -64,7 +64,7 @@ const ButtonInnerText = styled.div`
   }
 `;
 
-const StyledPageIcon = styled(PageHeader)`
+export const StyledPageIcon = styled(PageHeader)`
   font-size: 60px;
   padding: 0;
   margin-bottom: -25px;

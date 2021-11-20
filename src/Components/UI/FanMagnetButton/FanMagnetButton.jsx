@@ -23,10 +23,9 @@ const StyledButtonInner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: auto;
-  margin-left: 25px;
+  width: 100%;
   span {
-    margin-right: 18px;
+    margin-right: 15px;
 
     @media (max-width: 600px) {
       transform: scale(0.75);

@@ -10,11 +10,11 @@ const StyledArtistImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   display: table-cell;
-  -webkit-filter: blur(20px);
-  -moz-filter: blur(20px);
-  -ms-filter: blur(20px);
-  -o-filter: blur(20px);
-  filter: blur(20px);
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -ms-filter: blur(10px);
+  -o-filter: blur(10px);
+  filter: brightness(30%) blur(8px);
   height: 100%;
   pointer-events: none;
   position: absolute;

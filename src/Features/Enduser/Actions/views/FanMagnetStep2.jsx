@@ -24,19 +24,29 @@ const Step2MagnetHeader = styled(PageHeader)`
 `;
 
 const MagnetButton = styled(FanMagnetButton)`
-  margin: 0 0 50px;
+  margin: 0 0 30px;
   font-size: 40px;
   font-weight: 500;
   padding: 10px 17px;
   width: auto;
+
+  @media (max-width: 600px) {
+    font-size: 30px;
+  }
+
+  div {
+    width: auto;
+  }
   
   span {
     font-size: 55px;
     margin-right: 43px;
+    margin-left: 25px;
 
     @media (max-width: 600px) {
       margin-right: 18px;
-      font-size: 25px;
+      margin-left: 10px;
+      font-size: 45px;
     }
   }
 `;
