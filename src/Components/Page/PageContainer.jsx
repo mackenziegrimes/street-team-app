@@ -11,6 +11,9 @@ export const StyledPageContainer = styled.div`
   display: flex;
   height: 100%;
   position: relative;
+
+  @media (max-width: 600px) {
+  }
 `;
 
 export const MMLogoBranding = styled.div`
@@ -46,7 +49,7 @@ export const PageContainer = ({ children, className, pageContentPadding }) => {
   return (
     <StyledPageContainer className={className}>
       {/** TODO: replace static artist image with dynamic one */}
-      <ArtistImage imageUrl={tempImage} />
+      {/* <ArtistImage imageUrl={tempImage} /> */}
       <PageContent pageContentPadding={pageContentPadding}>
         {children}
       </PageContent>
