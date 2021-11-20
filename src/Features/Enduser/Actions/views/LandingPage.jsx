@@ -115,7 +115,7 @@ export const LandingPage = () => {
   }, [actionPageData]);
 
   useEffect(() => {
-    const timer = isLocal ? setTimeout(() => setIsButtonActive(true), 2000) : setTimeout(() => setIsButtonActive(true), 30000);
+    const timer = setTimeout(() => setIsButtonActive(true), 30000);
     return () => clearTimeout(timer);
   }, []);
 
