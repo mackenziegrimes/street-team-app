@@ -96,6 +96,7 @@ const Terms = styled.div`
   border-top: 1px solid #e6e6e6;
   padding-top: 27px;
   margin-top: 23px;
+  margin-bottom: 15px;
   text-align: center;
 
   a {
