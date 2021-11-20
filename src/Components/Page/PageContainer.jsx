@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ArtistImage } from '../UI';
-import tempImage from '../../assets/whoash.jpg';
+import tempImage from '../../assets/mm_banner_photo.png';
 
 export const StyledPageContainer = styled.div`
   align-items: center;
@@ -26,7 +26,7 @@ const PageContent = styled(Container)`
 
   @media (max-width: 600px) {
     border-radius: 0;
-    padding: 40px;
+    padding: 35px;
     margin: auto;
   }
 `;
@@ -35,7 +35,7 @@ export const PageContainer = ({ children, className, pageContentPadding }) => {
   return (
     <StyledPageContainer className={className}>
       {/** TODO: replace static artist image with dynamic one */}
-      {/* <ArtistImage imageUrl={tempImage} /> */}
+      <ArtistImage imageUrl={tempImage} />
       <PageContent pageContentPadding={pageContentPadding}>
         {children}
       </PageContent>
