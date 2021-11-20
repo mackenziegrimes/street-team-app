@@ -163,7 +163,7 @@ export const LandingPage = () => {
 
   const ClaimFreeGiftButton = styled(FanMagnetButton)`
   margin: 30px 0 20px 0;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: 500;
   padding: 25px 17px;
   width: auto;

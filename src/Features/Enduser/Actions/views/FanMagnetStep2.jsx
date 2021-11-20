@@ -24,7 +24,7 @@ const Step2MagnetHeader = styled(PageHeader)`
 `;
 
 const MagnetButton = styled(FanMagnetButton)`
-  margin: 0 0 50px;
+  margin: 0 0 30px;
   font-size: 40px;
   font-weight: 500;
   padding: 10px 17px;
