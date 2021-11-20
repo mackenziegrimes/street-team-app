@@ -64,6 +64,18 @@ const ButtonInnerText = styled.div`
   }
 `;
 
+const StyledPageIcon = styled(PageHeader)`
+  font-size: 60px;
+  padding: 0;
+  margin-bottom: -25px;
+
+  @media (max-width: 600px) {
+    font-size: 60px;
+    transform: scale(0.9);
+    margin-bottom: -25px;
+  }
+`;
+
 const StyledPageHeader = styled(PageHeader)`
   font-size: 65px;
 
@@ -169,6 +181,7 @@ export const SecureViewWrapper = ({ userRole, children }) => {
     <PageContainer pageContentPadding="50px 95px">
       {!showSignupForm && (
         <React.Fragment>
+          <StyledPageIcon>{userRole ==='admin'? null : `🎁`}  </StyledPageIcon>
           <StyledPageHeader>{userRole ==='admin'? `Login to your account` : `Get Your Free Starter Pack`}</StyledPageHeader>
           <StyledButton
             active
