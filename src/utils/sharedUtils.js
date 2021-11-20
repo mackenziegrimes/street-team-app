@@ -45,6 +45,29 @@ export const isProduction = () => {
   }
 }
 
+export const isDev = () => {
+  // build the current url to be used for oauth redirect (should probably use env variables... but this is quicker right now)
+  const currentUrl = window.location.href;
+  // gets the current url root from the href
+  const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
+  console.log(`test1`,frontEndUrl);
+  if(frontEndUrl==='https://dev.modern-musician.com'){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+const isLocal = () => {
+  if(isProduction || isDev){
+    return false
+  } else {
+    return true
+  }
+}
+
+
 export const getBackendApiUrl = () => {
   const devUrl = `https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev`;
   const productionUrl = `https://ntboexei3e.execute-api.us-east-1.amazonaws.com/production`;
@@ -57,7 +80,7 @@ export const facebookAppId = isProduction() ? productionFacebookAppId : devFaceb
 
 
 export const trackInAmplitude = async (eventName, deviceId, userId, artistId) => {
-  if(!eventName || !deviceId || !artistId){
+  if(!eventName || !deviceId || !artistId || isLocal){
     return
   }
   const params = { "artistID": artistId,
