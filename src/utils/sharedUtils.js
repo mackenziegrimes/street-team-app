@@ -59,7 +59,7 @@ export const isDev = () => {
   }
 }
 
-const isLocal = () => {
+export const isLocal = () => {
   if(isProduction || isDev){
     return false
   } else {

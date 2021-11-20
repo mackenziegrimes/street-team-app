@@ -21,6 +21,7 @@ import {
 } from '../../../../Components/Page';
 import anonymousId from 'anonymous-id';
 import { trackInAmplitude } from '../../../../utils/sharedUtils';
+import { isLocal } from '../../../../utils/sharedUtils';
 
 const PlayerContainer = styled.div`
   padding: 20px 0;
@@ -113,7 +114,7 @@ export const LandingPage = () => {
   }, [actionPageData]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsButtonActive(true), 30000);
+    const timer = isLocal ? setTimeout(() => setIsButtonActive(true), 2000) : setTimeout(() => setIsButtonActive(true), 30000);
     return () => clearTimeout(timer);
   }, []);
 
