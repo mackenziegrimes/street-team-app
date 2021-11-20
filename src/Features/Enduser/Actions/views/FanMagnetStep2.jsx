@@ -20,6 +20,9 @@ const Step2MagnetHeader = styled(PageHeader)`
   && {
     font-size: 55px;
     margin-bottom: 35px;
+    @media (max-width: 600px) {
+      font-size: 40px;
+    }
   }
 `;
 
