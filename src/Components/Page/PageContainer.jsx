@@ -4,12 +4,23 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ArtistImage } from '../UI';
 import tempImage from '../../assets/mm_banner_photo.png';
+import MMLogo from "../../assets/mm_square_bright.png"
 
 export const StyledPageContainer = styled.div`
   align-items: center;
   display: flex;
   height: 100%;
   position: relative;
+`;
+
+export const MMLogoBranding = styled.div`
+position: fixed;
+    bottom: -377px;
+    right: -1612px;
+    opacity: 80%;
+    height: 100%;
+    transform: scale(0.013);
+
 `;
 
 const PageContent = styled(Container)`
@@ -39,6 +50,9 @@ export const PageContainer = ({ children, className, pageContentPadding }) => {
       <PageContent pageContentPadding={pageContentPadding}>
         {children}
       </PageContent>
+      {/* <MMLogoBranding>
+        <img src = {MMLogo}/>
+      </MMLogoBranding> */}
     </StyledPageContainer>
   );
 };
