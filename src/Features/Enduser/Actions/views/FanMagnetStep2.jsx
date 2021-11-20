@@ -13,21 +13,23 @@ import { trackInAmplitude } from '../../../../utils/sharedUtils';
 export const SURVEY_SELECTION = {
   LOVE_IT: 'I loved it!',
   OKAY: 'It was okay',
-  DISLIKE: "I didn't like it",
+  DISLIKE: "Didn't like it",
 };
 
 const Step2MagnetHeader = styled(PageHeader)`
   && {
-    font-size: 20px;
-    margin-bottom: 5px;
+    font-size: 55px;
+    margin-bottom: 35px;
   }
 `;
 
 const MagnetButton = styled(FanMagnetButton)`
   margin: 0 0 50px;
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 500;
   padding: 10px 17px;
+  width: auto;
+  margin-left: 25px;
 
   span {
     font-size: 55px;

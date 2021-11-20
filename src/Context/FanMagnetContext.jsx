@@ -6,7 +6,7 @@ export const FanMagnetContext = createContext({});
 export const SURVEY_SELECTION = {
   LOVE_IT: 'I loved it!',
   OKAY: 'It was okay',
-  DISLIKE: "I didn't like it",
+  DISLIKE: "Didn't like it",
 };
 
 export const FanMagnetProvider = ({ children }) => {
