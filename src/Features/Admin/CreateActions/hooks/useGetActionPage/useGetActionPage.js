@@ -22,6 +22,7 @@ export const useGetActionPage = () => {
   const [createActionPageError, setCreateActionPageError] = useState();
 
   let { userId, artistName } = useCurrentAuthUser();
+  console.log(`1-- now the artist is`,artistName);
 
   const getArtistByEnduser = `query GetArtistUserActionPageData($id: ID!, $pageRoute: String) {
     getArtistUser(id: $id) {
@@ -155,11 +156,12 @@ export const useGetActionPage = () => {
       responseActionPageData
     );
     console.log(`userError is now`, userError);
-    if (!responseActionPageData && !userError) {
+    if (userData && !responseActionPageData && !userError) {
       try {
         // if an action page doesn't exist, create one and pull the data again
         if (!createActionPageError && userId) {
           console.log('creating new action page');
+          console.log(`1-- action page doesn't exist`,userId,artistName)
           if(!artistName){
             console.log(`no artist name available, use default of 'artist'`);
             artistName=`artist`;
