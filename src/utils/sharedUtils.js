@@ -79,8 +79,8 @@ const devFacebookAppId = '871609296874018';
 export const facebookAppId = isProduction() ? productionFacebookAppId : devFacebookAppId
 
 
-export const trackInAmplitude = async (eventName, deviceId, userId, artistId) => {
-  if(!eventName || !deviceId || !artistId || isLocal){
+export const trackInAmplitude = async (eventName, deviceId, userId, artistId, additionalParams) => {
+  if(!eventName || !deviceId || !artistId){
     return
   }
   const params = { "artistID": artistId,
@@ -92,6 +92,10 @@ export const trackInAmplitude = async (eventName, deviceId, userId, artistId) =>
   if(userId){
     // this is an optional parameter
     params['event']['user_id']=userId;
+  }
+  if(additionalParams && typeof(additionalParams)==='object'){
+    //if additional params are passed in, jsut append them to the object
+    params.event = Object.assign(params.event,additionalParams);
   }
   const trackUrl = getBackendApiUrl() + `/track-event`;
   const response = await fetch(trackUrl, {

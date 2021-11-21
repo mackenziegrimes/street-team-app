@@ -266,6 +266,16 @@ export const ActionsView = () => {
             },
           },
         });
+        const additionalProperties = {
+          user_properties: 
+          {
+            name: firstName || '' + lastName || '',
+            email: email,
+            phone: phone
+          }
+        }
+        //track new subscriber in amplitude
+        trackInAmplitude('Fan Magnet Subscribed',anonymousId(),userId,artistId,additionalProperties);
         console.log(`newSubscription data is ${newSubscriptionData}`);
       } else {
         console.log(`need userId and actionPageID to create a record`);
