@@ -21,7 +21,7 @@ import { Spinner } from '../../../../Components/UI/Spinner';
 import { Auth } from 'aws-amplify';
 import anonymousId from 'anonymous-id';
 import { trackInAmplitude } from '../../../../utils/sharedUtils';
-import { useCurrentAuthUser } from '../hooks/useCurrentAuthUser'
+import { useCurrentAuthUser } from '../hooks/useCurrentAuthUser';
 
 export const ActionsView = () => {
   const [actionValues, setActionValues] = useState([]);
@@ -112,16 +112,30 @@ export const ActionsView = () => {
     !createEnduserLoading
   ) {
     console.log('enduserInfo does not exist -- creating enduser');
+    //set up input variables
+    let inputVariables = {
+      id: userId,
+      email: email,
+    }
+    let profileName;
+    if(firstName){
+      inputVariables.firstName = firstName;
+      profileName = firstName;
+    }
+    if(lastName){
+      inputVariables.lastName = lastName;
+      profileName = profileName ? profileName + lastName : lastName;
+    }
+    if(profileName){
+      inputVariables.profileName = profileName;
+    }
+    if(phone){
+      inputVariables.phone = phone;
+    }
+    //create new enduser with the input variables
     const newEnduserData = addEnduser({
       variables: {
-        input: {
-          id: userId,
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-          phone: phone,
-          profileName: firstName + lastName,
-        },
+        input: inputVariables,
       },
     });
     console.log(newEnduserData);
