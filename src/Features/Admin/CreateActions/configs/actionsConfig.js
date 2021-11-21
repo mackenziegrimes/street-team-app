@@ -77,7 +77,7 @@ export const apiActionsConfig = {
     preActionText: 'Follow My Music',
     postActionText: 'Music Followed',
     textColor: 'white',
-    serviceAction: 'FollowLink',
+    serviceAction: 'MusicLink',
   },
   scheduleMeeting: {
     // actionPageID: actionPageId,
