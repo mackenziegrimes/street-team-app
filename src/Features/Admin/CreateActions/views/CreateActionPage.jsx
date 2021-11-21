@@ -78,25 +78,25 @@ export const CreateActionPage = ({ type }) => {
         const element = buttonsArray[i];
         console.log(element);
         // handle the email url button
-        if (element.buttonIcon === 'Email') {
+        if (element.serviceAction === 'EmailLink') {
           checked.email = true;
           // strip the email address out of the templated email message
           // eslint-disable-next-line prefer-destructuring
           values.email = element.targetURL.split('?')[0].split('mailto:')[1];
         }
         // handle the group join button
-        if (element.buttonIcon === 'Group') {
+        if (element.serviceAction === 'JoinLink') {
           checked.vipGroup = true;
           values.vipGroup = element.targetURL;
         }
-        if (element.buttonIcon === 'Gift') {
+        if (element.serviceAction === 'StarterPackLink') {
           checked.starterPack = true;
           values.starterPack = element.targetURL;
           landingPage.gift = element.targetURL;
           landingIds.gift = element?.id;
           console.log(`gift element`, element);
         }
-        if (element.buttonIcon === 'Music') {
+        if (element.serviceAction === 'MusicLink') {
           checked.followMusic = true;
           values.followMusic = element.targetURL;
         }

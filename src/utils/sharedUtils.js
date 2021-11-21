@@ -60,7 +60,7 @@ export const isDev = () => {
 }
 
 export const isLocal = () => {
-  if(isProduction || isDev){
+  if(isProduction() || isDev()){
     return false
   } else {
     return true

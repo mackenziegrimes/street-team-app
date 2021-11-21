@@ -42,6 +42,9 @@ const PageContent = styled(Container)`
     border-radius: 0;
     padding: 35px;
     margin: auto;
+    height: 100%;
+    display: flex;
+    justify-content: start;
   }
 `;
 

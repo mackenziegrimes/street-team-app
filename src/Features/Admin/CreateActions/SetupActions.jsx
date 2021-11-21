@@ -93,7 +93,7 @@ export const SetupActions = ({
         // if the action buttons exist in the pageData, update them
         if (actionButtons) {
           const emailButton = actionButtons.find(
-            element => element.buttonIcon === 'Email'
+            element => element.serviceAction === 'EmailLink'
           );
           if (emailButton) {
             // update  the button
@@ -127,7 +127,7 @@ export const SetupActions = ({
         // if the action buttons exist in the pageData, update the button
         if (actionButtons) {
           const button = actionButtons.find(
-            element => element.buttonIcon === 'Group'
+            element => element.serviceAction === 'JoinLink'
           );
 
           if (button) {
@@ -159,7 +159,7 @@ export const SetupActions = ({
         // if the action buttons exist in the pageData, update them
         if (actionButtons) {
           const button = actionButtons.find(
-            element => element.buttonIcon === 'Music'
+            element => element.serviceAction === 'MusicLink'
           );
           if (button) {
             // update  the button
