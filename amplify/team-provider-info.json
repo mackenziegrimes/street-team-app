@@ -21,7 +21,7 @@
       "function": {
         "streetteamreact935863abPostConfirmation": {
           "deploymentBucketName": "amplify-streetteamreact-dev-235234-deployment",
-          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-465a703653313954316b-build.zip",
+          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-7a63736251384e364b46-build.zip",
           "GROUP": "everyone"
         }
       }
