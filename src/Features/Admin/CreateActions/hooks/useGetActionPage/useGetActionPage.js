@@ -37,7 +37,7 @@ export const useGetActionPage = () => {
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
