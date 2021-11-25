@@ -8,7 +8,7 @@ export const createArtist = /* GraphQL */ `
   ) {
     createArtist(input: $input, condition: $condition) {
       id
-      name
+      artistName
       genre
       profilePicture
       tags {
@@ -39,7 +39,7 @@ export const createArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -82,7 +82,7 @@ export const createArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -119,7 +119,7 @@ export const updateArtist = /* GraphQL */ `
   ) {
     updateArtist(input: $input, condition: $condition) {
       id
-      name
+      artistName
       genre
       profilePicture
       tags {
@@ -150,7 +150,7 @@ export const updateArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -193,7 +193,7 @@ export const updateArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -230,7 +230,7 @@ export const deleteArtist = /* GraphQL */ `
   ) {
     deleteArtist(input: $input, condition: $condition) {
       id
-      name
+      artistName
       genre
       profilePicture
       tags {
@@ -261,7 +261,7 @@ export const deleteArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -304,7 +304,7 @@ export const deleteArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -349,7 +349,7 @@ export const createArtistIntegrations = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -415,7 +415,7 @@ export const updateArtistIntegrations = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -481,7 +481,7 @@ export const deleteArtistIntegrations = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -1067,7 +1067,7 @@ export const createArtistUser = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -1143,7 +1143,7 @@ export const createArtistUser = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1192,7 +1192,7 @@ export const updateArtistUser = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -1268,7 +1268,7 @@ export const updateArtistUser = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1317,7 +1317,7 @@ export const deleteArtistUser = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -1393,7 +1393,7 @@ export const deleteArtistUser = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1446,7 +1446,7 @@ export const createActionPage = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -1490,7 +1490,7 @@ export const createActionPage = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -1672,7 +1672,7 @@ export const updateActionPage = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -1716,7 +1716,7 @@ export const updateActionPage = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -1898,7 +1898,7 @@ export const deleteActionPage = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -1942,7 +1942,7 @@ export const deleteActionPage = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -2234,7 +2234,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2256,7 +2256,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -2496,7 +2496,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2518,7 +2518,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -2758,7 +2758,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2780,7 +2780,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -2924,7 +2924,7 @@ export const createActionPageButton = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2946,7 +2946,7 @@ export const createActionPageButton = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -3090,7 +3090,7 @@ export const updateActionPageButton = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -3112,7 +3112,7 @@ export const updateActionPageButton = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -3256,7 +3256,7 @@ export const deleteActionPageButton = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -3278,7 +3278,7 @@ export const deleteActionPageButton = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -3483,7 +3483,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -3563,7 +3563,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -3704,7 +3704,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -3784,7 +3784,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -3925,7 +3925,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -4005,7 +4005,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -4062,7 +4062,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -4229,7 +4229,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -4396,7 +4396,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -4595,7 +4595,7 @@ export const createEnduserTag = /* GraphQL */ `
       artist {
         items {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -4663,7 +4663,7 @@ export const updateEnduserTag = /* GraphQL */ `
       artist {
         items {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -4731,7 +4731,7 @@ export const deleteEnduserTag = /* GraphQL */ `
       artist {
         items {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -4781,7 +4781,7 @@ export const createTagEnduserConnector = /* GraphQL */ `
         artist {
           items {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -4876,7 +4876,7 @@ export const updateTagEnduserConnector = /* GraphQL */ `
         artist {
           items {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -4971,7 +4971,7 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
         artist {
           items {
             id
-            name
+            artistName
             genre
             profilePicture
             route
