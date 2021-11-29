@@ -37,9 +37,13 @@ const DropdownButton = styled.button({
 });
 
 const DropdownMenu = styled.div({
+  'a + a': {
+    marginTop: 10,
+  },
   a: {
     color: ({ theme }) => theme.colors.white,
   },
+  minWidth: '290px',
   width: '100%',
   top: 50,
   backgroundColor: ({ theme }) => theme.colors.gray1,
@@ -98,7 +102,7 @@ CustomMenu.propTypes = {
   'aria-labelledby': PropTypes.string.isRequired,
 };
 
-export const NavBar = () => {
+export const NavBar = ({ headerText }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <NavBarContainer sticky="top">
@@ -112,10 +116,14 @@ export const NavBar = () => {
           isOpen={isOpen}
           id="dropdown-custom-components"
         >
-          <Header>Create Your Fan Funnel</Header>
+          <Header>{headerText}</Header>
         </Dropdown.Toggle>
 
         <Dropdown.Menu as={CustomMenu}>
+          <Dropdown.Item href="/artist/info">
+            <Icon name="FaUserAlt" style={{ marginRight: 15 }} />
+            Artist Info
+          </Dropdown.Item>
           <Dropdown.Item href="/artist/create">
             <Icon name="FaFilter" style={{ marginRight: 15 }} />
             Your Fan Funnel
@@ -124,9 +132,10 @@ export const NavBar = () => {
             <Icon name="FaUsers" style={{ marginRight: 15 }} />
             Your Audience
           </Dropdown.Item>
-          {/* <Dropdown.Item href="#action/3.3">Something</Dropdown.Item> */}
         </Dropdown.Menu>
       </Dropdown>
     </NavBarContainer>
   );
 };
+
+NavBar.propTypes = { headerText: PropTypes.string.isRequired };

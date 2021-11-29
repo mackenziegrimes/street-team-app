@@ -223,8 +223,6 @@ export const AudienceView = () => {
     }
   }, [data]);
 
-
-
   const onChangeSearch = e => {
     const value = e?.target?.value;
     setSearchValue(value);
@@ -249,13 +247,11 @@ export const AudienceView = () => {
     document.body.removeChild(link);
   };
 
-  let statusInfo = <h2>Something went wrong... try refreshing the page</h2>
-  if (loading ) {
-    statusInfo = <Spinner animation="border" role="status" variant="light" />
-  }
-  else if(error || !data || !tableData.length)
-  {
-    statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>
+  let statusInfo = <h2>Something went wrong... try refreshing the page</h2>;
+  if (loading) {
+    statusInfo = <Spinner animation="border" role="status" variant="light" />;
+  } else if (error || !data || !tableData.length) {
+    statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>;
   }
 
   return (
@@ -263,26 +259,27 @@ export const AudienceView = () => {
       <NavBar headerText="Your Audience" />
       <RootContainer fluid>
         <Container fluid>
-          {tableData?.length ?
-          <TableContainer>
-            <ActionContainer>
-              <ExportButton type="button" onClick={onExport}>
-                Export <Icon name="FaExternalLinkAlt" color="black" size={20} />
-              </ExportButton>
-              <SearchLabel>
-                Search <Icon name="FaSearch" color="black" size={20} />
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={onChangeSearch}
-                />
-              </SearchLabel>
-            </ActionContainer>
-            <Table tableProps={tableProps} />
-          </TableContainer>
-          :
-          statusInfo
-          }
+          {tableData?.length ? (
+            <TableContainer>
+              <ActionContainer>
+                <ExportButton type="button" onClick={onExport}>
+                  Export{' '}
+                  <Icon name="FaExternalLinkAlt" color="black" size={20} />
+                </ExportButton>
+                <SearchLabel>
+                  Search <Icon name="FaSearch" color="black" size={20} />
+                  <input
+                    type="text"
+                    value={searchValue}
+                    onChange={onChangeSearch}
+                  />
+                </SearchLabel>
+              </ActionContainer>
+              <Table tableProps={tableProps} />
+            </TableContainer>
+          ) : (
+            statusInfo
+          )}
         </Container>
       </RootContainer>
     </React.Fragment>
