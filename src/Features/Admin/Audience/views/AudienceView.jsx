@@ -11,6 +11,10 @@ import { NavBar } from '../../CreateActions/NavBar';
 import { RootContainer } from '../../CreateActions/views/CreateActionPage';
 import { useCurrentAuthUser } from '../../CreateActions/hooks/useCurrentAuthUser';
 import { getAllSubscribersFromArtistUser } from '../queries';
+import { useGradient } from '../../../../Hooks/useGradient';
+import { Button } from 'react-bootstrap';
+import Color from 'color';
+
 
 const TableContainer = styled.div`
   background-color: #dddddd;
@@ -96,6 +100,88 @@ const ExportButton = styled.button`
     margin-left: 10px;
   }
 `;
+
+//// Top banner styles ////
+const PointsContainer = styled.div({
+  borderRadius: '5px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: ({ color }) => color,
+  padding: '0px 50px 0px 50px',
+  color: 'inherit',
+  fontSize: ({ theme }) => theme.fontSizes.sm,
+  minHeight: '100%',
+  margin: '25px',
+});
+
+// eslint-disable-next-line no-unused-vars
+const TopBarContainer = styled(({ textColor, ...props }) => (
+  <Button {...props} />
+))(({ color, textColor, isDisabled }) => {
+  const fontColor = Color(textColor);
+
+  return {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: '5px',
+    background: useGradient({ color, customLighten: 0.05, customDarken: 0.4 }),
+    border: 'none',
+    padding: 2,
+    margin: 15,
+    height: '71px',
+    color: fontColor.hex(),
+    '&:hover, &:focus, &:active': {
+      color: fontColor,
+      background: useGradient({ color, customLighten: 0.2, customDarken: 0.2 }),
+      [PointsContainer]: {
+        background: Color(color).darken(0.1),
+      },
+    },
+    ...(isDisabled && {
+      color: fontColor,
+      opacity: 0.35,
+      '&:hover': {
+        color: fontColor,
+      },
+    }),
+  };
+});
+
+const ContentContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  padding: '15px',
+  minHeight: '100%',
+});
+
+const Points = styled.p(({ theme }) => {
+  return {
+    fontFamily: theme.fonts.primary,
+    fontWeight: theme.fontWeights.bold,
+    fontSize: theme.fontSizes.xxl,
+    margin: 0,
+    lineHeight: "100%",
+    color: 'inherit',
+  };
+});
+const Title = styled.p(({ theme }) => {
+  return {
+    textAlign: 'left',
+    wordWrap: 'break-word',
+    fontSize: 25,
+    fontWeight: theme.fontWeights.bold,
+    margin: 0,
+    marginLeft: '25px',
+    color: 'inherit',
+  };
+});
 
 const formatTableData = data => {
   const endUserData =
@@ -258,10 +344,26 @@ export const AudienceView = () => {
     statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>
   }
 
+  let backgroundColor = '#6850ea';
+  let textColor='#ffffff';
+
   return (
     <React.Fragment>
       <NavBar headerText="Your Audience" />
       <RootContainer fluid>
+          <TopBarContainer
+          color={backgroundColor}
+          textColor={textColor}
+        >
+          <ContentContainer>
+            <Title>All Fans</Title>
+          </ContentContainer>
+          <PointsContainer color={backgroundColor}>
+            <Icon name="FaUsers" style={{ marginRight: 15 }} />
+            <Points>{tableData?.length || 0}</Points>
+          </PointsContainer>
+        </TopBarContainer>
+
         <Container fluid>
           {tableData?.length ?
           <TableContainer>
