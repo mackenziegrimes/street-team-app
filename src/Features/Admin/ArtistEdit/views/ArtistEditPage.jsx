@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Spinner } from '../../../../Components/UI/Spinner';
 import { useGetActionPage } from '../../CreateActions/hooks/useGetActionPage';
 import { NavBar } from '../../CreateActions/NavBar';
 import { TextField } from '../../../../Components/UI/TextField';
+import { Button } from '../../../../Components/UI/Button';
 
 const RootContainer = styled(Container)({
   background: ({ theme }) => theme.colors.black,
@@ -13,38 +15,60 @@ const RootContainer = styled(Container)({
   height: '100%',
 });
 
+const ArtistCard = styled(Card)({
+  background: ({ theme }) => theme.colors.gray2,
+  width: '100%',
+  padding: ({ theme }) => theme.spacing.md,
+});
+
 export const ArtistEdit = () => {
-  const [formState, setFormState] = useState({
-    artistName: '',
-    genre: '',
-    profilePicture: '',
-    route: '',
-  });
+  const { loading, userData, artistId } = useGetActionPage();
+  const data = userData?.getArtistUser?.artist;
+
+  const defaultValues = {
+    artistName: data?.artistName,
+    genre: data?.genre,
+    profilePicture: data?.profilePicture,
+    route: data?.route,
+  };
 
   const {
-    loading,
-    actionPageId,
-    artistRoute,
-    actionPageData,
-    userId,
-    userData,
-    artistId,
-  } = useGetActionPage();
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues,
+  });
 
   useEffect(() => {
-    const data = userData?.getArtistUser?.artist;
-    console.log('data', data);
     if (data) {
-      setFormState({
-        artistName: data.artistName,
-        genre: data.genre,
-        profilePicture: data.profilePicture,
-        route: data.route,
-      });
+      reset(defaultValues);
     }
   }, [userData]);
 
-  console.log('userData', userData);
+  const handleUpdate = formData => {
+    console.log('formData', formData);
+    fetch(
+      'https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev/update-artist',
+      {
+        method: 'POST',
+        headers: {
+          origin: 'https://street-team.ngrok.io',
+        },
+        body: JSON.stringify({ id: artistId, ...formData }),
+      }
+    )
+      .then(res => res.json())
+      .then(res => {
+        const resData = res?.data;
+        console.log('res', res);
+        console.log('resData', resData);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   if (loading) {
     return (
@@ -61,15 +85,40 @@ export const ArtistEdit = () => {
   return (
     <React.Fragment>
       <NavBar headerText="Artist Info" />
-      <RootContainer fluid>
-        <Row className="justify-content-md-center">
-          <Col>
-            <TextField label="Artist Name" value={formState.artistName} />
-            <TextField label="Route" value={formState.route} />
-            <TextField label="Genre" value={formState.genre} />
-            <TextField label="Profile Phote" value={formState.profilePicture} />
-          </Col>
-        </Row>
+      <RootContainer fluid className="d-flex justify-content-center">
+        <ArtistCard>
+          <Row>
+            <Col>
+              <h1>Artist Profile</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col as="form" onSubmit={handleSubmit(handleUpdate)}>
+              <TextField
+                label="Artist Name"
+                error={errors?.artistName}
+                {...register('artistName', {
+                  required: true,
+                })}
+              />
+              <TextField
+                label="Route"
+                error={errors?.route}
+                {...register('route', {
+                  required: true,
+                })}
+              />
+              <TextField label="Genre" {...register('genre')} />
+              <TextField
+                label="Profile Picture"
+                {...register('profilePicture')}
+              />
+              <Button type="submit" style={{ marginTop: '25px' }}>
+                Save
+              </Button>
+            </Col>
+          </Row>
+        </ArtistCard>
       </RootContainer>
     </React.Fragment>
   );
