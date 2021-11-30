@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Navbar, Dropdown } from 'react-bootstrap';
+import { matchPath } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
 
@@ -97,13 +99,37 @@ const CustomMenu = React.forwardRef(
 
 CustomMenu.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.shape({}).isRequired,
+  style: PropTypes.shape({}),
   className: PropTypes.string.isRequired,
   'aria-labelledby': PropTypes.string.isRequired,
 };
 
+CustomMenu.defaultProps = {
+  style: {},
+};
+
+const NAVBAR_ITEMS = [
+  { label: 'Artist Info', icon: 'FaUserAlt', href: '/artist/info' },
+  { label: 'Your Fan Funnel', icon: 'FaFilter', href: '/artist/create' },
+  { label: 'Your Audience', icon: 'FaUsers', href: '/artist/audience' },
+];
+
 export const NavBar = ({ headerText }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const renderNavBarItem = () => {
+    return NAVBAR_ITEMS.map(item => {
+      console.log('location', location);
+      const match = matchPath(location.pathname, { path: item.href });
+      return (
+        <Dropdown.Item href={item.href} active={match}>
+          <Icon name={item.icon} style={{ marginRight: 15 }} />
+          {item.label}
+        </Dropdown.Item>
+      );
+    });
+  };
   return (
     <NavBarContainer sticky="top">
       <Navbar.Brand href="#">
@@ -118,21 +144,7 @@ export const NavBar = ({ headerText }) => {
         >
           <Header>{headerText}</Header>
         </Dropdown.Toggle>
-
-        <Dropdown.Menu as={CustomMenu}>
-          <Dropdown.Item href="/artist/info">
-            <Icon name="FaUserAlt" style={{ marginRight: 15 }} />
-            Artist Info
-          </Dropdown.Item>
-          <Dropdown.Item href="/artist/create">
-            <Icon name="FaFilter" style={{ marginRight: 15 }} />
-            Your Fan Funnel
-          </Dropdown.Item>
-          <Dropdown.Item href="/artist/audience">
-            <Icon name="FaUsers" style={{ marginRight: 15 }} />
-            Your Audience
-          </Dropdown.Item>
-        </Dropdown.Menu>
+        <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
       </Dropdown>
     </NavBarContainer>
   );
