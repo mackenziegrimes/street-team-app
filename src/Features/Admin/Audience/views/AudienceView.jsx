@@ -318,19 +318,15 @@ export const AudienceView = () => {
     document.body.removeChild(link);
   };
 
-  const renderStatus = () => {
-    if (loading) {
-      return <Spinner animation="border" role="status" variant="light" />;
-    }
-    if (error || !data || !tableData.length) {
-      return <h2>No data found yet. Try visiting your fan page.</h2>;
-    }
-    return <h2>Something went wrong... try refreshing the page</h2>;
-  };
-
+  let statusInfo = <h2>Something went wrong... try refreshing the page</h2>;
+  if (loading) {
+    statusInfo = <Spinner animation="border" role="status" variant="light" />;
+  } else if (error || !data || !tableData.length) {
+    statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>;
+  }
   return (
     <React.Fragment>
-      <NavBar headerText="Your Audience" />
+      <NavBar headerText="Your Audience" artistId={data?.getArtistUser?.artist.id} integrations={data?.getArtistUser?.artist.integrations.items} />
       <RootContainer fluid>
         <Row>
           <Col>

@@ -16,9 +16,7 @@ function App() {
   return (
     <ApolloProvider client={SecureClient}>
       <ThemeProvider>
-        {/* <FanMagnetProvider> */}
           <Routes />
-        {/* </FanMagnetProvider> */}
       </ThemeProvider>
     </ApolloProvider>
   );
