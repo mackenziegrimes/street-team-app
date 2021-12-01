@@ -6,6 +6,7 @@ import { matchPath } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
+import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
 
 const NavBarContainer = styled(Navbar)({
   display: 'flex',
@@ -108,26 +109,46 @@ CustomMenu.defaultProps = {
   style: {},
 };
 
-const NAVBAR_ITEMS = [
-  { label: 'Artist Info', icon: 'FaUserAlt', href: '/artist/info' },
-  { label: 'Your Fan Funnel', icon: 'FaFilter', href: '/artist/create' },
-  { label: 'Your Audience', icon: 'FaUsers', href: '/artist/audience' },
-];
-
-export const NavBar = ({ headerText }) => {
+export const NavBar = ({ headerText, artistId, integrations }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
+  const handleBillingClick = async () => {
+    console.log('calling handleBillingClick',artistId)
+    if(artistId){
+      let response = await getBillingSessionUrl(artistId)
+      console.log(`stripe response in the handle click is`,response)
+      let billingUrl = response?.url;
+      if(billingUrl){
+        //opens in a new window
+        window.open(billingUrl);
+      }
+      else{
+        console.log(`no billing account configured`)
+      }
+    }
+  }
+  const NAVBAR_ITEMS = [
+    { label: 'Artist Info', icon: 'FaUserAlt', href: '/artist/info', showItem:true},
+    { label: 'Your Fan Funnel', icon: 'FaFilter', href: '/artist/create', showItem:true},
+    { label: 'Your Audience', icon: 'FaUsers', href: '/artist/audience',  showItem:true},
+    { label: 'Account Billing', icon: 'FaCreditCard', onClick: handleBillingClick, showItem: integrations?.find(item => item.serviceName === "StripeBilling")}
+  ];
+
   const renderNavBarItem = () => {
     return NAVBAR_ITEMS.map(item => {
-      console.log('location', location);
+      // console.log('location', location);
       const match = matchPath(location.pathname, { path: item.href });
-      return (
-        <Dropdown.Item href={item.href} active={match}>
-          <Icon name={item.icon} style={{ marginRight: 15 }} />
-          {item.label}
-        </Dropdown.Item>
-      );
+      {
+        if(item.showItem){
+        return (
+          <Dropdown.Item href={item.href} onClick={item.onClick} active={match}>
+            <Icon name={item.icon} style={{ marginRight: 15 }} />
+            {item.label}
+          </Dropdown.Item>
+        );
+      }
+    }
     });
   };
   return (

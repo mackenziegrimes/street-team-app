@@ -253,10 +253,9 @@ export const AudienceView = () => {
   } else if (error || !data || !tableData.length) {
     statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>;
   }
-
   return (
     <React.Fragment>
-      <NavBar headerText="Your Audience" />
+      <NavBar headerText="Your Audience" artistId={data?.getArtistUser?.artist.id} integrations={data?.getArtistUser?.artist.integrations.items} />
       <RootContainer fluid>
         <Container fluid>
           {tableData?.length ? (

@@ -28,6 +28,7 @@ export const CreateActionPage = ({ type }) => {
     actionPageData,
     userId,
     artistId,
+    integrations,
   } = useGetActionPage();
 
   // Action Page
@@ -134,7 +135,7 @@ export const CreateActionPage = ({ type }) => {
 
   return (
     <div>
-      <NavBar headerText="Create Your Fan Funnel" />
+      <NavBar headerText="Create Your Fan Funnel" artistId={artistId} integrations={integrations}/>
       <RootContainer fluid>
         <Container fluid>
           <Row>

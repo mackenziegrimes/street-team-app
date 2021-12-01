@@ -4,6 +4,16 @@ export const getAllSubscribersFromArtistUser = gql`
   query getSubscriptionsFromArtistUser($id: ID!) {
     getArtistUser(id: $id) {
       artist {
+        id
+        integrations {
+          items {
+            id
+            artistID
+            serviceName
+            serviceAccountId
+          }
+          nextToken
+        }
         actionPages {
           items {
             subscribers {

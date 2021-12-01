@@ -22,7 +22,7 @@ const ArtistCard = styled(Card)({
 });
 
 export const ArtistEdit = () => {
-  const { loading, userData, artistId } = useGetActionPage();
+  const { loading, userData, artistId, integrations} = useGetActionPage();
   const data = userData?.getArtistUser?.artist;
 
   const defaultValues = {
@@ -83,9 +83,11 @@ export const ArtistEdit = () => {
     );
   }
 
+  console.log(`INTEGRAIONTS`,integrations);
+
   return (
     <React.Fragment>
-      <NavBar headerText="Artist Info" />
+      <NavBar headerText="Artist Info" artistId={artistId} integrations={integrations}/>
       <RootContainer fluid className="d-flex justify-content-center">
         {/* <Image
           src={getValues('profilePicture')}
