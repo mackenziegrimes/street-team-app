@@ -102,14 +102,14 @@ const ExportButton = styled.button`
 `;
 
 // Top banner styles
-const PointsContainer = styled.div({
+const AudienceCountContainer = styled.div({
   borderRadius: '5px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   background: ({ color }) => color,
-  width: 110,
+  width: 250,
   color: 'inherit',
   fontSize: ({ theme }) => theme.fontSizes.sm,
   minHeight: '100%',
@@ -133,6 +133,7 @@ const TopBarContainer = styled.div(({ color, textColor, theme }) => {
     height: '71px',
     color: fontColor.hex(),
     marginBottom: theme.spacing.md,
+    marginTop: theme.spacing.md,
   };
 });
 
@@ -338,10 +339,10 @@ export const AudienceView = () => {
               <ContentContainer>
                 <Title>All Fans</Title>
               </ContentContainer>
-              <PointsContainer color={BACKGROUND_COLOR}>
+              <AudienceCountContainer color={BACKGROUND_COLOR}>
                 <Icon name="FaUsers" />
                 <Points>{tableData?.length || 0}</Points>
-              </PointsContainer>
+              </AudienceCountContainer>
             </TopBarContainer>
           </Col>
         </Row>

@@ -134,7 +134,7 @@ export const CreateActionPage = ({ type }) => {
 
   return (
     <div>
-      <NavBar />
+      <NavBar headerText="Your Fan Funnel"/>
       <RootContainer fluid>
         <Container fluid>
           <Row>

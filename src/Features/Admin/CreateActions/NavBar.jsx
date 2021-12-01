@@ -98,7 +98,7 @@ CustomMenu.propTypes = {
   'aria-labelledby': PropTypes.string.isRequired,
 };
 
-export const NavBar = () => {
+export const NavBar = ({headerText}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <NavBarContainer sticky="top">
@@ -112,7 +112,7 @@ export const NavBar = () => {
           isOpen={isOpen}
           id="dropdown-custom-components"
         >
-          <Header>Create Your Fan Funnel</Header>
+          <Header>{headerText || "Street Team"}</Header>
         </Dropdown.Toggle>
 
         <Dropdown.Menu as={CustomMenu}>
