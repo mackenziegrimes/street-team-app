@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Spinner } from '../../../../Components/UI/Spinner';
@@ -36,6 +36,7 @@ export const ArtistEdit = () => {
     register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues,
@@ -53,10 +54,10 @@ export const ArtistEdit = () => {
       'https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev/update-artist',
       {
         method: 'POST',
-        headers: {
-          origin: 'https://street-team.ngrok.io',
-        },
         body: JSON.stringify({ id: artistId, ...formData }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
     )
       .then(res => res.json())
@@ -86,6 +87,11 @@ export const ArtistEdit = () => {
     <React.Fragment>
       <NavBar headerText="Artist Info" />
       <RootContainer fluid className="d-flex justify-content-center">
+        {/* <Image
+          src={getValues('profilePicture')}
+          roundedCircle
+          style={{ width: 52, height: 52 }}
+        /> */}
         <ArtistCard>
           <Row>
             <Col>
