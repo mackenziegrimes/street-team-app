@@ -365,7 +365,7 @@ export const AudienceView = () => {
             </Col>
           </Row>
         ) : (
-          renderStatus()
+          statusInfo
         )}
       </RootContainer>
     </React.Fragment>

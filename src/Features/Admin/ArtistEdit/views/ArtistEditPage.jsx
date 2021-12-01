@@ -7,6 +7,7 @@ import { useGetActionPage } from '../../CreateActions/hooks/useGetActionPage';
 import { NavBar } from '../../CreateActions/NavBar';
 import { TextField } from '../../../../Components/UI/TextField';
 import { Button } from '../../../../Components/UI/Button';
+import { getBackendApiUrl } from '../../../../utils/sharedUtils';
 
 const RootContainer = styled(Container)({
   background: ({ theme }) => theme.colors.black,
@@ -48,10 +49,11 @@ export const ArtistEdit = () => {
     }
   }, [userData]);
 
+  const apiUrl = getBackendApiUrl();
   const handleUpdate = formData => {
     console.log('formData', formData);
     fetch(
-      'https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev/update-artist',
+      `${apiUrl}/update-artist`,
       {
         method: 'POST',
         body: JSON.stringify({ id: artistId, ...formData }),
