@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Navbar, Dropdown } from 'react-bootstrap';
-// import { matchPath } from 'react-router';
-import { useLocation,matchPath } from 'react-router-dom';
+import { matchPath } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
 import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
@@ -163,7 +163,7 @@ export const NavBar = ({ headerText, artistId, integrations }) => {
           isOpen={isOpen}
           id="dropdown-custom-components"
         >
-          <Header>{headerText || "Street Team"}</Header>
+          <Header>{headerText}</Header>
         </Dropdown.Toggle>
         <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
       </Dropdown>
