@@ -6,15 +6,15 @@ import Papa from 'papaparse';
 import { Icon, Spinner } from '../../../../Components/UI';
 import { useTable } from '../../../../Hooks/useTable';
 import { useQuery } from '@apollo/react-hooks';
-import { Container } from 'react-bootstrap';
 import { NavBar } from '../../CreateActions/NavBar';
 import { RootContainer } from '../../CreateActions/views/CreateActionPage';
 import { useCurrentAuthUser } from '../../CreateActions/hooks/useCurrentAuthUser';
 import { getAllSubscribersFromArtistUser } from '../queries';
 import { useGradient } from '../../../../Hooks/useGradient';
-import { Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Color from 'color';
 
+const BACKGROUND_COLOR = '#6850ea';
 
 const TableContainer = styled.div`
   background-color: #dddddd;
@@ -101,7 +101,7 @@ const ExportButton = styled.button`
   }
 `;
 
-//// Top banner styles ////
+// Top banner styles
 const PointsContainer = styled.div({
   borderRadius: '5px',
   display: 'flex',
@@ -109,19 +109,14 @@ const PointsContainer = styled.div({
   alignItems: 'center',
   justifyContent: 'center',
   background: ({ color }) => color,
-  padding: '0px 50px 0px 50px',
+  width: 110,
   color: 'inherit',
   fontSize: ({ theme }) => theme.fontSizes.sm,
   minHeight: '100%',
-  margin: '25px',
 });
 
-// eslint-disable-next-line no-unused-vars
-const TopBarContainer = styled(({ textColor, ...props }) => (
-  <Button {...props} />
-))(({ color, textColor, isDisabled }) => {
+const TopBarContainer = styled.div(({ color, textColor, theme }) => {
   const fontColor = Color(textColor);
-
   return {
     display: 'flex',
     flexDirection: 'row',
@@ -129,26 +124,15 @@ const TopBarContainer = styled(({ textColor, ...props }) => (
     alignItems: 'center',
     width: '100%',
     borderRadius: '5px',
-    background: useGradient({ color, customLighten: 0.05, customDarken: 0.4 }),
+    background: useGradient({
+      color,
+      customLighten: 0.05,
+      customDarken: 0.4,
+    }),
     border: 'none',
-    padding: 2,
-    margin: 15,
     height: '71px',
     color: fontColor.hex(),
-    '&:hover, &:focus, &:active': {
-      color: fontColor,
-      background: useGradient({ color, customLighten: 0.2, customDarken: 0.2 }),
-      [PointsContainer]: {
-        background: Color(color).darken(0.1),
-      },
-    },
-    ...(isDisabled && {
-      color: fontColor,
-      opacity: 0.35,
-      '&:hover': {
-        color: fontColor,
-      },
-    }),
+    marginBottom: theme.spacing.md,
   };
 });
 
@@ -167,7 +151,7 @@ const Points = styled.p(({ theme }) => {
     fontWeight: theme.fontWeights.bold,
     fontSize: theme.fontSizes.xxl,
     margin: 0,
-    lineHeight: "100%",
+    lineHeight: '100%',
     color: 'inherit',
   };
 });
@@ -309,8 +293,6 @@ export const AudienceView = () => {
     }
   }, [data]);
 
-
-
   const onChangeSearch = e => {
     const value = e?.target?.value;
     setSearchValue(value);
@@ -335,57 +317,58 @@ export const AudienceView = () => {
     document.body.removeChild(link);
   };
 
-  let statusInfo = <h2>Something went wrong... try refreshing the page</h2>
-  if (loading ) {
-    statusInfo = <Spinner animation="border" role="status" variant="light" />
-  }
-  else if(error || !data || !tableData.length)
-  {
-    statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>
-  }
-
-  let backgroundColor = '#6850ea';
-  let textColor='#ffffff';
+  const renderStatus = () => {
+    if (loading) {
+      return <Spinner animation="border" role="status" variant="light" />;
+    }
+    if (error || !data || !tableData.length) {
+      return <h2>No data found yet. Try visiting your fan page.</h2>;
+    }
+    return <h2>Something went wrong... try refreshing the page</h2>;
+  };
 
   return (
     <React.Fragment>
       <NavBar headerText="Your Audience" />
       <RootContainer fluid>
-          <TopBarContainer
-          color={backgroundColor}
-          textColor={textColor}
-        >
-          <ContentContainer>
-            <Title>All Fans</Title>
-          </ContentContainer>
-          <PointsContainer color={backgroundColor}>
-            <Icon name="FaUsers" style={{ marginRight: 15 }} />
-            <Points>{tableData?.length || 0}</Points>
-          </PointsContainer>
-        </TopBarContainer>
-
-        <Container fluid>
-          {tableData?.length ?
-          <TableContainer>
-            <ActionContainer>
-              <ExportButton type="button" onClick={onExport}>
-                Export <Icon name="FaExternalLinkAlt" color="black" size={20} />
-              </ExportButton>
-              <SearchLabel>
-                Search <Icon name="FaSearch" color="black" size={20} />
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={onChangeSearch}
-                />
-              </SearchLabel>
-            </ActionContainer>
-            <Table tableProps={tableProps} />
-          </TableContainer>
-          :
-          statusInfo
-          }
-        </Container>
+        <Row>
+          <Col>
+            <TopBarContainer color={BACKGROUND_COLOR} textColor="#ffffff">
+              <ContentContainer>
+                <Title>All Fans</Title>
+              </ContentContainer>
+              <PointsContainer color={BACKGROUND_COLOR}>
+                <Icon name="FaUsers" />
+                <Points>{tableData?.length || 0}</Points>
+              </PointsContainer>
+            </TopBarContainer>
+          </Col>
+        </Row>
+        {tableData?.length ? (
+          <Row>
+            <Col>
+              <TableContainer>
+                <ActionContainer>
+                  <ExportButton type="button" onClick={onExport}>
+                    Export{' '}
+                    <Icon name="FaExternalLinkAlt" color="black" size={20} />
+                  </ExportButton>
+                  <SearchLabel>
+                    Search <Icon name="FaSearch" color="black" size={20} />
+                    <input
+                      type="text"
+                      value={searchValue}
+                      onChange={onChangeSearch}
+                    />
+                  </SearchLabel>
+                </ActionContainer>
+                <Table tableProps={tableProps} />
+              </TableContainer>
+            </Col>
+          </Row>
+        ) : (
+          renderStatus()
+        )}
       </RootContainer>
     </React.Fragment>
   );
