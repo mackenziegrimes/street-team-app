@@ -334,6 +334,7 @@ export const AudienceView = () => {
         <Row>
           <Col>
             <TopBarContainer color={BACKGROUND_COLOR} textColor="#ffffff">
+              <div />
               <ContentContainer>
                 <Title>All Fans</Title>
               </ContentContainer>
