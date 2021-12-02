@@ -66,11 +66,6 @@
     "validate": "npm -s unit-tests && npm -s lint && npm -s functional-tests --app 'npm start' --app-init-delay 4000",
     "functional-tests": "testcafe 'chrome:headless' src/functional-tests/"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test -- --watchAll=false"
-    }
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
