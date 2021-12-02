@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.3.13",
+    "@apollo/client": "latest",
     "@apollo/link-context": "^2.0.0-beta.3",
     "@apollo/link-error": "^2.0.0-beta.3",
     "@apollo/react-hooks": "^4.0.0",
@@ -20,7 +20,7 @@
     "apollo-link-http": "^1.5.17",
     "aws-amplify": "^3.3.26",
     "aws-amplify-react": "^4.1.23",
-    "aws-appsync-auth-link": "^3.0.4",
+    "aws-appsync-auth-link": "^3.0.6",
     "aws-appsync-subscription-link": "^3.0.6",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
