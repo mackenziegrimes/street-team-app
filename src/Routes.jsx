@@ -8,6 +8,7 @@ import { CreateActionPage } from './Features/Admin/CreateActions/views/CreateAct
 import { Login } from './Components/Login/Login';
 import { Demo } from './Features/Admin/Audience/GetData';
 import { AudienceView } from './Features/Admin/Audience/views/AudienceView';
+import { ArtistEdit } from './Features/Admin/ArtistEdit/views/ArtistEditPage';
 /*
 While we're currently supporting backwards compatability, routing should follow these strategies:
 -Artist (Admin) pages should start with the route /artist, not use path parameters, be wrapped in <SecureViewWrapper userRole="admin">
@@ -54,6 +55,12 @@ export const Routes = () => {
         <Route path="/artist/audience">
           <SecureViewWrapper userRole="admin">
             <AudienceView />
+          </SecureViewWrapper>
+        </Route>
+
+        <Route path="/artist/info">
+          <SecureViewWrapper userRole="admin">
+            <ArtistEdit />
           </SecureViewWrapper>
         </Route>
 

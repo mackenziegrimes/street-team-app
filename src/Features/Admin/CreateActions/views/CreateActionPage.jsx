@@ -28,6 +28,7 @@ export const CreateActionPage = ({ type }) => {
     actionPageData,
     userId,
     artistId,
+    integrations,
   } = useGetActionPage();
 
   // Action Page
@@ -107,7 +108,7 @@ export const CreateActionPage = ({ type }) => {
         if (element.serviceAction === 'ContinueButton') {
           landingIds.continue = element?.id;
         }
-        if(element.serviceAction === 'ScheduleLink'){
+        if (element.serviceAction === 'ScheduleLink') {
           checked.scheduleMeeting = true;
           values.scheduleMeeting = element.targetURL;
         }
@@ -134,7 +135,7 @@ export const CreateActionPage = ({ type }) => {
 
   return (
     <div>
-      <NavBar />
+      <NavBar headerText="Create Your Fan Funnel" artistId={artistId} integrations={integrations}/>
       <RootContainer fluid>
         <Container fluid>
           <Row>

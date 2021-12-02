@@ -13,7 +13,7 @@ export const getArtistIntegrations = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -85,7 +85,7 @@ export const listArtistIntegrationss = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -124,7 +124,7 @@ export const getArtistUser = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -200,7 +200,7 @@ export const getArtistUser = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -251,7 +251,7 @@ export const listArtistUsers = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -333,7 +333,7 @@ export const getEnduserTag = /* GraphQL */ `
       artist {
         items {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -381,7 +381,7 @@ export const listEnduserTags = /* GraphQL */ `
         artist {
           items {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -430,7 +430,7 @@ export const tagsByArtist = /* GraphQL */ `
         artist {
           items {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -449,7 +449,7 @@ export const getArtist = /* GraphQL */ `
   query GetArtist($id: ID!) {
     getArtist(id: $id) {
       id
-      name
+      artistName
       genre
       profilePicture
       tags {
@@ -480,7 +480,7 @@ export const getArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -523,7 +523,7 @@ export const getArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -562,7 +562,7 @@ export const listArtists = /* GraphQL */ `
     listArtists(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -630,7 +630,7 @@ export const artistByRoute = /* GraphQL */ `
     ) {
       items {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -932,7 +932,7 @@ export const getActionPage = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -976,7 +976,7 @@ export const getActionPage = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -1160,7 +1160,7 @@ export const listActionPages = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1182,7 +1182,7 @@ export const listActionPages = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -1286,7 +1286,7 @@ export const actionPagesByArtist = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1308,7 +1308,7 @@ export const actionPagesByArtist = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -1410,7 +1410,7 @@ export const actionPagesByRoute = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1432,7 +1432,7 @@ export const actionPagesByRoute = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -1631,7 +1631,7 @@ export const getEnduserPageSubscription = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1653,7 +1653,7 @@ export const getEnduserPageSubscription = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -1854,7 +1854,7 @@ export const listEnduserPageSubscriptions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -1995,7 +1995,7 @@ export const enduserPageSubscriptionByActionPage = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2136,7 +2136,7 @@ export const enduserPageSubscriptionByEnduser = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2213,7 +2213,7 @@ export const getActionPageButton = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2235,7 +2235,7 @@ export const getActionPageButton = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -2394,7 +2394,7 @@ export const listActionPageButtons = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2529,7 +2529,7 @@ export const getEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -2609,7 +2609,7 @@ export const getEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -3007,7 +3007,7 @@ export const getEnduserArtistSubscription = /* GraphQL */ `
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -3180,7 +3180,7 @@ export const listEnduserArtistSubscriptions = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -3275,7 +3275,7 @@ export const enduserArtistSubscriptionsByArtist = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -3370,7 +3370,7 @@ export const enduserArtistSubscriptionsByEnduser = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -3539,7 +3539,7 @@ export const enduserPageSubscriptionByReferralEnduser = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route

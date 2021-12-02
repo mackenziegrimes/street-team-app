@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Navbar, Dropdown } from 'react-bootstrap';
+import { matchPath } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
+import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
 
 const NavBarContainer = styled(Navbar)({
   display: 'flex',
@@ -37,9 +40,13 @@ const DropdownButton = styled.button({
 });
 
 const DropdownMenu = styled.div({
+  'a + a': {
+    marginTop: 10,
+  },
   a: {
     color: ({ theme }) => theme.colors.white,
   },
+  minWidth: '290px',
   width: '100%',
   top: 50,
   backgroundColor: ({ theme }) => theme.colors.gray1,
@@ -93,13 +100,57 @@ const CustomMenu = React.forwardRef(
 
 CustomMenu.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.shape({}).isRequired,
+  style: PropTypes.shape({}),
   className: PropTypes.string.isRequired,
   'aria-labelledby': PropTypes.string.isRequired,
 };
 
-export const NavBar = () => {
+CustomMenu.defaultProps = {
+  style: {},
+};
+
+export const NavBar = ({ headerText, artistId, integrations }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const handleBillingClick = async () => {
+    console.log('calling handleBillingClick',artistId)
+    if(artistId){
+      let response = await getBillingSessionUrl(artistId)
+      console.log(`stripe response in the handle click is`,response)
+      let billingUrl = response?.url;
+      if(billingUrl){
+        //opens in a new window
+        window.open(billingUrl);
+      }
+      else{
+        console.log(`no billing account configured`)
+      }
+    }
+  }
+  const NAVBAR_ITEMS = [
+    { label: 'Artist Info', icon: 'FaUserAlt', href: '/artist/info', showItem:true},
+    { label: 'Your Fan Funnel', icon: 'FaFilter', href: '/artist/create', showItem:true},
+    { label: 'Your Audience', icon: 'FaUsers', href: '/artist/audience',  showItem:true},
+    { label: 'Account Billing', icon: 'FaCreditCard', onClick: handleBillingClick, showItem: integrations?.find(item => item.serviceName === "StripeBilling")}
+  ];
+
+  const renderNavBarItem = () => {
+    return NAVBAR_ITEMS.map(item => {
+      // console.log('location', location);
+      const match = matchPath(location.pathname, { path: item.href });
+      {
+        if(item.showItem){
+        return (
+          <Dropdown.Item href={item.href} onClick={item.onClick} active={match}>
+            <Icon name={item.icon} style={{ marginRight: 15 }} />
+            {item.label}
+          </Dropdown.Item>
+        );
+      }
+    }
+    });
+  };
   return (
     <NavBarContainer sticky="top">
       <Navbar.Brand href="#">
@@ -112,21 +163,12 @@ export const NavBar = () => {
           isOpen={isOpen}
           id="dropdown-custom-components"
         >
-          <Header>Create Your Fan Funnel</Header>
+          <Header>{headerText}</Header>
         </Dropdown.Toggle>
-
-        <Dropdown.Menu as={CustomMenu}>
-          <Dropdown.Item href="/artist/create">
-            <Icon name="FaFilter" style={{ marginRight: 15 }} />
-            Your Fan Funnel
-          </Dropdown.Item>
-          <Dropdown.Item href="/artist/audience">
-            <Icon name="FaUsers" style={{ marginRight: 15 }} />
-            Your Audience
-          </Dropdown.Item>
-          {/* <Dropdown.Item href="#action/3.3">Something</Dropdown.Item> */}
-        </Dropdown.Menu>
+        <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
       </Dropdown>
     </NavBarContainer>
   );
 };
+
+NavBar.propTypes = { headerText: PropTypes.string.isRequired };

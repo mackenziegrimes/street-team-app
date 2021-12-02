@@ -72,6 +72,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
 
   useEffect(() => {
     if (integrations) {
+      // console.log('integrations', integrations);
       let form = formValue;
       let activeInt = {};
       for (let i = 0; i < integrations.length; i++) {
@@ -95,7 +96,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [createArtistIntegration] = useMutation(gql(createArtistIntegrations));
 
   const saveIntegrations = () => {
-    try{
+    try {
       for (let i = 0; i < INPUT_KEYS.length; i++) {
         const key = INPUT_KEYS[i];
         const config = {
@@ -116,9 +117,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
           createArtistIntegration(config);
         }
       }
-    }
-    catch(err){
-      console.log("something went wrong with saving the integrations")
+    } catch (err) {
+      console.log('something went wrong with saving the integrations');
       console.error(err);
     }
     setShow(true);
@@ -268,7 +268,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
 
         <Modal.Body>
           <p style={{ color: 'black' }}>
-            Click the button below to copy your customized JSON code for your Facebook Ad Message Template.
+            Click the button below to copy your customized JSON code for your
+            Facebook Ad Message Template.
           </p>
         </Modal.Body>
 

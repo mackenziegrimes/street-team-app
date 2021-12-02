@@ -11,7 +11,7 @@ type Artist
     ]
   ) {
   id: ID!
-  name: String!
+  artistName: String
   "genre should eventually be more like tags than just a string"
   genre: String
   "eventually might want this to be using an image type instead of just a URL string..."

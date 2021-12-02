@@ -1,15 +1,29 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 // import { Auth } from 'aws-amplify';
 import { Button } from '../../Button';
 import { SelectList } from '../../SelectList';
 import { useTheme } from '../../../../Hooks/useTheme';
-import { getBackendApiUrl , facebookAppId} from '../../../../utils/sharedUtils';
+import { getBackendApiUrl, facebookAppId } from '../../../../utils/sharedUtils';
 import { Spinner } from '../../Spinner';
 // import { ConsoleLogger } from '@aws-amplify/core';
 
 // todo this should be done using environment variables, but for now this works -2021-11-11 SG
-let apiUrl = getBackendApiUrl();
+const apiUrl = getBackendApiUrl();
+
+const OrContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+const OrText = styled.p({
+  marginTop: ({ theme }) => `${theme.spacing.md} !important`,
+  marginBottom: ({ theme }) => `${theme.spacing.md} !important`,
+  fontSize: ({ theme }) => `${theme.fontSizes.xl} !important`,
+  fontWeight: ({ theme }) => `${theme.fontWeights.bold} !important`,
+});
 
 // login with facebook to grant messaging permissions
 // TODO we'll want to read the saved data from the database at some point soon, but for now the user can just re-connect if they feel so inclined.
@@ -52,40 +66,20 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
     if (!window.FB) createScript();
   }, []);
 
-  useEffect(()=>{
-    if(userId && artistId){
-      //initially this should be loading until we know if there are existing pages or not
-      setLoading(false);
-    }
-    if (!facebookPages && userId && artistId) {
-      console.log(`test1`,userId);
-      //we don't really need the artistId here, but if there isn't one, the page isn't really done loading
-      getFBPageOptionsFromInternalAPI({userId : userId}).then(res => {
-        console.log(`internal API resrponse`, res);
-      });
-    }
-  },[userId, artistId])
-
-  // useEffect(()=>{
-  //     if(facebookLoginObject){
-  //         console.log(facebookLoginObject);
-  //         getFBPageList(facebookLoginObject);
-  // }},facebookLoginState)
-
-  const getFBPageOptionsFromInternalAPI = async (authObject) => {
-    const { userId, accessToken,facebookUserId } = authObject;
-    console.log(`test1 inside user id is`,userId)
-    let fetchUrl = `${apiUrl}/get-available-facebook-pages?&userId=${userId}`
-    if(accessToken && facebookUserId){
-      //if we have an updated access token, supply it. otherwise we just use the one stored in the database for this artist user
-      fetchUrl = fetchUrl + `&accessToken=${accessToken}&facebookUserId=${facebookUserId}`
+  const getFBPageOptionsFromInternalAPI = async authObject => {
+    const { userId, accessToken, facebookUserId } = authObject;
+    console.log(`test1 inside user id is`, userId);
+    let fetchUrl = `${apiUrl}/get-available-facebook-pages?&userId=${userId}`;
+    if (accessToken && facebookUserId) {
+      // if we have an updated access token, supply it. otherwise we just use the one stored in the database for this artist user
+      fetchUrl += `&accessToken=${accessToken}&facebookUserId=${facebookUserId}`;
     }
     try {
-      console.log(`test1 --- calling fetch with`,fetchUrl)
-      await fetch(
-        fetchUrl,
-        { method: 'GET', headers: { 'Content-Type': 'application/json' } }
-      )
+      console.log(`test1 --- calling fetch with`, fetchUrl);
+      await fetch(fetchUrl, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      })
         .then(rsp => rsp.json())
         .then(json => {
           if (json.error && json.error.message) {
@@ -105,6 +99,20 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
     }
   };
 
+  useEffect(() => {
+    if (userId && artistId) {
+      // initially this should be loading until we know if there are existing pages or not
+      setLoading(false);
+    }
+    if (!facebookPages && userId && artistId) {
+      console.log(`test1`, userId);
+      // we don't really need the artistId here, but if there isn't one, the page isn't really done loading
+      getFBPageOptionsFromInternalAPI({ userId }).then(res => {
+        console.log(`internal API resrponse`, res);
+      });
+    }
+  }, [userId, artistId]);
+
   const addPageMessagingPermission = async () => {
     const fb = window.FB;
     await fb.login(
@@ -116,13 +124,13 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
         if (!facebookPages) {
           const facebookUserId = response?.authResponse?.userID;
           const accessToken = response?.authResponse?.accessToken;
-          let input = {userId:userId};
-          if(facebookUserId && accessToken){
-            //if the facebook user is actively logged in, use the credentials
-            input.facebookUserId=facebookUserId;
-            input.accessToken=accessToken;
+          const input = { userId };
+          if (facebookUserId && accessToken) {
+            // if the facebook user is actively logged in, use the credentials
+            input.facebookUserId = facebookUserId;
+            input.accessToken = accessToken;
           }
-          console.log(`test1 -- getting FB pages with facebook creds`, input)
+          console.log(`test1 -- getting FB pages with facebook creds`, input);
           setLoading(true);
           getFBPageOptionsFromInternalAPI(input).then(res => {
             console.log(`internal API resrponse`, res);
@@ -164,10 +172,10 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
     // TODO this should be a PUT eventually got to change the API first though
     // these values come from the API response from the fb.login response (response.authResponse)
     try {
-      if(facebookPageID!==''){
+      if (facebookPageID !== '') {
         const facebookAccessToken = facebookLoginObject?.accessToken;
         const facebookUserId = facebookLoginObject?.userID;
-        console.log(`facebookPageID`,facebookPageID);
+        console.log(`facebookPageID`, facebookPageID);
         console.log(
           `updating database with these values`,
           userId,
@@ -177,16 +185,13 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
           artistId
         );
         let updateUrl = `${apiUrl}/store-facebook-page-integration?userId=${userId}&artistID=${artistId}&facebookPageId=${facebookPageID}`;
-        if(facebookUserId && facebookAccessToken){
-          updateUrl = updateUrl + `&facebookUserAccessToken=${facebookAccessToken}&facebookUserId=${facebookUserId}`;
+        if (facebookUserId && facebookAccessToken) {
+          updateUrl += `&facebookUserAccessToken=${facebookAccessToken}&facebookUserId=${facebookUserId}`;
         }
-        await fetch(
-          updateUrl,
-          {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-          }
-        )
+        await fetch(updateUrl, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        })
           .then(rsp => rsp.json())
           .then(json => {
             if (json.error && json.error.message) {
@@ -204,7 +209,11 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
   console.log(`facebookPages`, facebookPages);
 
   const selectOptions = useMemo(() => {
-    const pleaseSelectOption = { value: '', label: `[please select a page]` , isDisabled:true};
+    const pleaseSelectOption = {
+      value: '',
+      label: `Please Select a Page`,
+      isDisabled: true,
+    };
     let pages = [];
     if (facebookPages) {
       pages = facebookPages.map(item => {
@@ -214,49 +223,57 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
 
     return [pleaseSelectOption, ...pages];
   }, [facebookPages]);
-  if(loading){
-    return (<div><Spinner animation="border" role="status" variant="light" /></div>)
+
+  if (loading) {
+    return (
+      <div>
+        <Spinner animation="border" role="status" variant="light" />
+      </div>
+    );
   }
+
   return (
     <div>
       {!facebookPages ? (
-        <Button
-        onClick={addPageMessagingPermission}
-        style={{
-          fontWeight: theme.fontWeights.semibold,
-          fontFamily: theme.fonts.heading,
-          backgroundColor: theme.colors.primary,
-        }}
-      >
-        Configure Facebook Messenger Integration
-      </Button>
-      ) : (
-        <div>
-        <SelectList
-          hideLabel
-          label="Facebook Page"
-          value={formValue.FacebookPage}
-          onChange={e => {
-            updateDatabase(e.target.value);
-            setFormValue({
-              ...formValue,
-              FacebookPage: e.target.value,
-            });
-          }}
-          placeholder="Facebook Page..."
-          options={selectOptions}
-        />
-        <p> or </p>
         <Button
           onClick={addPageMessagingPermission}
           style={{
             fontWeight: theme.fontWeights.semibold,
             fontFamily: theme.fonts.heading,
-            backgroundColor: theme.colors.gray,
+            backgroundColor: theme.colors.primary,
           }}
         >
-          Connect a different Facebook Account
+          Configure Facebook Messenger Integration
         </Button>
+      ) : (
+        <div>
+          <SelectList
+            hideLabel
+            label="Facebook Page"
+            value={formValue.FacebookPage}
+            onChange={e => {
+              updateDatabase(e.target.value);
+              setFormValue({
+                ...formValue,
+                FacebookPage: e.target.value,
+              });
+            }}
+            placeholder="Facebook Page..."
+            options={selectOptions}
+          />
+          <OrContainer>
+            <OrText>or</OrText>
+          </OrContainer>
+          <Button
+            onClick={addPageMessagingPermission}
+            style={{
+              fontWeight: theme.fontWeights.semibold,
+              fontFamily: theme.fonts.heading,
+              backgroundColor: theme.colors.gray,
+            }}
+          >
+            Connect a different Facebook Account
+          </Button>
         </div>
       )}
     </div>

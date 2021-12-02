@@ -121,15 +121,18 @@ export const SecureViewWrapper = ({ userRole, children }) => {
 
   // set the initial authState if the current user is already authenticated (in the case of oauth redirect, it will be)
   if (authState === undefined) {
-    try{
-    Auth.currentAuthenticatedUser().then(authData => {
-      setAuthState(AuthState.SignedIn);
-      setUserId(authData);
-    }).catch(error => console.log(`2 -- error in signing in current auth user`, error));
-  }
-  catch(err){
-    console.error(`1 -- unable to login current auth user`,err)
-  }
+    try {
+      Auth.currentAuthenticatedUser()
+        .then(authData => {
+          setAuthState(AuthState.SignedIn);
+          setUserId(authData);
+        })
+        .catch(error =>
+          console.log(`2 -- error in signing in current auth user`, error)
+        );
+    } catch (err) {
+      console.error(`1 -- unable to login current auth user`, err);
+    }
   }
 
   // use this useEffect to changes state
@@ -169,7 +172,9 @@ export const SecureViewWrapper = ({ userRole, children }) => {
   console.log(`authState`, authState);
   console.log(`userId`, userId);
   return authState === AuthState.SignedIn && userId ? (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+    >
       <div style={{ flex: '1 0 auto' }}>{children}</div>
       <Footer>
         <AmplifySignOut />
@@ -181,8 +186,12 @@ export const SecureViewWrapper = ({ userRole, children }) => {
     <PageContainer pageContentPadding="50px 95px">
       {!showSignupForm && (
         <React.Fragment>
-          <StyledPageIcon>{userRole ==='admin'? null : `🎁`}  </StyledPageIcon>
-          <StyledPageHeader>{userRole ==='admin'? `Login to your account` : `Get Your Free Starter Pack`}</StyledPageHeader>
+          <StyledPageIcon>{userRole === 'admin' ? null : `🎁`} </StyledPageIcon>
+          <StyledPageHeader>
+            {userRole === 'admin'
+              ? `Login to your account`
+              : `Get Your Free Starter Pack`}
+          </StyledPageHeader>
           <StyledButton
             active
             activeBgColor="transparent linear-gradient(90deg, #4363A7 0%, #345BAC 88%, #3357A5 100%) 0% 0% no-repeat padding-box;"
@@ -212,10 +221,10 @@ export const SecureViewWrapper = ({ userRole, children }) => {
           </StyledButton>
           <Terms>
             <a href="https://www.modern-musician.com/terms" target="_blank">
-            {userRole ==='admin'?  `By using this platform, I acknowledge that I have reviewed and
+              {userRole === 'admin'
+                ? `By using this platform, I acknowledge that I have reviewed and
               agreed to the Terms of Use and Privacy Policy`
-              :
-              `By using this platform, I acknowledge that I have reviewed and
+                : `By using this platform, I acknowledge that I have reviewed and
               agreed to the Terms of Use and Privacy Policy.`}
             </a>
           </Terms>

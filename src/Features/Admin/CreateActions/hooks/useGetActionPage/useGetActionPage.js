@@ -37,7 +37,7 @@ export const useGetActionPage = () => {
       updatedAt
       artist {
         id
-        name
+        artistName
         genre
         profilePicture
         tags {
@@ -54,6 +54,19 @@ export const useGetActionPage = () => {
         createdAt
         updatedAt
         owner
+        integrations {
+          items {
+            id
+            artistID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
         actionPages(filter: {pageRoute: {eq: $pageRoute}}) {
           items {
             id
@@ -276,6 +289,7 @@ export const useGetActionPage = () => {
   let artistId;
   let actionPageId;
   let artistRoute;
+  let integrations;
 
   if (userLoading) {
     console.log('loading');
@@ -300,6 +314,7 @@ export const useGetActionPage = () => {
   artistId = userData?.getArtistUser?.artist?.id;
   artistRoute = userData?.getArtistUser?.artist?.route;
   actionPageId = responseActionPageData?.id;
+  integrations = userData?.getArtistUser?.artist?.integrations?.items;
 
   console.log(`userData`, userData);
   console.log(`respond --- responseActionPageData`, responseActionPageData);
@@ -317,5 +332,6 @@ export const useGetActionPage = () => {
     userData,
     userId,
     artistId,
+    integrations
   };
 };

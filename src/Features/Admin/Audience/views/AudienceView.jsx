@@ -6,11 +6,15 @@ import Papa from 'papaparse';
 import { Icon, Spinner } from '../../../../Components/UI';
 import { useTable } from '../../../../Hooks/useTable';
 import { useQuery } from '@apollo/react-hooks';
-import { Container } from 'react-bootstrap';
 import { NavBar } from '../../CreateActions/NavBar';
 import { RootContainer } from '../../CreateActions/views/CreateActionPage';
 import { useCurrentAuthUser } from '../../CreateActions/hooks/useCurrentAuthUser';
 import { getAllSubscribersFromArtistUser } from '../queries';
+import { useGradient } from '../../../../Hooks/useGradient';
+import { Row, Col } from 'react-bootstrap';
+import Color from 'color';
+
+const BACKGROUND_COLOR = '#6850ea';
 
 const TableContainer = styled.div`
   background-color: #dddddd;
@@ -96,6 +100,73 @@ const ExportButton = styled.button`
     margin-left: 10px;
   }
 `;
+
+// Top banner styles
+const AudienceCountContainer = styled.div({
+  borderRadius: '5px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: ({ color }) => color,
+  width: 250,
+  color: 'inherit',
+  fontSize: ({ theme }) => theme.fontSizes.sm,
+  minHeight: '100%',
+});
+
+const TopBarContainer = styled.div(({ color, textColor, theme }) => {
+  const fontColor = Color(textColor);
+  return {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: '5px',
+    background: useGradient({
+      color,
+      customLighten: 0.05,
+      customDarken: 0.4,
+    }),
+    border: 'none',
+    height: '71px',
+    color: fontColor.hex(),
+    marginBottom: theme.spacing.md,
+    marginTop: theme.spacing.md,
+  };
+});
+
+const ContentContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  padding: '15px',
+  minHeight: '100%',
+});
+
+const Points = styled.p(({ theme }) => {
+  return {
+    fontFamily: theme.fonts.primary,
+    fontWeight: theme.fontWeights.bold,
+    fontSize: theme.fontSizes.xxl,
+    margin: 0,
+    lineHeight: '100%',
+    color: 'inherit',
+  };
+});
+const Title = styled.p(({ theme }) => {
+  return {
+    textAlign: 'left',
+    wordWrap: 'break-word',
+    fontSize: 25,
+    fontWeight: theme.fontWeights.bold,
+    margin: 0,
+    marginLeft: '25px',
+    color: 'inherit',
+  };
+});
 
 const formatTableData = data => {
   const endUserData =
@@ -223,8 +294,6 @@ export const AudienceView = () => {
     }
   }, [data]);
 
-
-
   const onChangeSearch = e => {
     const value = e?.target?.value;
     setSearchValue(value);
@@ -249,41 +318,55 @@ export const AudienceView = () => {
     document.body.removeChild(link);
   };
 
-  let statusInfo = <h2>Something went wrong... try refreshing the page</h2>
-  if (loading ) {
-    statusInfo = <Spinner animation="border" role="status" variant="light" />
+  let statusInfo = <h2>Something went wrong... try refreshing the page</h2>;
+  if (loading) {
+    statusInfo = <Spinner animation="border" role="status" variant="light" />;
+  } else if (error || !data || !tableData.length) {
+    statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>;
   }
-  else if(error || !data || !tableData.length)
-  {
-    statusInfo = <h2>No data found yet. Try visiting your fan page.</h2>
-  }
-
   return (
     <React.Fragment>
-      <NavBar headerText="Your Audience" />
+      <NavBar headerText="Your Audience" artistId={data?.getArtistUser?.artist.id} integrations={data?.getArtistUser?.artist.integrations.items} />
       <RootContainer fluid>
-        <Container fluid>
-          {tableData?.length ?
-          <TableContainer>
-            <ActionContainer>
-              <ExportButton type="button" onClick={onExport}>
-                Export <Icon name="FaExternalLinkAlt" color="black" size={20} />
-              </ExportButton>
-              <SearchLabel>
-                Search <Icon name="FaSearch" color="black" size={20} />
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={onChangeSearch}
-                />
-              </SearchLabel>
-            </ActionContainer>
-            <Table tableProps={tableProps} />
-          </TableContainer>
-          :
+        <Row>
+          <Col>
+            <TopBarContainer color={BACKGROUND_COLOR} textColor="#ffffff">
+              <div />
+              <ContentContainer>
+                <Title>All Fans</Title>
+              </ContentContainer>
+              <AudienceCountContainer color={BACKGROUND_COLOR}>
+                <Icon name="FaUsers" />
+                <Points>{tableData?.length || 0}</Points>
+              </AudienceCountContainer>
+            </TopBarContainer>
+          </Col>
+        </Row>
+        {tableData?.length ? (
+          <Row>
+            <Col>
+              <TableContainer>
+                <ActionContainer>
+                  <ExportButton type="button" onClick={onExport}>
+                    Export{' '}
+                    <Icon name="FaExternalLinkAlt" color="black" size={20} />
+                  </ExportButton>
+                  <SearchLabel>
+                    Search <Icon name="FaSearch" color="black" size={20} />
+                    <input
+                      type="text"
+                      value={searchValue}
+                      onChange={onChangeSearch}
+                    />
+                  </SearchLabel>
+                </ActionContainer>
+                <Table tableProps={tableProps} />
+              </TableContainer>
+            </Col>
+          </Row>
+        ) : (
           statusInfo
-          }
-        </Container>
+        )}
       </RootContainer>
     </React.Fragment>
   );

@@ -126,7 +126,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
         updatedAt
         artist {
           id
-          name
+          artistName
           genre
           profilePicture
           tags {
@@ -315,7 +315,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
@@ -381,7 +381,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           updatedAt
           artist {
             id
-            name
+            artistName
             genre
             profilePicture
             route
