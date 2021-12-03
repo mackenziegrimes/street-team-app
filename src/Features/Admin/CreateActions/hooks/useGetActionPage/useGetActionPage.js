@@ -19,6 +19,7 @@ export const useGetActionPage = () => {
   // const [artistRoute, setArtistRoute] = useState();
   const [routeIncrement, setRouteIncrement] = useState(0);
   const [error, setError] = useState();
+  const [createLoading, setCreateLoading] = useState();
   const [createActionPageError, setCreateActionPageError] = useState();
 
   let { userId, artistName } = useCurrentAuthUser();
@@ -128,15 +129,18 @@ export const useGetActionPage = () => {
 
   // this function
   const createActionPageForUser = async (userId, artistName) => {
+    const str_cid = window.localStorage.getItem('str_cid'); //pull stripe customer id from local storage (stored prior to login sequence)
     const params = {
       artistUserId: userId,
       artistName,
       pageRoute: 'join',
+      stripeCustomerId: str_cid
     };
     // todo this should be done using environment variables, but for now this works -2021-11-11 SG
     let createUrl = `${getBackendApiUrl()}/create-action-page`;
     console.log(params);
     try{
+      setCreateLoading(true);
     const pagesData = await fetch(createUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -157,6 +161,7 @@ export const useGetActionPage = () => {
       console.error(`creating action page failed due to error:`);
       console.error(err);
     }
+    setCreateLoading(false);
   };
 
   useEffect(() => {
@@ -291,9 +296,9 @@ export const useGetActionPage = () => {
   let artistRoute;
   let integrations;
 
-  if (userLoading) {
+  if (userLoading || createLoading) {
     console.log('loading');
-    return { loading: userLoading };
+    return { loading: true };
   }
   if (userError) {
     console.log('error');
