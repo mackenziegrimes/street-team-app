@@ -8,12 +8,12 @@ import {
 } from '@aws-amplify/ui-react';
 import Amplify, { Auth } from 'aws-amplify';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 import awsconfig from '../../aws-exports';
-import { useHistory } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { Icon } from '../UI/Icon';
 import { PageContainer, PageHeader } from '../Page';
 import { FanMagnetButton } from '../UI';
+import queryString from 'query-string';
 
 // here we're copying the constant config (aws-exports.js) because config is read only. -- then updating location.href
 var updatedConfig = awsconfig;
@@ -107,6 +107,7 @@ const Terms = styled.div`
 `;
 
 export const SecureViewWrapper = ({ userRole, children }) => {
+  let location = useLocation();
   const [authState, setAuthState] = useState();
   const [userId, setUserId] = useState();
   const [showSignupForm, setShowSignupForm] = useState(false);
@@ -115,6 +116,11 @@ export const SecureViewWrapper = ({ userRole, children }) => {
   if (path !== '/login/') {
     // update the most recent page route so that when we return from login, we can redirect
     window.localStorage.setItem('route', path);
+  }
+  const searchParams=queryString.parse(location.search);
+  if(searchParams.str_cid){
+    //store the stripe customer id to be passed in after login to the create artist API
+    window.localStorage.setItem('str_cid',searchParams.str_cid);
   }
 
   console.log('hello from secure wrapper');
