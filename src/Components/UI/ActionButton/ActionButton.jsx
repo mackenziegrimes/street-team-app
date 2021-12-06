@@ -33,7 +33,7 @@ const ActionButtonContainer = styled(({ textColor, ...props }) => (
     alignItems: 'center',
     width: '100%',
     borderRadius: '0px',
-    background: useGradient({ color, customLighten: 0.05, customDarken: 0.4 }),
+    background: useGradient({ color, customLighten: 0.01, customDarken: 0.38 }),
     border: 'none',
     padding: 0,
     margin: 0,
@@ -41,9 +41,9 @@ const ActionButtonContainer = styled(({ textColor, ...props }) => (
     color: fontColor.hex(),
     '&:hover, &:focus, &:active': {
       color: fontColor,
-      background: useGradient({ color, customLighten: 0.2, customDarken: 0.2 }),
+      background: useGradient({ color, customLighten: 0.08, customDarken: 0.25 }),
       [PointsContainer]: {
-        background: Color(color).darken(0.1),
+        background: Color(color).lighten(0.10),
       },
     },
     ...(isDisabled && {
