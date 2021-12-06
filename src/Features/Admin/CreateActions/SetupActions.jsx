@@ -176,6 +176,39 @@ export const SetupActions = ({
         }
       }
     }
+
+    // handle bookTicket
+    
+    if (actionValue?.bookTicket && actionChecked?.bookTicket) {
+      newTargetUrl = actionValue.bookTicket;
+      let recordExists = false;
+      const inputVariables = {
+        ...apiActionsConfig.bookTicket,
+        actionPageID: actionPageData.id,
+        targetURL: newTargetUrl,
+      };
+      if (actionPageData?.id) {
+        // if the action buttons exist in the pageData, update them
+        if (actionButtons) {
+          const button = actionButtons.find(
+            element => element.serviceAction === 'EventBrite'
+          );
+          if (button) {
+            // update  the button
+            inputVariables.id = button.id;
+            updateActionButton({ variables: { input: inputVariables } });
+            recordExists = true; // don't go on to create a new record
+          }
+        }
+        if (!recordExists && !loadingActionPageButton) {
+          // create the button record
+          addActionPageButton({
+            variables: { input: inputVariables },
+          });
+        }
+      }
+    }
+
     // handle scheduleMeeting
     if (actionValue?.scheduleMeeting && actionChecked?.scheduleMeeting) {
       const scheduleUrl = actionValue.scheduleMeeting;
@@ -232,9 +265,7 @@ export const SetupActions = ({
               <Col>
                 <h3>Tribal Accelerator</h3>
                 <p>
-                  Create your &quot;tribal accelerator&quot; that will turn
-                  subscribers into engaged fans and active supporters of your
-                  music.
+                  Turn your followers into engaged fans and active supporters of your music.
                 </p>
               </Col>
             </Row>
