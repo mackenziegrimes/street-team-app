@@ -15,7 +15,7 @@ import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
 import { facebookAppId } from '../../../utils/sharedUtils';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'FacebookPage'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaignUrl', 'ActiveCampaignKey', 'FacebookPage'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -34,6 +34,10 @@ const CreateActionContainer = styled(Container)({
 const IconContainer = styled(Col)({
   display: 'flex',
   justifyContent: 'flex-end',
+});
+
+const SecondContainer = styled(Col)({
+  padding: '20px 0 0 0',
 });
 
 const CardBody = styled(Card.Body)(({ theme }) => {
@@ -57,7 +61,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
     Amplitude: '',
-    ActiveCampaign: '',
+    ActiveCampaignUrl: '',
+    ActiveCampaignKey: '',
     FacebookPage: '',
   });
 
@@ -167,9 +172,9 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                    Your Active Campaign API Key
+                    Your ActiveCampaign API Access
                   </h3>
-                  <p>Paste a copy of your Active Campaign API Key...</p>
+                  <p>Paste a copy of your ActiveCampaign URL...</p>
                 </Col>
                 <IconContainer>
                   <Icon name="MdOutlineStorefront" color="white" />
@@ -179,15 +184,36 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                 <Col>
                   <TextField
                     hideLabel
-                    label="Active Campaign API Key"
-                    value={formValue.ActiveCampaign}
+                    label="ActiveCampaign API Url"
+                    value={formValue.ActiveCampaignKey}
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        ActiveCampaign: e.target.value,
+                        ActiveCampaignKey: e.target.value,
                       })
                     }
-                    placeholder="Active Campaign API Key..."
+                    placeholder="ActiveCampaign URL..."
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={10}>
+                  <SecondContainer> <p>Paste a copy of your ActiveCampaign API Key...</p> </SecondContainer>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="ActiveCampaign API Key"
+                    value={formValue.ActiveCampaignKey}
+                    onChange={e =>
+                      setFormValue({
+                        ...formValue,
+                        ActiveCampaignKey: e.target.value,
+                      })
+                    }
+                    placeholder="ActiveCampaign API Key..."
                   />
                 </Col>
               </Row>
