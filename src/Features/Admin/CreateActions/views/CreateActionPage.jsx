@@ -112,10 +112,10 @@ export const CreateActionPage = ({ type }) => {
           checked.scheduleMeeting = true;
           values.scheduleMeeting = element.targetURL;
         }
-        // if (element.serviceAction === 'EventBrite') {
-        //   checked.bookTicket = true;
-        //   values.bookTicket = element.targetURL;
-        // }
+        if (element.serviceAction === 'EventBriteLink') {
+          checked.bookTicket = true;
+          values.bookTicket = element.targetURL;
+        }
       }
       setActionChecked(checked);
       setActionValue(values);

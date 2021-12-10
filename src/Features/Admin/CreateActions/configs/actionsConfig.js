@@ -109,6 +109,6 @@ export const apiActionsConfig = {
     preActionText: 'Attend a Show',
     postActionText: 'Ticket Booked',
     textColor: 'white',
-    serviceAction: 'EventBrite',
+    serviceAction: 'EventBriteLink',
   },
 };

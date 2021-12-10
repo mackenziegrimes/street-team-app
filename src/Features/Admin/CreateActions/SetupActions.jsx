@@ -191,7 +191,7 @@ export const SetupActions = ({
         // if the action buttons exist in the pageData, update them
         if (actionButtons) {
           const button = actionButtons.find(
-            element => element.serviceAction === 'EventBrite'
+            element => element.serviceAction === 'EventBriteLink'
           );
           if (button) {
             // update  the button

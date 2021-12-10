@@ -192,6 +192,9 @@ export const ActionsView = () => {
     else if(clickedAction.serviceAction === 'ScheduleLink'){
       trackedName = 'Meet & Greet'
     }
+    else if(clickedAction.serviceAction === 'EventBriteLink'){
+      trackedName = 'Ticket'
+    }
     trackInAmplitude(`${trackedName} Clicked`,anonymousId(),userId,artistId);
     console.log(`newSubscription data is ${newCompletedActionRecord}`);
   };
