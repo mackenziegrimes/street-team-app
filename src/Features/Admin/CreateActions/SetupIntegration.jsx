@@ -13,9 +13,10 @@ import { Button } from '../../../Components/UI/Button';
 import { Icon } from '../../../Components/UI/Icon';
 import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
+import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
 import { facebookAppId } from '../../../utils/sharedUtils';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -60,9 +61,10 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [activeIntegrations, setActiveIntegrations] = useState();
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
-    Amplitude: {apiKey:'', apiUrl:''},
-    ActiveCampaign: {apiKey:'',apiUrl:''},
-    Facebook: {apiKey:'',apiAccountId:'', apiUrl:''},
+    Amplitude: { apiKey: '', apiUrl: '' },
+    ActiveCampaign: { apiKey: '', apiUrl: '' },
+    Facebook: { apiKey: '', apiAccountId: '', apiUrl: '' },
+    Manychat: { apiKey: '', apiUrl: '' },
   });
 
   const theme = useTheme();
@@ -177,6 +179,28 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Your StreetTeam API Key
+                  </h3>
+                  <p>Copy Your API Key for your StreetTeam Account</p>
+                </Col>
+                <IconContainer>
+                  <Icon name="FaKey" color="white" />
+                </IconContainer>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Col>
+                  <CreateStreetTeamApiKey
+                    userId={userId}
+                    artistId={artistId}
+                    streetTeamApiKey={formValue.streetTeamApiKey}
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
                     Your ActiveCampaign API Access
                   </h3>
                   <p>Paste a copy of your ActiveCampaign URL...</p>
@@ -194,9 +218,9 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        ActiveCampaign: { 
-                          ...formValue.ActiveCampaign , 
-                          apiUrl: e.target.value
+                        ActiveCampaign: {
+                          ...formValue.ActiveCampaign,
+                          apiUrl: e.target.value,
                         },
                       })
                     }
@@ -206,7 +230,10 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
               </Row>
               <Row>
                 <Col xs={10}>
-                  <SecondContainer> <p>Paste a copy of your ActiveCampaign API Key...</p> </SecondContainer>
+                  <SecondContainer>
+                    {' '}
+                    <p>Paste a copy of your ActiveCampaign API Key...</p>{' '}
+                  </SecondContainer>
                 </Col>
               </Row>
               <Row>
@@ -218,13 +245,45 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        ActiveCampaign: { 
-                          ...formValue.ActiveCampaign , 
-                          apiKey: e.target.value
+                        ActiveCampaign: {
+                          ...formValue.ActiveCampaign,
+                          apiKey: e.target.value,
                         },
                       })
                     }
                     placeholder="ActiveCampaign API Key..."
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Your Manychat API Key
+                  </h3>
+                  <p>Paste a copy of your Manychat API Key...</p>
+                </Col>
+                <IconContainer>
+                  <Icon name="IoChatbubbleEllipsesSharp" color="white" />
+                </IconContainer>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="Manychat API Key"
+                    value={formValue.Manychat.apiKey}
+                    onChange={e =>
+                      setFormValue({
+                        ...formValue,
+                        Manychat: {
+                          ...formValue.Manychat,
+                          apiKey: e.target.value,
+                        },
+                      })
+                    }
+                    placeholder="Manychat API Key..."
                   />
                 </Col>
               </Row>
@@ -253,7 +312,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                         Amplitude: {
                           ...formValue.Amplitude,
                           apiKey: e.target.value,
-                        }
+                        },
                       })
                     }
                     placeholder="Amplitude API Key..."

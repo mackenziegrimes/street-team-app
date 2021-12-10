@@ -28,7 +28,7 @@
       "guidance": "",
       "requests": [
         {
-          "url": "https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev/rank-up&rank=[[rank]]",
+          "url": "https://api.modern-musician.com/dev/rank-up&rank=[[rank]]",
           "method": "POST",
           "headers": ["Content-Type: application/json"],
           "mapping": [
@@ -59,7 +59,7 @@
       "guidance": "",
       "requests": [
         {
-          "url": "https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev/interpret-with-ai",
+          "url": "https://api.modern-musician.com/dev/interpret-with-ai",
           "method": "POST",
           "headers": ["Content-Type: application/json"],
           "mapping": [
@@ -96,7 +96,7 @@
       "guidance": "",
       "requests": [
         {
-          "url": "https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev/add-tag?tag=[[tag]]",
+          "url": "https://api.modern-musician.com/dev/add-tag?tag=[[tag]]",
           "method": "POST",
           "headers": ["Content-Type: application/json"],
           "mapping": [],
@@ -120,12 +120,12 @@
       "guidance": "",
       "requests": [
         {
-          "url": "https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev/subscriber-sync",
+          "url": "https://api.modern-musician.com/dev/subscriber-sync",
           "method": "POST",
           "headers": ["Content-Type: application/json"],
           "mapping": [
             {
-              "name": "subscriber_id",
+              "name": "streetteam_id",
               "path": "$.name",
               "type": "string",
               "title": "StreetTeam Subscriber ID"
