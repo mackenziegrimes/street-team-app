@@ -154,8 +154,8 @@ export const SetupLanding = ({
           <Col style={{ padding: 0, marginBottom: 25 }}>
             <h3>Fan Magnet</h3>
             <p>
-              Create your "fan magnet" that will attract new listeners and
-              convert them into subscribers of your music
+              Attract new listeners and
+              convert them into followers and subscribers of your music.
             </p>
           </Col>
           <CreateActionContainer>
