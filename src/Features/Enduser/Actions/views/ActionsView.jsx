@@ -20,7 +20,7 @@ import {
 import { Spinner } from '../../../../Components/UI/Spinner';
 import { Auth } from 'aws-amplify';
 import anonymousId from 'anonymous-id';
-import { trackInAmplitude } from '../../../../utils/sharedUtils';
+import { tagInActiveCampaign, trackInAmplitude } from '../../../../utils/sharedUtils';
 import { useCurrentAuthUser } from '../hooks/useCurrentAuthUser';
 
 export const ActionsView = () => {
@@ -192,7 +192,11 @@ export const ActionsView = () => {
     else if(clickedAction.serviceAction === 'ScheduleLink'){
       trackedName = 'Meet & Greet'
     }
+    else if(clickedAction.serviceAction === 'EventBriteLink'){
+      trackedName = 'Ticket'
+    }
     trackInAmplitude(`${trackedName} Clicked`,anonymousId(),userId,artistId);
+    tagInActiveCampaign(`${trackedName} Clicked`, userId, artistId);
     console.log(`newSubscription data is ${newCompletedActionRecord}`);
   };
 
@@ -276,6 +280,7 @@ export const ActionsView = () => {
         }
         //track new subscriber in amplitude
         trackInAmplitude('Fan Magnet Subscribed',anonymousId(),userId,artistId,additionalProperties);
+        tagInActiveCampaign('Fan Magnet Subscribed', userId, artistId);
         console.log(`newSubscription data is ${newSubscriptionData}`);
       } else {
         console.log(`need userId and actionPageID to create a record`);

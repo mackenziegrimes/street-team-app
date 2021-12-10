@@ -39,6 +39,7 @@ type ArtistIntegrations
     )
     @key(name: "byArtist", fields: ["artistID", "id"])
     @key(name: "byServiceAccountId", fields: ["serviceAccountId", "serviceName"])
+    @key(name: "byServiceApiUrl", fields: ["serviceApiUrl", "serviceName"])
     {
     """
     Artist User manages an Artist Type giving them permissions to access and edit that artists records
@@ -50,6 +51,7 @@ type ArtistIntegrations
     serviceName: String
     serviceApiKey: String
     serviceAccountId: String
+    serviceApiUrl: String
   }
 
 type Enduser
@@ -160,6 +162,7 @@ type EnduserPageSubscription
   )
   @key(name: "byActionPage", fields: ["actionPageID"], queryField: "EnduserPageSubscriptionByActionPage")
   @key(name: "byEnduser", fields: ["enduserID"], queryField: "EnduserPageSubscriptionByEnduser")
+  @key(name: "byFacebookPageScopedId", fields: ["facebookPageScopedId"], queryField: "EnduserPageSubscriptionByFacebookPageScopedId")
   @key(
     name: "byReferralEnduser",
     fields: ["referralEnduserID"], 
@@ -176,6 +179,7 @@ type EnduserPageSubscription
   actionPage: ActionPage! @connection(fields: ["actionPageID"])
   enduser: Enduser! @connection(fields: ["enduserID"])
   referralEnduser: Enduser @connection(fields: ["referralEnduserID"])
+  facebookPageScopedId: String
   enduserPageSubscriptionCompletedActions: [EnduserPageSubscriptionCompletedActions] @connection(keyName: "byEnduserPageSubscription", fields: ["id"])
   enduserTotalPoints: Int
 }

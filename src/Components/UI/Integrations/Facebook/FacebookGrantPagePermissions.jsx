@@ -27,7 +27,7 @@ const OrText = styled.p({
 
 // login with facebook to grant messaging permissions
 // TODO we'll want to read the saved data from the database at some point soon, but for now the user can just re-connect if they feel so inclined.
-export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
+export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId }) => {
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [facebookPages, setFacebookPages] = useState();
@@ -35,6 +35,12 @@ export const FacebookGrantPagePermissions = ({ userId, artistId }) => {
   const [formValue, setFormValue] = useState({
     FacebookPage: '',
   });
+
+  useEffect(() => {
+    if(facebookPageId){
+      setFormValue({FacebookPage: facebookPageId})
+    }
+  }, [facebookPageId])
 
   const fbAsyncInit = () => {
     // init the fb sdk client

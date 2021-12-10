@@ -1,0 +1,208 @@
+{
+  "auth": {
+    "type": "APIKEY",
+    "params": [
+      {
+        "name": "token",
+        "title": "Enter your StreetTeam API key:"
+      }
+    ],
+    "connection": {
+      "qs": {
+        "token": "[[token]]"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "rank_up_streetteam",
+      "forms": [
+        {
+          "name": "rank",
+          "type": "select",
+          "title": "StreetTeam Rank",
+          "source": "ranking_list"
+        }
+      ],
+      "title": "Rank up in StreetTeam Community",
+      "guidance": "",
+      "requests": [
+        {
+          "url": "https://api.modern-musician.com/dev/rank-up&rank=[[rank]]",
+          "method": "POST",
+          "headers": ["Content-Type: application/json"],
+          "mapping": [
+            {
+              "name": "unlocked_fan_rewards",
+              "path": "$.name",
+              "type": "string",
+              "title": "Unlocked Fan Rewards"
+            }
+          ],
+          "payload": {
+            "email": "{{email}}",
+            "phone": "{{phone}}",
+            "page_id": "{{page_id}}",
+            "last_name": "{{last_name}}",
+            "first_name": "{{first_name}}",
+            "subscriber_id": "{{user_id}}",
+            "last_input_text": "{{last_input_text}}"
+          }
+        }
+      ],
+      "description": "Rank up this fan in your StreetTeam"
+    },
+    {
+      "name": "interpret_with_artist_ai",
+      "forms": [],
+      "title": "Interpret Message With ArtistAI",
+      "guidance": "",
+      "requests": [
+        {
+          "url": "https://api.modern-musician.com/dev/interpret-with-ai",
+          "method": "POST",
+          "headers": ["Content-Type: application/json"],
+          "mapping": [
+            {
+              "name": "response",
+              "path": "$.name",
+              "type": "string",
+              "title": "ArtistAI Response"
+            }
+          ],
+          "payload": {
+            "email": "{{email}}",
+            "phone": "{{phone}}",
+            "page_id": "{{page_id}}",
+            "last_name": "{{last_name}}",
+            "first_name": "{{first_name}}",
+            "subscriber_id": "{{user_id}}",
+            "last_input_text": "{{last_input_text}}"
+          }
+        }
+      ],
+      "description": "Interpret response using Modern Musician's ArtistAI"
+    },
+    {
+      "name": "add_tag",
+      "forms": [
+        {
+          "name": "tag",
+          "type": "string",
+          "title": "Tag to Add"
+        }
+      ],
+      "title": "Add Tag in StreetTeam",
+      "guidance": "",
+      "requests": [
+        {
+          "url": "https://api.modern-musician.com/dev/add-tag?tag=[[tag]]",
+          "method": "POST",
+          "headers": ["Content-Type: application/json"],
+          "mapping": [],
+          "payload": {
+            "email": "{{email}}",
+            "phone": "{{phone}}",
+            "page_id": "{{page_id}}",
+            "last_name": "{{last_name}}",
+            "first_name": "{{first_name}}",
+            "subscriber_id": "{{user_id}}",
+            "last_input_text": "{{last_input_text}}"
+          }
+        }
+      ],
+      "description": "Add a tag to one of your StreetTeam Members"
+    },
+    {
+      "name": "subscriber_sync",
+      "forms": [],
+      "title": "Subscribe/Update Fan in StreetTeam",
+      "guidance": "",
+      "requests": [
+        {
+          "url": "https://api.modern-musician.com/dev/subscriber-sync",
+          "method": "POST",
+          "headers": ["Content-Type: application/json"],
+          "mapping": [
+            {
+              "name": "streetteam_id",
+              "path": "$.name",
+              "type": "string",
+              "title": "StreetTeam Subscriber ID"
+            }
+          ],
+          "payload": {
+            "email": "{{email}}",
+            "phone": "{{phone}}",
+            "page_id": "{{page_id}}",
+            "last_name": "{{last_name}}",
+            "first_name": "{{first_name}}",
+            "subscriber_id": "{{user_id}}",
+            "last_input_text": "{{last_input_text}}"
+          }
+        }
+      ],
+      "description": "Add or update fan in your StreetTeam community"
+    }
+  ],
+  "sources": [
+    {
+      "list": [
+        {
+          "key": "Bronze",
+          "value": "1"
+        },
+        {
+          "key": "Silver",
+          "value": "2"
+        },
+        {
+          "key": "Gold",
+          "value": "3"
+        },
+        {
+          "key": "Platinum",
+          "value": "4"
+        },
+        {
+          "key": "Diamond",
+          "value": "5"
+        }
+      ],
+      "name": "ranking_list",
+      "type": "enum:static"
+    }
+  ],
+  "triggers": [
+    {
+      "name": "trigger_st_rank_up",
+      "title": "Ranked up in StreetTeam",
+      "description": "Fan leveled up to the next rank in StreetTeam"
+    },
+    {
+      "name": "trigger_st_bronze_rank",
+      "title": "Moved to Bronze Rank",
+      "description": "Fan Moved to Bronze Rank"
+    },
+    {
+      "name": "trigger_st_silver_rank",
+      "title": "Moved to Silver Rank",
+      "description": "Fan Moved to Silver Rank"
+    },
+    {
+      "name": "trigger_st_gold_rank",
+      "title": "Moved to Gold Rank",
+      "description": "Fan Moved to Gold Rank"
+    },
+    {
+      "name": "trigger_st_platinum_rank",
+      "title": "Moved to Platinum Rank",
+      "description": "Fan Moved to Platinum Rank"
+    },
+    {
+      "name": "trigger_st_diamond_rank",
+      "title": "Moved to Diamond Rank",
+      "description": "Fan Moved to Diamond Rank"
+    }
+  ]
+}

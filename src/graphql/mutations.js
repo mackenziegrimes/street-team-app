@@ -35,6 +35,7 @@ export const createArtist = /* GraphQL */ `
           serviceName
           serviceApiKey
           serviceAccountId
+          serviceApiUrl
           createdAt
           updatedAt
           artist {
@@ -146,6 +147,7 @@ export const updateArtist = /* GraphQL */ `
           serviceName
           serviceApiKey
           serviceAccountId
+          serviceApiUrl
           createdAt
           updatedAt
           artist {
@@ -257,6 +259,7 @@ export const deleteArtist = /* GraphQL */ `
           serviceName
           serviceApiKey
           serviceAccountId
+          serviceApiUrl
           createdAt
           updatedAt
           artist {
@@ -345,6 +348,7 @@ export const createArtistIntegrations = /* GraphQL */ `
       serviceName
       serviceApiKey
       serviceAccountId
+      serviceApiUrl
       createdAt
       updatedAt
       artist {
@@ -370,6 +374,7 @@ export const createArtistIntegrations = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -411,6 +416,7 @@ export const updateArtistIntegrations = /* GraphQL */ `
       serviceName
       serviceApiKey
       serviceAccountId
+      serviceApiUrl
       createdAt
       updatedAt
       artist {
@@ -436,6 +442,7 @@ export const updateArtistIntegrations = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -477,6 +484,7 @@ export const deleteArtistIntegrations = /* GraphQL */ `
       serviceName
       serviceApiKey
       serviceAccountId
+      serviceApiUrl
       createdAt
       updatedAt
       artist {
@@ -502,6 +510,7 @@ export const deleteArtistIntegrations = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -589,6 +598,7 @@ export const createEnduser = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -648,6 +658,7 @@ export const createEnduser = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -761,6 +772,7 @@ export const updateEnduser = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -820,6 +832,7 @@ export const updateEnduser = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -933,6 +946,7 @@ export const deleteEnduser = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -992,6 +1006,7 @@ export const deleteEnduser = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -1088,6 +1103,7 @@ export const createArtistUser = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -1213,6 +1229,7 @@ export const updateArtistUser = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -1338,6 +1355,7 @@ export const deleteArtistUser = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -1511,6 +1529,7 @@ export const createActionPage = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -1544,6 +1563,7 @@ export const createActionPage = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -1737,6 +1757,7 @@ export const updateActionPage = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -1770,6 +1791,7 @@ export const updateActionPage = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -1963,6 +1985,7 @@ export const deleteActionPage = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -1996,6 +2019,7 @@ export const deleteActionPage = /* GraphQL */ `
           actionPageID
           enduserID
           referralEnduserID
+          facebookPageScopedId
           enduserTotalPoints
           createdAt
           updatedAt
@@ -2111,6 +2135,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
       actionPageID
       enduserID
       referralEnduserID
+      facebookPageScopedId
       enduserTotalPoints
       createdAt
       updatedAt
@@ -2144,6 +2169,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2157,6 +2183,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2195,6 +2222,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2208,6 +2236,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2280,6 +2309,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2335,6 +2365,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2373,6 +2404,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
       actionPageID
       enduserID
       referralEnduserID
+      facebookPageScopedId
       enduserTotalPoints
       createdAt
       updatedAt
@@ -2406,6 +2438,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2419,6 +2452,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2457,6 +2491,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2470,6 +2505,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2542,6 +2578,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2597,6 +2634,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2635,6 +2673,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
       actionPageID
       enduserID
       referralEnduserID
+      facebookPageScopedId
       enduserTotalPoints
       createdAt
       updatedAt
@@ -2668,6 +2707,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2681,6 +2721,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2719,6 +2760,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2732,6 +2774,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2804,6 +2847,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2859,6 +2903,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -2970,6 +3015,7 @@ export const createActionPageButton = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -3025,6 +3071,7 @@ export const createActionPageButton = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -3136,6 +3183,7 @@ export const updateActionPageButton = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -3191,6 +3239,7 @@ export const updateActionPageButton = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -3302,6 +3351,7 @@ export const deleteActionPageButton = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -3357,6 +3407,7 @@ export const deleteActionPageButton = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -3405,6 +3456,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         actionPageID
         enduserID
         referralEnduserID
+        facebookPageScopedId
         enduserTotalPoints
         createdAt
         updatedAt
@@ -3626,6 +3678,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         actionPageID
         enduserID
         referralEnduserID
+        facebookPageScopedId
         enduserTotalPoints
         createdAt
         updatedAt
@@ -3847,6 +3900,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         actionPageID
         enduserID
         referralEnduserID
+        facebookPageScopedId
         enduserTotalPoints
         createdAt
         updatedAt
@@ -4083,6 +4137,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -4139,6 +4194,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4152,6 +4208,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4190,6 +4247,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4203,6 +4261,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4250,6 +4309,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -4306,6 +4366,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4319,6 +4380,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4357,6 +4419,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4370,6 +4433,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4417,6 +4481,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             serviceName
             serviceApiKey
             serviceAccountId
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -4473,6 +4538,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4486,6 +4552,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4524,6 +4591,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4537,6 +4605,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4824,6 +4893,7 @@ export const createTagEnduserConnector = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4837,6 +4907,7 @@ export const createTagEnduserConnector = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4919,6 +4990,7 @@ export const updateTagEnduserConnector = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -4932,6 +5004,7 @@ export const updateTagEnduserConnector = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -5014,6 +5087,7 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt
@@ -5027,6 +5101,7 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
             actionPageID
             enduserID
             referralEnduserID
+            facebookPageScopedId
             enduserTotalPoints
             createdAt
             updatedAt

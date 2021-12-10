@@ -13,9 +13,11 @@ import { Button } from '../../../Components/UI/Button';
 import { Icon } from '../../../Components/UI/Icon';
 import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
+import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
 import { facebookAppId } from '../../../utils/sharedUtils';
+import { v4 as uuidv4 } from 'uuid';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'FacebookPage'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -34,6 +36,10 @@ const CreateActionContainer = styled(Container)({
 const IconContainer = styled(Col)({
   display: 'flex',
   justifyContent: 'flex-end',
+});
+
+const SecondContainer = styled(Col)({
+  padding: '20px 0 0 0',
 });
 
 const CardBody = styled(Card.Body)(({ theme }) => {
@@ -56,15 +62,18 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [activeIntegrations, setActiveIntegrations] = useState();
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
-    Amplitude: '',
-    ActiveCampaign: '',
-    FacebookPage: '',
+    Amplitude: { apiKey: '', apiUrl: '' },
+    ActiveCampaign: { apiKey: '', apiUrl: '' },
+    Facebook: { apiKey: '', apiAccountId: '', apiUrl: '' },
+    Manychat: { apiKey: '', apiUrl: '' },
+    StreetTeamApi: {apiKey:''}
   });
 
   const theme = useTheme();
 
   const { data: artistData } = useQuery(gql(getArtistUser), {
     variables: { id: userId },
+    skip: !userId,
   });
 
   const data = artistData?.getArtistUser;
@@ -72,7 +81,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
 
   useEffect(() => {
     if (integrations) {
-      // console.log('integrations', integrations);
+      console.log('formValue is ', formValue);
       let form = formValue;
       let activeInt = {};
       for (let i = 0; i < integrations.length; i++) {
@@ -80,13 +89,15 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
         console.log('item', item);
         form = {
           ...form,
-          [item.serviceName]: item.serviceApiKey,
+          [item.serviceName]: {apiKey: item.serviceApiKey, apiUrl: item.serviceApiUrl, apiAccountId: item.serviceAccountId, id: item.id},
         };
         activeInt = {
           ...activeInt,
-          [item.serviceName]: item,
+          [item.serviceName]: {apiKey: item.serviceApiKey, apiUrl: item.serviceApiUrl, apiAccountId: item.serviceAccountId, id: item.id},
         };
       }
+      console.log('setting form value to ', form);
+      console.log('setting active integrations to ', activeInt);
       setActiveIntegrations(activeInt);
       setFormValue(form);
     }
@@ -96,6 +107,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [createArtistIntegration] = useMutation(gql(createArtistIntegrations));
 
   const saveIntegrations = () => {
+    console.log(`2-- form is now `, formValue)
     try {
       for (let i = 0; i < INPUT_KEYS.length; i++) {
         const key = INPUT_KEYS[i];
@@ -104,7 +116,9 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
             input: {
               artistID: artistId,
               serviceName: key,
-              serviceApiKey: formValue[key],
+              ...(formValue[key].apiUrl && {serviceApiUrl: formValue[key]?.apiUrl,}),
+              ...(formValue[key].apiKey && {serviceApiKey: formValue[key]?.apiKey,}),
+              ...(formValue[key].apiAccountId && {serviceAccountId: formValue[key]?.apiAccountId,}),
               ...(activeIntegrations[key]?.id && {
                 id: activeIntegrations[key].id,
               }),
@@ -122,6 +136,31 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
       console.error(err);
     }
     setShow(true);
+  };
+
+  const generateAndSetApiKey = (key) => {
+    console.log(`key is ${key} and formValue is ${JSON.stringify(formValue)}`);
+    //this needs not be hard coded
+    key=`StreetTeamApi`;
+    const uuid = uuidv4();
+    setFormValue({
+      ...formValue,
+      [key]: {
+        ...formValue[key],
+        apiKey: uuid
+      },
+    })
+  }
+  const copyApiKeyToClipboard = () => {
+    let apiKey;
+    if(formValue.StreetTeamApi.apiKey){
+      //this needs to be un-hardcoded eventually
+      apiKey=formValue.StreetTeamApi.apiKey
+      navigator.clipboard.writeText(apiKey);
+    }
+    else {
+      navigator.clipboard.writeText(`not found. try refreshing the page`);
+    }
   };
 
   const copyLinkToClipboard = () => {
@@ -167,9 +206,52 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                    Your Active Campaign API Key
+                    Your StreetTeam API Key
                   </h3>
-                  <p>Paste a copy of your Active Campaign API Key...</p>
+                  <p>Copy Your API Key for your StreetTeam Account</p>
+                </Col>
+                <IconContainer>
+                  <Icon name="FaKey" color="white" />
+                </IconContainer>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="StreetTeam API Key"
+                    value={formValue.StreetTeamApi?.apiKey}
+                    // onChange={}
+                    placeholder="StreetTeam API Key..."
+                  />
+                </Col>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Button
+                  onClick={formValue.StreetTeamApi?.apiKey ? copyApiKeyToClipboard : generateAndSetApiKey}
+                  style={{
+                    fontWeight: theme.fontWeights.semibold,
+                    fontFamily: theme.fonts.heading,
+                  }}
+                >
+                  {formValue.StreetTeamApi?.apiKey ? `Copy Street Team Api Key` : `Generate Street Team Api Key`}
+                </Button>
+                {/* <Col>
+                  <CreateStreetTeamApiKey
+                    userId={userId}
+                    artistId={artistId}
+                    streetTeamApiKey={formValue.StreetTeamApi?.apiKey}
+                  />
+                  
+                </Col> */}
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Your ActiveCampaign API Access
+                  </h3>
+                  <p>Paste a copy of your ActiveCampaign URL...</p>
                 </Col>
                 <IconContainer>
                   <Icon name="MdOutlineStorefront" color="white" />
@@ -179,15 +261,77 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                 <Col>
                   <TextField
                     hideLabel
-                    label="Active Campaign API Key"
-                    value={formValue.ActiveCampaign}
+                    label="ActiveCampaign API Url"
+                    value={formValue.ActiveCampaign?.apiUrl}
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        ActiveCampaign: e.target.value,
+                        ActiveCampaign: {
+                          ...formValue.ActiveCampaign,
+                          apiUrl: e.target.value,
+                        },
                       })
                     }
-                    placeholder="Active Campaign API Key..."
+                    placeholder="ActiveCampaign URL..."
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={10}>
+                  <SecondContainer>
+                    {' '}
+                    <p>Paste a copy of your ActiveCampaign API Key...</p>{' '}
+                  </SecondContainer>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="ActiveCampaign API Key"
+                    value={formValue.ActiveCampaign.apiKey}
+                    onChange={e =>
+                      setFormValue({
+                        ...formValue,
+                        ActiveCampaign: {
+                          ...formValue.ActiveCampaign,
+                          apiKey: e.target.value,
+                        },
+                      })
+                    }
+                    placeholder="ActiveCampaign API Key..."
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Your Manychat API Key
+                  </h3>
+                  <p>Paste a copy of your Manychat API Key...</p>
+                </Col>
+                <IconContainer>
+                  <Icon name="IoChatbubbleEllipsesSharp" color="white" />
+                </IconContainer>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="Manychat API Key"
+                    value={formValue.Manychat.apiKey}
+                    onChange={e =>
+                      setFormValue({
+                        ...formValue,
+                        Manychat: {
+                          ...formValue.Manychat,
+                          apiKey: e.target.value,
+                        },
+                      })
+                    }
+                    placeholder="Manychat API Key..."
                   />
                 </Col>
               </Row>
@@ -209,11 +353,14 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <TextField
                     hideLabel
                     label="Amplitude API Key"
-                    value={formValue.Amplitude}
+                    value={formValue.Amplitude.apiKey}
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        Amplitude: e.target.value,
+                        Amplitude: {
+                          ...formValue.Amplitude,
+                          apiKey: e.target.value,
+                        },
                       })
                     }
                     placeholder="Amplitude API Key..."
@@ -241,6 +388,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <FacebookGrantPagePermissions
                     userId={userId}
                     artistId={artistId}
+                    facebookPageId={formValue.Facebook.apiAccountId}
                   />
                 </Col>
               </Row>

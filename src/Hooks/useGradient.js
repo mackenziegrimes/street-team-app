@@ -7,7 +7,7 @@ export const useGradient = ({
   customDarken,
   customDegree,
 }) => {
-  const percents = customPercents || [0, 75, 100];
+  const percents = customPercents || [0, 68, 100];
   const lighten = customLighten || 0.2;
   const darken = customDarken || 0.2;
   const degree = customDegree || 90;

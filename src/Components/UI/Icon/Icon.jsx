@@ -4,6 +4,8 @@ import * as MaterialDesign from 'react-icons/md';
 import * as Heroicons from 'react-icons/hi';
 import * as FontAwesome from 'react-icons/fa';
 import * as GameIcons from 'react-icons/gi';
+import * as Ionicons5 from 'react-icons/io5';
+
 
 // TEMPORARY back compat
 const checkIconOld = name => {
@@ -50,6 +52,9 @@ const checkIcon = name => {
       break;
     case 'Gi':
       library = GameIcons;
+      break;
+    case 'Io':
+      library = Ionicons5;
       break;
     default:
       library = FontAwesome;
