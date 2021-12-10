@@ -15,7 +15,7 @@ import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
 import { facebookAppId } from '../../../utils/sharedUtils';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaignUrl', 'ActiveCampaignKey', 'FacebookPage'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -60,16 +60,16 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [activeIntegrations, setActiveIntegrations] = useState();
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
-    Amplitude: '',
-    ActiveCampaignUrl: '',
-    ActiveCampaignKey: '',
-    FacebookPage: '',
+    Amplitude: {apiKey:'', apiUrl:''},
+    ActiveCampaign: {apiKey:'',apiUrl:''},
+    Facebook: {apiKey:'',apiAccountId:'', apiUrl:''},
   });
 
   const theme = useTheme();
 
   const { data: artistData } = useQuery(gql(getArtistUser), {
     variables: { id: userId },
+    skip: !userId,
   });
 
   const data = artistData?.getArtistUser;
@@ -77,7 +77,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
 
   useEffect(() => {
     if (integrations) {
-      // console.log('integrations', integrations);
+      console.log('formValue is ', formValue);
       let form = formValue;
       let activeInt = {};
       for (let i = 0; i < integrations.length; i++) {
@@ -85,13 +85,15 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
         console.log('item', item);
         form = {
           ...form,
-          [item.serviceName]: item.serviceApiKey,
+          [item.serviceName]: {apiKey: item.serviceApiKey, apiUrl: item.serviceApiUrl, apiAccountId: item.serviceAccountId, id: item.id},
         };
         activeInt = {
           ...activeInt,
-          [item.serviceName]: item,
+          [item.serviceName]: {apiKey: item.serviceApiKey, apiUrl: item.serviceApiUrl, apiAccountId: item.serviceAccountId, id: item.id},
         };
       }
+      console.log('setting form value to ', form);
+      console.log('setting active integrations to ', activeInt);
       setActiveIntegrations(activeInt);
       setFormValue(form);
     }
@@ -101,6 +103,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [createArtistIntegration] = useMutation(gql(createArtistIntegrations));
 
   const saveIntegrations = () => {
+    console.log(`2-- form is now `, formValue)
     try {
       for (let i = 0; i < INPUT_KEYS.length; i++) {
         const key = INPUT_KEYS[i];
@@ -109,7 +112,9 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
             input: {
               artistID: artistId,
               serviceName: key,
-              serviceApiKey: formValue[key],
+              ...(formValue[key].apiUrl && {serviceApiUrl: formValue[key]?.apiUrl,}),
+              ...(formValue[key].apiKey && {serviceApiKey: formValue[key]?.apiKey,}),
+              ...(formValue[key].apiAccountId && {serviceAccountId: formValue[key]?.apiAccountId,}),
               ...(activeIntegrations[key]?.id && {
                 id: activeIntegrations[key].id,
               }),
@@ -185,11 +190,14 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <TextField
                     hideLabel
                     label="ActiveCampaign API Url"
-                    value={formValue.ActiveCampaignKey}
+                    value={formValue.ActiveCampaign?.apiUrl}
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        ActiveCampaignKey: e.target.value,
+                        ActiveCampaign: { 
+                          ...formValue.ActiveCampaign , 
+                          apiUrl: e.target.value
+                        },
                       })
                     }
                     placeholder="ActiveCampaign URL..."
@@ -206,11 +214,14 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <TextField
                     hideLabel
                     label="ActiveCampaign API Key"
-                    value={formValue.ActiveCampaignKey}
+                    value={formValue.ActiveCampaign.apiKey}
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        ActiveCampaignKey: e.target.value,
+                        ActiveCampaign: { 
+                          ...formValue.ActiveCampaign , 
+                          apiKey: e.target.value
+                        },
                       })
                     }
                     placeholder="ActiveCampaign API Key..."
@@ -235,11 +246,14 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <TextField
                     hideLabel
                     label="Amplitude API Key"
-                    value={formValue.Amplitude}
+                    value={formValue.Amplitude.apiKey}
                     onChange={e =>
                       setFormValue({
                         ...formValue,
-                        Amplitude: e.target.value,
+                        Amplitude: {
+                          ...formValue.Amplitude,
+                          apiKey: e.target.value,
+                        }
                       })
                     }
                     placeholder="Amplitude API Key..."
@@ -267,6 +281,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <FacebookGrantPagePermissions
                     userId={userId}
                     artistId={artistId}
+                    facebookPageId={formValue.Facebook.apiAccountId}
                   />
                 </Col>
               </Row>
