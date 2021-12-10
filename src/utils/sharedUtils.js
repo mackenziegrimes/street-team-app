@@ -126,18 +126,18 @@ export const trackInAmplitude = async (eventName, deviceId, userId, artistId, ad
     params.event = Object.assign(params.event,additionalParams);
   }
   const trackUrl = getBackendApiUrl() + `/track-event`;
-  // const response = await fetch(trackUrl, {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify(params),
-  // })
-  //   .then(rsp => rsp.json())
-  //   .then(json => {
-  //     if (json.error && json.error.message) {
-  //       console.error(json.error.message);
-  //     } else {
-  //       console.log(`results are`, json);
-  //       return json
-  //     }
-  //   });
+  const response = await fetch(trackUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  })
+    .then(rsp => rsp.json())
+    .then(json => {
+      if (json.error && json.error.message) {
+        console.error(json.error.message);
+      } else {
+        console.log(`results are`, json);
+        return json
+      }
+    });
 }
