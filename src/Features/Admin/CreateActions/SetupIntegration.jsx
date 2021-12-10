@@ -15,8 +15,9 @@ import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
 import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
 import { facebookAppId } from '../../../utils/sharedUtils';
+import { v4 as uuidv4 } from 'uuid';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -65,6 +66,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
     ActiveCampaign: { apiKey: '', apiUrl: '' },
     Facebook: { apiKey: '', apiAccountId: '', apiUrl: '' },
     Manychat: { apiKey: '', apiUrl: '' },
+    StreetTeamApi: {apiKey:''}
   });
 
   const theme = useTheme();
@@ -136,6 +138,31 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
     setShow(true);
   };
 
+  const generateAndSetApiKey = (key) => {
+    console.log(`key is ${key} and formValue is ${JSON.stringify(formValue)}`);
+    //this needs not be hard coded
+    key=`StreetTeamApi`;
+    const uuid = uuidv4();
+    setFormValue({
+      ...formValue,
+      [key]: {
+        ...formValue[key],
+        apiKey: uuid
+      },
+    })
+  }
+  const copyApiKeyToClipboard = () => {
+    let apiKey;
+    if(formValue.StreetTeamApi.apiKey){
+      //this needs to be un-hardcoded eventually
+      apiKey=formValue.StreetTeamApi.apiKey
+      navigator.clipboard.writeText(apiKey);
+    }
+    else {
+      navigator.clipboard.writeText(`not found. try refreshing the page`);
+    }
+  };
+
   const copyLinkToClipboard = () => {
     const config = JSON.stringify([
       {
@@ -187,14 +214,35 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <Icon name="FaKey" color="white" />
                 </IconContainer>
               </Row>
-              <Row style={{ marginTop: theme.spacing.md }}>
+              <Row>
                 <Col>
+                  <TextField
+                    hideLabel
+                    label="StreetTeam API Key"
+                    value={formValue.StreetTeamApi?.apiKey}
+                    // onChange={}
+                    placeholder="StreetTeam API Key..."
+                  />
+                </Col>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Button
+                  onClick={formValue.StreetTeamApi?.apiKey ? copyApiKeyToClipboard : generateAndSetApiKey}
+                  style={{
+                    fontWeight: theme.fontWeights.semibold,
+                    fontFamily: theme.fonts.heading,
+                  }}
+                >
+                  {formValue.StreetTeamApi?.apiKey ? `Copy Street Team Api Key` : `Generate Street Team Api Key`}
+                </Button>
+                {/* <Col>
                   <CreateStreetTeamApiKey
                     userId={userId}
                     artistId={artistId}
-                    streetTeamApiKey={formValue.streetTeamApiKey}
+                    streetTeamApiKey={formValue.StreetTeamApi?.apiKey}
                   />
-                </Col>
+                  
+                </Col> */}
               </Row>
             </CreateActionContainer>
             <CreateActionContainer>
