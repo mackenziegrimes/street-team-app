@@ -54,7 +54,15 @@
     },
     {
       "name": "interpret_with_artist_ai",
-      "forms": [],
+      "forms": [
+        {
+          "name": "message_type",
+          "type": "select",
+          "title": "Type of Message Response",
+          "source": "message_type_list",
+          "default": "Positive/Negative"
+        }
+      ],
       "title": "Interpret Message With ArtistAI",
       "guidance": "",
       "requests": [
@@ -64,7 +72,7 @@
           "headers": ["Content-Type: application/json"],
           "mapping": [
             {
-              "name": "response",
+              "name": "artist_ai_response",
               "path": "$.name",
               "type": "string",
               "title": "ArtistAI Response"
@@ -77,7 +85,8 @@
             "last_name": "{{last_name}}",
             "first_name": "{{first_name}}",
             "subscriber_id": "{{user_id}}",
-            "last_input_text": "{{last_input_text}}"
+            "last_input_text": "{{last_input_text}}",
+            "message_type": "[[message_type]]"
           }
         }
       ],
@@ -150,26 +159,40 @@
       "list": [
         {
           "key": "Bronze",
-          "value": "1"
+          "value": "Bronze"
         },
         {
           "key": "Silver",
-          "value": "2"
+          "value": "Silver"
         },
         {
           "key": "Gold",
-          "value": "3"
+          "value": "Gold"
         },
         {
           "key": "Platinum",
-          "value": "4"
+          "value": "Platinum"
         },
         {
           "key": "Diamond",
-          "value": "5"
+          "value": "Diamond"
         }
       ],
       "name": "ranking_list",
+      "type": "enum:static"
+    },
+    {
+      "list": [
+        {
+          "key": "Positive/Negative",
+          "value": "sentiment"
+        },
+        {
+          "key": "Other",
+          "value": "other"
+        }
+      ],
+      "name": "message_type_list",
       "type": "enum:static"
     }
   ],
