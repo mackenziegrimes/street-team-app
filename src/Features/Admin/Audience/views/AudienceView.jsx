@@ -181,6 +181,7 @@ const formatTableData = data => {
           lastName,
           name: `${firstName} ${lastName}`,
           phone: item?.enduser?.phoneNumber || '',
+          tags: item?.enduser?.tags || '',
           points: item?.enduserPageSubscriptionCompletedActions?.items.reduce(
             (a, b) => {
               const value = b?.action?.pointValue || 0;
@@ -192,7 +193,7 @@ const formatTableData = data => {
       }
     );
 
-  console.log(endUserData);
+  console.log('All Enduser Data: ' + JSON.stringify(data.getArtistUser.artist.actionPages.items[0].subscribers.items));
   return endUserData;
 };
 
@@ -265,6 +266,10 @@ export const AudienceView = () => {
       {
         Header: 'Phone',
         accessor: 'phone',
+      },
+      {
+        Header: 'Tags',
+        accessor: 'tags',
       },
       {
         Header: 'Points',
