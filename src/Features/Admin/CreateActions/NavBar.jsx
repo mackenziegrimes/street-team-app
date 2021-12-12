@@ -65,8 +65,8 @@ const CustomToggle = React.forwardRef(
     >
       <Icon
         style={{ marginRight: 15 }}
-        name={isOpen ? 'FaChevronDown' : 'FaChevronRight'}
-        size={45}
+        name={isOpen ? 'FaBars' : 'FaBars'}
+        size={35}
         color="gray"
       />
       {children}
