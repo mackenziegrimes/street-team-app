@@ -139,7 +139,11 @@ export const CreateActionPage = ({ type }) => {
 
   return (
     <div>
-      <NavBar headerText="Create Your Fan Funnel" artistId={artistId} integrations={integrations}/>
+      <NavBar
+        headerText="Create Your Fan Funnel"
+        artistId={artistId}
+        integrations={integrations}
+      />
       <RootContainer fluid>
         <Container fluid>
           <Row>
@@ -163,6 +167,7 @@ export const CreateActionPage = ({ type }) => {
               {type === 'landing' && (
                 <SetupLanding
                   actionPageId={actionPageId}
+                  artistRoute={artistRoute}
                   landingPageValues={landingPageValues}
                   setLandingPageValues={setLandingPageValues}
                   landingPageIds={landingPageIds}

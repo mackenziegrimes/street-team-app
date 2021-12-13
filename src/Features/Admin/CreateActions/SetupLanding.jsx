@@ -13,6 +13,8 @@ import { TextField } from '../../../Components/UI/TextField';
 import { Icon } from '../../../Components/UI/Icon';
 import { Button } from '../../../Components/UI/Button';
 import { useTheme } from '../../../Hooks/useTheme';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -54,6 +56,7 @@ export const SetupLanding = ({
   setLandingPageValues,
   actionPageId,
   landingPageIds,
+  artistRoute,
 }) => {
   const [error, setError] = useState(false);
   const theme = useTheme();
@@ -65,6 +68,15 @@ export const SetupLanding = ({
   const [addSoundCloud] = useMutation(gql(createActionPageButton));
   const [addGift] = useMutation(gql(createActionPageButton));
   const [addContinue] = useMutation(gql(createActionPageButton));
+
+    const copyLinkToClipboard = () => {
+      // todo this needs to be dynamic by environment (dev, app, etc)
+      // TODO eventually this should use both an artist route and a pageRoute
+      const route = artistRoute || actionPageId;
+      const link = `app.modern-musician.com/${route}`;
+      navigator.clipboard.writeText(link);
+      toast.success('Copied link to clipboard!');
+    };
 
   const soundCloudConfig = {
     actionPageID: actionPageId,
@@ -143,101 +155,115 @@ export const SetupLanding = ({
   };
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h2 style={{ fontSize: theme.fontSizes.lg }}>Set Up Your Magnet</h2>
-        </Col>
-      </Row>
-      <ActionContainer>
-        <CardBody>
-          <Col style={{ padding: 0, marginBottom: 25 }}>
-            <h3>Fan Magnet</h3>
-            <p>
-              Attract new listeners and
-              convert them into followers and subscribers of your music.
-            </p>
+    <React.Fragment>
+      <ToastContainer autoClose={3000} />
+      <Container>
+        <Row>
+          <Col>
+            <h2 style={{ fontSize: theme.fontSizes.lg }}>Set Up Your Magnet</h2>
           </Col>
-          <CreateActionContainer>
-            <Row>
-              <Col xs={10}>
-                <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                  Your Soundcloud Link
-                </h3>
-                <p>Paste a link to your song on SoundCloud...</p>
-                {error && !landingPageValues?.soundCloud && (
-                  <p style={{ color: 'red' }}>Required</p>
-                )}
+        </Row>
+        <ActionContainer>
+          <CardBody>
+            <Row style= {{ marginRight:  15 }}>
+              <Col style={{ marginBottom: 25 }}>
+                <h3>Fan Magnet</h3>
+                <p>
+                  Attract new listeners and convert them into followers and
+                  subscribers of your music.
+                </p>
               </Col>
-              <IconContainer>
-                <Icon name="MdLibraryMusic" color="white" />
-              </IconContainer>
-            </Row>
-            <Row>
-              <Col>
-                <TextField
-                  hideLabel
-                  label="SoundCloud URL"
-                  value={landingPageValues?.soundCloud}
-                  onChange={e =>
-                    setLandingPageValues({
-                      ...landingPageValues,
-                      soundCloud: e.target.value,
-                    })
-                  }
-                  placeholder="SoundCloud URL..."
+              <Col xs={4}></Col>
+              <Col style={{cursor: 'pointer'}} onClick={copyLinkToClipboard} xs={1}>
+                <Icon
+                  name="FaLink"
+                  color="white"
+                  size={30}
+                  style={{ marginTop: 10 }}
                 />
               </Col>
             </Row>
-          </CreateActionContainer>
-          <CreateActionContainer>
-            <Row>
-              <Col xs={10}>
-                <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                  Your Free Gift Link
-                </h3>
-                <p>Paste a link to your free gift...</p>
-                {error && !landingPageValues?.gift && (
-                  <p style={{ color: 'red' }}>Required</p>
-                )}
-              </Col>
-              <IconContainer>
-                <Icon name="FaGift" color="white" />
-              </IconContainer>
-            </Row>
-            <Row>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Your Soundcloud Link
+                  </h3>
+                  <p>Paste a link to your song on SoundCloud...</p>
+                  {error && !landingPageValues?.soundCloud && (
+                    <p style={{ color: 'red' }}>Required</p>
+                  )}
+                </Col>
+                <IconContainer>
+                  <Icon name="MdLibraryMusic" color="white" />
+                </IconContainer>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="SoundCloud URL"
+                    value={landingPageValues?.soundCloud}
+                    onChange={e =>
+                      setLandingPageValues({
+                        ...landingPageValues,
+                        soundCloud: e.target.value,
+                      })
+                    }
+                    placeholder="SoundCloud URL..."
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Your Free Gift Link
+                  </h3>
+                  <p>Paste a link to your free gift...</p>
+                  {error && !landingPageValues?.gift && (
+                    <p style={{ color: 'red' }}>Required</p>
+                  )}
+                </Col>
+                <IconContainer>
+                  <Icon name="FaGift" color="white" />
+                </IconContainer>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="Free Gift URL"
+                    value={landingPageValues?.gift}
+                    onChange={e =>
+                      setLandingPageValues({
+                        ...landingPageValues,
+                        gift: e.target.value,
+                      })
+                    }
+                    placeholder="Free Gift URL..."
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <Row style={{ marginTop: theme.spacing.lg }}>
               <Col>
-                <TextField
-                  hideLabel
-                  label="Free Gift URL"
-                  value={landingPageValues?.gift}
-                  onChange={e =>
-                    setLandingPageValues({
-                      ...landingPageValues,
-                      gift: e.target.value,
-                    })
-                  }
-                  placeholder="Free Gift URL..."
-                />
+                <Button
+                  onClick={saveLandingPage}
+                  style={{
+                    fontWeight: theme.fontWeights.semibold,
+                    fontFamily: theme.fonts.heading,
+                  }}
+                >
+                  Next Step
+                </Button>
               </Col>
             </Row>
-          </CreateActionContainer>
-          <Row style={{ marginTop: theme.spacing.lg }}>
-            <Col>
-              <Button
-                onClick={saveLandingPage}
-                style={{
-                  fontWeight: theme.fontWeights.semibold,
-                  fontFamily: theme.fonts.heading,
-                }}
-              >
-                Next Step
-              </Button>
-            </Col>
-          </Row>
-        </CardBody>
-      </ActionContainer>
-    </Container>
+          </CardBody>
+        </ActionContainer>
+      </Container>
+    </React.Fragment>
   );
 };
 

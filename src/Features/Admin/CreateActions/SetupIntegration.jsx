@@ -17,6 +17,9 @@ import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/Stre
 import { facebookAppId } from '../../../utils/sharedUtils';
 import { v4 as uuidv4 } from 'uuid';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi'];
 
 const ActionContainer = styled(Card)({
@@ -107,6 +110,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
   const [createArtistIntegration] = useMutation(gql(createArtistIntegrations));
 
   const saveIntegrations = () => {
+    toast.success('Saved!');
     console.log(`2-- form is now `, formValue)
     try {
       for (let i = 0; i < INPUT_KEYS.length; i++) {
@@ -157,6 +161,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
       //this needs to be un-hardcoded eventually
       apiKey=formValue.StreetTeamApi.apiKey
       navigator.clipboard.writeText(apiKey);
+      toast.success('Copied key to clipboard!');
     }
     else {
       navigator.clipboard.writeText(`not found. try refreshing the page`);
@@ -181,10 +186,13 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
     ]);
     console.log('config', config);
     navigator.clipboard.writeText(config);
+    toast.success("Copied JSON to clipboard!")
   };
 
   return (
     <React.Fragment>
+      <ToastContainer autoClose={3000} />
+      {/* Same as */}
       <Container>
         <Row>
           <Col>
@@ -225,15 +233,27 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   />
                 </Col>
               </Row>
-              <Row style={{ marginTop: theme.spacing.md }}>
+              <Row
+                style={{
+                  marginTop: theme.spacing.md,
+                  marginRight: 0,
+                  marginLeft: 0,
+                }}
+              >
                 <Button
-                  onClick={formValue.StreetTeamApi?.apiKey ? copyApiKeyToClipboard : generateAndSetApiKey}
+                  onClick={
+                    formValue.StreetTeamApi?.apiKey
+                      ? copyApiKeyToClipboard
+                      : generateAndSetApiKey
+                  }
                   style={{
                     fontWeight: theme.fontWeights.semibold,
                     fontFamily: theme.fonts.heading,
                   }}
                 >
-                  {formValue.StreetTeamApi?.apiKey ? `Copy Street Team Api Key` : `Generate Street Team Api Key`}
+                  {formValue.StreetTeamApi?.apiKey
+                    ? `Copy Street Team Api Key`
+                    : `Generate Street Team Api Key`}
                 </Button>
                 {/* <Col>
                   <CreateStreetTeamApiKey
@@ -393,6 +413,38 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                 </Col>
               </Row>
             </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Your FB JSON Code
+                  </h3>
+                  <p>Copy your code for your Facebook Messenger Ad</p>
+                </Col>
+                <IconContainer>
+                  <Icon name="MdOutlineContactPage" color="white" />
+                </IconContainer>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Col>
+                  <Button
+                    style={{
+                      fontWeight: theme.fontWeights.semibold,
+                      fontFamily: theme.fonts.heading,
+                    }}
+                    onClick={copyLinkToClipboard}
+                  >
+                    <Icon
+                      name="FaCopy"
+                      color="black"
+                      size={20}
+                      style={{ marginRight: 10 }}
+                    />
+                    Copy JSON Code
+                  </Button>
+                </Col>
+              </Row>
+            </CreateActionContainer>
             <Row style={{ marginTop: theme.spacing.lg }}>
               <Col>
                 <Button
@@ -409,7 +461,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
           </CardBody>
         </ActionContainer>
       </Container>
-      <Modal show={show} onHide={() => setShow(false)}>
+      {/* <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>One more thing!</Modal.Title>
         </Modal.Header>
@@ -432,7 +484,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
             Copy Config
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </React.Fragment>
   );
 };

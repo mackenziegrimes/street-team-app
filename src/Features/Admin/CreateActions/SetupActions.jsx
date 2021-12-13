@@ -14,6 +14,8 @@ import {
 } from '../../../graphql/mutations';
 import { apiActionsConfig } from './configs/actionsConfig';
 import { CreateAction } from './CreateAction';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ActionCard = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -72,12 +74,15 @@ export const SetupActions = ({
     // todo this needs to be dynamic by environment (dev, app, etc)
     // TODO eventually this should use both an artist route and a pageRoute
     const route = artistRoute || actionPageId;
-    const link = `app.modern-musician.com/${route}`;
+    const link = `app.modern-musician.com/secure/${route}`;
     navigator.clipboard.writeText(link);
+    toast.success("Copied link to clipboard!")
+    onSubmit();
+
   };
 
   const onSubmit = () => {
-    setShow(true);
+    // setShow(true);
     let newTargetUrl = '';
     const actionButtons = actionPageData?.actionButtons?.items;
     // handle sendEmailUrl
@@ -251,6 +256,7 @@ export const SetupActions = ({
 
   return (
     <React.Fragment>
+      <ToastContainer autoClose={3000} />
       <Container>
         <Row>
           <Col>
@@ -261,12 +267,26 @@ export const SetupActions = ({
         </Row>
         <ActionCard>
           <HeaderRow>
-            <Row>
+            <Row style= {{ marginRight:  15 }}>
               <Col>
                 <h3>Tribal Accelerator</h3>
                 <p>
-                  Turn your followers into engaged fans and active supporters of your music.
+                  Turn your followers into engaged fans and active supporters of
+                  your music.
                 </p>
+              </Col>
+              <Col xs={4}></Col>
+              <Col
+                style={{ cursor: 'pointer' }}
+                onClick={copyLinkToClipboard}
+                xs={1}
+              >
+                <Icon
+                  name="FaLink"
+                  color="white"
+                  size={30}
+                  style={{ marginTop: 10 }}
+                />
               </Col>
             </Row>
           </HeaderRow>
@@ -293,7 +313,7 @@ export const SetupActions = ({
             <Row>
               <Col>
                 <Button
-                  onClick={onSubmit}
+                  onClick={() => { onSubmit(); toast.success("Saved!") }}
                   style={{
                     fontWeight: theme.fontWeights.semibold,
                     fontFamily: theme.fonts.heading,
@@ -306,7 +326,7 @@ export const SetupActions = ({
           </Card.Body>
         </ActionCard>
       </Container>
-      <Modal show={show} onHide={() => setShow(false)}>
+      {/* <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Congrats! Here's Your Link:</Modal.Title>
         </Modal.Header>
@@ -328,7 +348,7 @@ export const SetupActions = ({
             Copy Link To Your Page
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </React.Fragment>
   );
 };
