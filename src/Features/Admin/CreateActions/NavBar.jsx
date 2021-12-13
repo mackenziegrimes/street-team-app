@@ -109,7 +109,69 @@ CustomMenu.defaultProps = {
   style: {},
 };
 
-export const NavBar = ({ headerText, artistId, integrations }) => {
+const ArtistProfileToggle = React.forwardRef(
+  ({ children, onClick, onToggle, isOpen }, ref) => (
+    <ArtistProfileButton
+      type="button"
+      ref={ref}
+      onToggle={onToggle}
+      onClick={e => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      <Icon
+        style={{}}
+        name={'MdArrowDropDownCircle'}
+        size={35}
+        color="gray"
+      />
+      {children}
+    </ArtistProfileButton>
+  )
+);
+
+const ArtistProfileButton = styled.button({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  background: ({ theme }) => theme.colors.gray3,
+  borderRadius: 4,
+  border: 'none',
+  '&:hover': {
+    background: ({ theme }) => theme.colors.gray2,
+  },
+});
+
+const ArtistProfileMenu = React.forwardRef(
+  ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
+    return (
+      <DropdownMenu
+        ref={ref}
+        style={style}
+        className={className}
+        aria-labelledby={labeledBy}
+      >
+        <ul style={{ margin: 0 }} className="list-unstyled">
+          {children}
+        </ul>
+      </DropdownMenu>
+    );
+  }
+);
+
+ArtistProfileMenu.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: PropTypes.shape({}),
+  className: PropTypes.string.isRequired,
+  'aria-labelledby': PropTypes.string.isRequired,
+};
+
+ArtistProfileMenu.defaultProps = {
+  style: {},
+};
+
+export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -151,8 +213,67 @@ export const NavBar = ({ headerText, artistId, integrations }) => {
     }
     });
   };
+
+  const ARTIST_PROFILE_ITEMS = [
+    {
+      label: 'Your Artist Profile',
+      icon: 'FaUserAlt',
+      href: '/artist/info',
+      showItem: true,
+    },
+    {
+      label: 'Training Portal',
+      icon: 'FaFilter',
+      href: '/artist/create',
+      showItem: true,
+    },
+    {
+      label: 'Integrations',
+      icon: 'FaUsers',
+      href: '/artist/audience',
+      showItem: true,
+    },
+    {
+      label: 'Account Billing',
+      icon: 'FaCreditCard',
+      onClick: handleBillingClick,
+      showItem: integrations?.find(
+        item => item.serviceName === 'StripeBilling'
+      ),
+    },
+    {
+      label: 'Logout',
+      icon: 'FaCreditCard',
+      onClick: handleBillingClick,
+      showItem: integrations?.find(
+        item => item.serviceName === 'StripeBilling'
+      ),
+    },
+  ];
+
+    const renderArtistProfileItems = () => {
+      return ARTIST_PROFILE_ITEMS.map(item => {
+        // console.log('location', location);
+        const match = matchPath(location.pathname, { path: item.href });
+        {
+          if (item.showItem) {
+            return (
+              <Dropdown.Item
+                href={item.href}
+                onClick={item.onClick}
+                active={match}
+              >
+                <Icon name={item.icon} style={{ marginRight: 15 }} />
+                {item.label}
+              </Dropdown.Item>
+            );
+          }
+        }
+      });
+    };
+
   return (
-    <NavBarContainer sticky="top">
+    <NavBarContainer className="ml-auto" sticky="top">
       <Navbar.Brand href="#">
         <Logo src={logo} alt="Modern Musician Logo" />
       </Navbar.Brand>
@@ -166,6 +287,29 @@ export const NavBar = ({ headerText, artistId, integrations }) => {
           <Header>{headerText}</Header>
         </Dropdown.Toggle>
         <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
+      </Dropdown>
+      {/* Artist Profile Menu */}
+      <Navbar.Brand
+        className="ml-auto"
+        href="https://modernmusician.typeform.com/to/b1MILDjf"
+        target="_blank"
+      >
+        <Icon name={'FaQuestionCircle'} size={35} color="gray" />
+      </Navbar.Brand>
+      <Navbar.Brand
+        target="_blank"
+        href="https://modernmusician.notion.site/StreetTeam-Updates-4af35f77dbd54ebfa587d272c6932fb4">
+        <Icon name={'FaBell'} size={35} color="gray" />
+      </Navbar.Brand>
+      <Dropdown onToggle={open => setIsOpen(open)}>
+        <Dropdown.Toggle
+          as={ArtistProfileToggle}
+          isOpen={isOpen}
+          id="dropdown-custom-components"
+        ></Dropdown.Toggle>
+        <Dropdown.Menu as={ArtistProfileMenu}>
+          {renderArtistProfileItems()}
+        </Dropdown.Menu>
       </Dropdown>
     </NavBarContainer>
   );
