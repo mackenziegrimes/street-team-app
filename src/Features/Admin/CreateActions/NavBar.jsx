@@ -7,13 +7,32 @@ import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
 import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
+import { ArtistProfileDropdown } from './ArtistProfileDropdown';
 
 const NavBarContainer = styled(Navbar)({
   display: 'flex',
+  justifyContent: 'space-between',
   alignItems: 'center',
   padding: ({ theme }) => theme.spacing.md,
   background: ({ theme }) => theme.colors.gray3,
   borderBottom: '2px solid gray',
+});
+
+const NavGroup = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const Link = styled.a({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '50%',
+  marginRight: 30,
+  padding: 8,
+  '&:hover': {
+    background: ({ theme }) => theme.colors.gray2,
+  },
 });
 
 const Logo = styled.img({
@@ -41,14 +60,17 @@ const DropdownButton = styled.button({
 
 const DropdownMenu = styled.div({
   'a + a': {
-    marginTop: 10,
+    // marginTop: 10,
+    borderTop: '1px solid gray',
   },
   a: {
     color: ({ theme }) => theme.colors.white,
+    padding: '15px',
+    fontSize: '20px',
   },
   minWidth: '290px',
   width: '100%',
-  top: 50,
+  top: 60,
   backgroundColor: ({ theme }) => theme.colors.gray1,
 });
 
@@ -238,13 +260,13 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
     },
     {
       label: 'Training Portal',
-      icon: 'FaFilter',
+      icon: 'FaGraduationCap',
       href: '/artist/create',
       showItem: true,
     },
     {
       label: 'Integrations',
-      icon: 'FaUsers',
+      icon: 'FaCogs',
       href: '/artist/audience',
       showItem: true,
     },
@@ -290,43 +312,33 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
 
   return (
     <NavBarContainer className="ml-auto" sticky="top">
-      <Navbar.Brand href="#">
-        <Logo src={logo} alt="Modern Musician Logo" />
-      </Navbar.Brand>
-
-      <Dropdown onToggle={open => setIsOpen(open)}>
-        <Dropdown.Toggle
-          as={CustomToggle}
-          isOpen={isOpen}
-          id="dropdown-custom-components"
-        >
-          <Header>{headerText}</Header>
-        </Dropdown.Toggle>
-        <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
-      </Dropdown>
+      <NavGroup>
+        <Navbar.Brand href="#">
+          <Logo src={logo} alt="Modern Musician Logo" />
+        </Navbar.Brand>
+        <Dropdown onToggle={open => setIsOpen(open)}>
+          <Dropdown.Toggle
+            as={CustomToggle}
+            isOpen={isOpen}
+            id="dropdown-custom-components"
+          >
+            <Header>{headerText}</Header>
+          </Dropdown.Toggle>
+          <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
+        </Dropdown>
+      </NavGroup>
       {/* Artist Profile Menu */}
-      <Navbar.Brand
-        className="ml-auto"
-        href="https://modernmusician.typeform.com/to/b1MILDjf"
-        target="_blank"
-      >
-        <Icon name={'FaQuestionCircle'} size={35} color="gray" />
-      </Navbar.Brand>
-      <Navbar.Brand
-        target="_blank"
-        href="https://modernmusician.notion.site/StreetTeam-Updates-4af35f77dbd54ebfa587d272c6932fb4">
-        <Icon name={'FaBell'} size={35} color="gray" />
-      </Navbar.Brand>
-      <Dropdown onToggle={open => setIsOpen(open)}>
-        <Dropdown.Toggle
-          as={ArtistProfileToggle}
-          isOpen={isOpen}
-          id="dropdown-custom-components"
-        ></Dropdown.Toggle>
-        <Dropdown.Menu as={ArtistProfileMenu}>
-          {renderArtistProfileItems()}
-        </Dropdown.Menu>
-      </Dropdown>
+      <NavGroup>
+        <Link href="https://modernmusician.typeform.com/to/b1MILDjf">
+          <Icon name="FaQuestionCircle" color="gray" />
+        </Link>
+        <Link href="notion://www.notion.so/StreetTeam-Updates-4af35f77dbd54ebfa587d272c6932fb4">
+          <Icon name="FaBell" color="gray" />
+        </Link>
+        <ArtistProfileDropdown
+          menuItems={renderArtistProfileItems()}
+        ></ArtistProfileDropdown>
+      </NavGroup>
     </NavBarContainer>
   );
 };

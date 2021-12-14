@@ -81,3 +81,16 @@ p {
 amplify-authenticator {
   --container-height: 100%;
 }
+
+
+.active {
+  background-color: #8B76F5;
+}
+
+.dropdown-item.active {
+  background-color: #8B76F5;
+}
+
+.dropdown-item:active {
+  background-color: #8B76F5;
+}
