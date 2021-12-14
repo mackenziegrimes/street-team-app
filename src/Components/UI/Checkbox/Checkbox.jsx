@@ -5,7 +5,9 @@ import styled from 'styled-components';
 
 const Input = styled(Form.Check.Input)({
   width: '20px',
-  height: '20px',
+  height: '100%',
+  marginTop: '0!important',
+  
 });
 
 const CheckboxLabel = styled(Form.Check.Label)({
@@ -17,7 +19,7 @@ const CheckboxLabel = styled(Form.Check.Label)({
 });
 
 const LabelContainer = styled.div({
-  marginLeft: ({ theme }) => theme.spacing.md,
+  marginLeft: ({ theme }) => theme.spacing.lg,
 });
 
 const SubText = styled(Form.Text)({
