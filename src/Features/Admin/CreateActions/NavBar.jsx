@@ -191,10 +191,25 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
     }
   }
   const NAVBAR_ITEMS = [
-    { label: 'Artist Info', icon: 'FaUserAlt', href: '/artist/info', showItem:true},
-    { label: 'Your Fan Funnel', icon: 'FaFilter', href: '/artist/create', showItem:true},
-    { label: 'Your Audience', icon: 'FaUsers', href: '/artist/audience',  showItem:true},
-    { label: 'Account Billing', icon: 'FaCreditCard', onClick: handleBillingClick, showItem: integrations?.find(item => item.serviceName === "StripeBilling")}
+    {
+      label: 'Your Fan Funnel',
+      icon: 'FaFilter',
+      href: '/artist/create',
+      showItem: true,
+    },
+    {
+      label: 'Your Audience',
+      icon: 'FaUsers',
+      href: '/artist/audience',
+      showItem: true,
+    },
+    {
+      label: 'Your Reports',
+      icon: 'IoAnalyticsOutline',
+      href: 'https://analytics.amplitude.com/',
+      target: '_blank',
+      showItem: true,
+    },
   ];
 
   const renderNavBarItem = () => {
@@ -205,7 +220,7 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
         if(item.showItem){
         return (
           <Dropdown.Item href={item.href} onClick={item.onClick} active={match}>
-            <Icon name={item.icon} style={{ marginRight: 15 }} />
+            <Icon name={item.icon} style={{ marginRight: 15 }} target={item.target} />
             {item.label}
           </Dropdown.Item>
         );
@@ -243,7 +258,7 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
     },
     {
       label: 'Logout',
-      icon: 'FaCreditCard',
+      icon: 'FaSignOutAlt',
       onClick: handleBillingClick,
       showItem: integrations?.find(
         item => item.serviceName === 'StripeBilling'
@@ -262,6 +277,7 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
                 href={item.href}
                 onClick={item.onClick}
                 active={match}
+                target={item.target}
               >
                 <Icon name={item.icon} style={{ marginRight: 15 }} />
                 {item.label}
