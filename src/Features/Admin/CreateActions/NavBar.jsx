@@ -8,6 +8,14 @@ import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
 import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
 import { ArtistProfileDropdown } from './ArtistProfileDropdown';
+import Amplify, { Auth } from 'aws-amplify';
+
+const signOut = () => {
+    Auth.signOut()
+    .then(data => console.log(data))
+      .catch(err => console.log(err));
+window.location.reload(false);
+  }
 
 const NavBarContainer = styled(Navbar)({
   display: 'flex',
@@ -261,13 +269,13 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
     {
       label: 'Training Portal',
       icon: 'FaGraduationCap',
-      href: '/artist/create',
+      href: 'https://members.modern-musician.com/',
       showItem: true,
     },
     {
       label: 'Integrations',
       icon: 'FaCogs',
-      href: '/artist/audience',
+      href: '/admin/integration',
       showItem: true,
     },
     {
@@ -281,10 +289,8 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
     {
       label: 'Logout',
       icon: 'FaSignOutAlt',
-      onClick: handleBillingClick,
-      showItem: integrations?.find(
-        item => item.serviceName === 'StripeBilling'
-      ),
+      onClick: signOut,
+      showItem: true,
     },
   ];
 
