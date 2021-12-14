@@ -139,68 +139,6 @@ CustomMenu.defaultProps = {
   style: {},
 };
 
-const ArtistProfileToggle = React.forwardRef(
-  ({ children, onClick, onToggle, isOpen }, ref) => (
-    <ArtistProfileButton
-      type="button"
-      ref={ref}
-      onToggle={onToggle}
-      onClick={e => {
-        e.preventDefault();
-        onClick(e);
-      }}
-    >
-      <Icon
-        style={{}}
-        name={'MdArrowDropDownCircle'}
-        size={35}
-        color="gray"
-      />
-      {children}
-    </ArtistProfileButton>
-  )
-);
-
-const ArtistProfileButton = styled.button({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  background: ({ theme }) => theme.colors.gray3,
-  borderRadius: 4,
-  border: 'none',
-  '&:hover': {
-    background: ({ theme }) => theme.colors.gray2,
-  },
-});
-
-const ArtistProfileMenu = React.forwardRef(
-  ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-    return (
-      <DropdownMenu
-        ref={ref}
-        style={style}
-        className={className}
-        aria-labelledby={labeledBy}
-      >
-        <ul style={{ margin: 0 }} className="list-unstyled">
-          {children}
-        </ul>
-      </DropdownMenu>
-    );
-  }
-);
-
-ArtistProfileMenu.propTypes = {
-  children: PropTypes.node.isRequired,
-  style: PropTypes.shape({}),
-  className: PropTypes.string.isRequired,
-  'aria-labelledby': PropTypes.string.isRequired,
-};
-
-ArtistProfileMenu.defaultProps = {
-  style: {},
-};
-
 export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
