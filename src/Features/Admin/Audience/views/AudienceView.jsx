@@ -146,6 +146,39 @@ const ContentContainer = styled.div({
   minHeight: '100%',
 });
 
+const BottomBarContainer = styled.div(({ color, textColor, theme }) => {
+  const fontColor = Color(textColor);
+  return {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    width: '35%',
+    borderRadius: '5px',
+    background: useGradient({
+      color,
+      customLighten: 0.01,
+      customDarken: 0.1,
+    }),
+    border: 'none',
+    height: '71px',
+    color: 'fontColor.hex()',
+    marginBottom: theme.spacing.md,
+    marginTop: theme.spacing.md,
+  };
+});
+
+const FacebookCustomAudienceContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  padding: '15px',
+  minHeight: '100%',
+  fontSize: '20px'
+});
+
 const Points = styled.p(({ theme }) => {
   return {
     fontFamily: theme.fonts.primary,
@@ -331,7 +364,11 @@ export const AudienceView = () => {
   }
   return (
     <React.Fragment>
-      <NavBar headerText="Your Audience" artistId={data?.getArtistUser?.artist.id} integrations={data?.getArtistUser?.artist.integrations.items} />
+      <NavBar
+        headerText="Your Audience"
+        artistId={data?.getArtistUser?.artist.id}
+        integrations={data?.getArtistUser?.artist.integrations.items}
+      />
       <RootContainer fluid>
         <Row>
           <Col>
@@ -372,6 +409,18 @@ export const AudienceView = () => {
         ) : (
           statusInfo
         )}
+        <Row>
+          <Col></Col>
+          <BottomBarContainer color="#4267B2" textColor="#ffffff">
+            <div />
+            <FacebookCustomAudienceContainer>
+              Create StreetTeam Facebook Custom Audience
+              <Icon name="HiUsers" color="white" size={20} />
+            </FacebookCustomAudienceContainer>
+            <div />
+          </BottomBarContainer>
+          <Col></Col>
+        </Row>
       </RootContainer>
     </React.Fragment>
   );
