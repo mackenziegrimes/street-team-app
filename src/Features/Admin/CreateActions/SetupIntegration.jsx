@@ -400,7 +400,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   </p>
                 </Col>
                 <IconContainer>
-                  <Icon name="MdOutlineContactPage" color="white" />
+                  <Icon name="FaFacebook" color="white" />
                 </IconContainer>
               </Row>
               <Row style={{ marginTop: theme.spacing.md }}>
@@ -422,7 +422,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <p>Copy your code for your Facebook Messenger Ad</p>
                 </Col>
                 <IconContainer>
-                  <Icon name="MdOutlineContactPage" color="white" />
+                  <Icon name="FaCog" color="white" />
                 </IconContainer>
               </Row>
               <Row style={{ marginTop: theme.spacing.md }}>
@@ -441,6 +441,41 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                       style={{ marginRight: 10 }}
                     />
                     Copy JSON Code
+                  </Button>
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Facebook Custom Audiences
+                  </h3>
+                  <p>
+                    Automatically create Lookalike and Custom targeting
+                    audiences based on your StreetTeam community members
+                  </p>
+                </Col>
+                <IconContainer>
+                  <Icon name="FaFacebook" color="white" />
+                </IconContainer>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Col>
+                  <Button
+                    style={{
+                      fontWeight: theme.fontWeights.semibold,
+                      fontFamily: theme.fonts.heading,
+                    }}
+                    onClick={copyLinkToClipboard}
+                  >
+                    <Icon
+                      name="FaUsers"
+                      color="black"
+                      size={20}
+                      style={{ marginRight: 10 }}
+                    />
+                    Create Custom Audiences
                   </Button>
                 </Col>
               </Row>
