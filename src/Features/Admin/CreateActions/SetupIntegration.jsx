@@ -14,7 +14,7 @@ import { Icon } from '../../../Components/UI/Icon';
 import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
 import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
-import { facebookAppId } from '../../../utils/sharedUtils';
+import { facebookAppId, getBackendApiUrl } from '../../../utils/sharedUtils';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -61,7 +61,7 @@ const CardBody = styled(Card.Body)(({ theme }) => {
   };
 });
 
-export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
+export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) => {
   const [activeIntegrations, setActiveIntegrations] = useState();
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -189,6 +189,42 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
     toast.success("Copied JSON to clipboard!")
   };
 
+  const createLookAlikeAudience = async () => {
+    console.log(`user id is`, userId);
+    const apiUrl = getBackendApiUrl();
+    if(userId && idToken && artistId){
+      let fetchUrl = `${apiUrl}/create-facebook-audience`;
+      let postBody = {
+        userId:userId, 
+        token:idToken,
+        artistId:artistId
+      }
+      try {
+        console.log(`calling fetch with`, fetchUrl);
+        const response = await fetch(fetchUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(postBody),
+        })
+          .then(rsp => rsp.json())
+          .then(json => {
+            if (json.error && json.error.message) {
+              console.error(json.error.message);
+            } else {
+              console.log(`create-custom-audience response is`, json);
+              toast.success("Created Custom Audience in Facebook!")
+            }
+          });
+      } catch (err) {
+        console.error(err);
+        toast.error("Unable to create custom audience")
+      }
+    }
+    else{
+      toast.warn("Something went wrong, please try refreshing the page")
+    }
+  }
+
   return (
     <React.Fragment>
       <ToastContainer autoClose={3000} />
@@ -255,14 +291,6 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                     ? `Copy Street Team Api Key`
                     : `Generate Street Team Api Key`}
                 </Button>
-                {/* <Col>
-                  <CreateStreetTeamApiKey
-                    userId={userId}
-                    artistId={artistId}
-                    streetTeamApiKey={formValue.StreetTeamApi?.apiKey}
-                  />
-                  
-                </Col> */}
               </Row>
             </CreateActionContainer>
             <CreateActionContainer>
@@ -467,7 +495,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                       fontWeight: theme.fontWeights.semibold,
                       fontFamily: theme.fonts.heading,
                     }}
-                    onClick={copyLinkToClipboard}
+                    onClick={createLookAlikeAudience}
                   >
                     <Icon
                       name="FaUsers"

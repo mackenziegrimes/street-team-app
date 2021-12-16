@@ -9,7 +9,7 @@ export const useCurrentAuthUser = () => {
     .then(user => {
       console.log(`current AuthenticatedUser response`,user)
       if(!artistUserDetails){
-        setArtistUserDetails({userId: user.username, artistName: user?.attributes?.name});
+        setArtistUserDetails({userId: user.username, artistName: user?.attributes?.name, idToken: user?.signInUserSession?.idToken?.jwtToken});
       }
     })
     .catch(err => console.error(err));
@@ -17,5 +17,6 @@ export const useCurrentAuthUser = () => {
   return {
     userId: artistUserDetails?.userId,
     artistName: artistUserDetails?.artistName,
+    idToken: artistUserDetails?.idToken,
   };
 };

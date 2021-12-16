@@ -27,6 +27,7 @@ export const CreateActionPage = ({ type }) => {
     artistRoute,
     actionPageData,
     userId,
+    idToken,
     artistId,
     integrations,
   } = useGetActionPage();
@@ -179,6 +180,7 @@ export const CreateActionPage = ({ type }) => {
                   userId={userId}
                   artistId={artistId}
                   actionPageId={actionPageId}
+                  idToken={idToken}
                 />
               )}
             </Col>
