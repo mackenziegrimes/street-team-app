@@ -503,7 +503,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                       size={20}
                       style={{ marginRight: 10 }}
                     />
-                    Create Custom Audiences
+                    Create Lookalike/Custom Audiences
                   </Button>
                 </Col>
               </Row>
