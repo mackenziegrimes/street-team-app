@@ -7,13 +7,40 @@ import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
 import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
+import { ArtistProfileDropdown } from './ArtistProfileDropdown';
+import Amplify, { Auth } from 'aws-amplify';
+
+const signOut = () => {
+    Auth.signOut()
+    .then(data => console.log(data))
+      .catch(err => console.log(err));
+window.location.reload(false);
+  }
 
 const NavBarContainer = styled(Navbar)({
   display: 'flex',
+  justifyContent: 'space-between',
   alignItems: 'center',
   padding: ({ theme }) => theme.spacing.md,
   background: ({ theme }) => theme.colors.gray3,
   borderBottom: '2px solid gray',
+});
+
+const NavGroup = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const Link = styled.a({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '50%',
+  marginRight: 30,
+  padding: 8,
+  '&:hover': {
+    background: ({ theme }) => theme.colors.gray2,
+  },
 });
 
 const Logo = styled.img({
@@ -41,14 +68,17 @@ const DropdownButton = styled.button({
 
 const DropdownMenu = styled.div({
   'a + a': {
-    marginTop: 10,
+    // marginTop: 10,
+    borderTop: '1px solid gray',
   },
   a: {
     color: ({ theme }) => theme.colors.white,
+    padding: '15px',
+    fontSize: '20px',
   },
   minWidth: '290px',
   width: '100%',
-  top: 50,
+  top: 60,
   backgroundColor: ({ theme }) => theme.colors.gray1,
 });
 
@@ -109,7 +139,7 @@ CustomMenu.defaultProps = {
   style: {},
 };
 
-export const NavBar = ({ headerText, artistId, integrations }) => {
+export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -129,10 +159,25 @@ export const NavBar = ({ headerText, artistId, integrations }) => {
     }
   }
   const NAVBAR_ITEMS = [
-    { label: 'Artist Info', icon: 'FaUserAlt', href: '/artist/info', showItem:true},
-    { label: 'Your Fan Funnel', icon: 'FaFilter', href: '/artist/create', showItem:true},
-    { label: 'Your Audience', icon: 'FaUsers', href: '/artist/audience',  showItem:true},
-    { label: 'Account Billing', icon: 'FaCreditCard', onClick: handleBillingClick, showItem: integrations?.find(item => item.serviceName === "StripeBilling")}
+    {
+      label: 'Your Fan Funnel',
+      icon: 'FaFilter',
+      href: '/artist/create',
+      showItem: true,
+    },
+    {
+      label: 'Your Audience',
+      icon: 'FaUsers',
+      href: '/artist/audience',
+      showItem: true,
+    },
+    {
+      label: 'Your Reports',
+      icon: 'IoAnalyticsOutline',
+      href: 'https://analytics.amplitude.com/',
+      target: '_blank',
+      showItem: true,
+    },
   ];
 
   const renderNavBarItem = () => {
@@ -143,7 +188,7 @@ export const NavBar = ({ headerText, artistId, integrations }) => {
         if(item.showItem){
         return (
           <Dropdown.Item href={item.href} onClick={item.onClick} active={match}>
-            <Icon name={item.icon} style={{ marginRight: 15 }} />
+            <Icon name={item.icon} style={{ marginRight: 15 }} target={item.target} />
             {item.label}
           </Dropdown.Item>
         );
@@ -151,22 +196,93 @@ export const NavBar = ({ headerText, artistId, integrations }) => {
     }
     });
   };
-  return (
-    <NavBarContainer sticky="top">
-      <Navbar.Brand href="#">
-        <Logo src={logo} alt="Modern Musician Logo" />
-      </Navbar.Brand>
 
-      <Dropdown onToggle={open => setIsOpen(open)}>
-        <Dropdown.Toggle
-          as={CustomToggle}
-          isOpen={isOpen}
-          id="dropdown-custom-components"
-        >
-          <Header>{headerText}</Header>
-        </Dropdown.Toggle>
-        <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
-      </Dropdown>
+  const ARTIST_PROFILE_ITEMS = [
+    {
+      label: 'Your Artist Profile',
+      icon: 'FaUserAlt',
+      href: '/artist/info',
+      showItem: true,
+    },
+    {
+      label: 'Training Portal',
+      icon: 'FaGraduationCap',
+      href: 'https://members.modern-musician.com/',
+      showItem: true,
+    },
+    {
+      label: 'Integrations',
+      icon: 'FaCogs',
+      href: '/admin/integration',
+      showItem: true,
+    },
+    {
+      label: 'Account Billing',
+      icon: 'FaCreditCard',
+      onClick: handleBillingClick,
+      showItem: integrations?.find(
+        item => item.serviceName === 'StripeBilling'
+      ),
+    },
+    {
+      label: 'Logout',
+      icon: 'FaSignOutAlt',
+      onClick: signOut,
+      showItem: true,
+    },
+  ];
+
+    const renderArtistProfileItems = () => {
+      return ARTIST_PROFILE_ITEMS.map(item => {
+        // console.log('location', location);
+        const match = matchPath(location.pathname, { path: item.href });
+        {
+          if (item.showItem) {
+            return (
+              <Dropdown.Item
+                href={item.href}
+                onClick={item.onClick}
+                active={match}
+                target={item.target}
+              >
+                <Icon name={item.icon} style={{ marginRight: 15 }} />
+                {item.label}
+              </Dropdown.Item>
+            );
+          }
+        }
+      });
+    };
+
+  return (
+    <NavBarContainer className="ml-auto" sticky="top">
+      <NavGroup>
+        <Navbar.Brand href="#">
+          <Logo src={logo} alt="Modern Musician Logo" />
+        </Navbar.Brand>
+        <Dropdown onToggle={open => setIsOpen(open)}>
+          <Dropdown.Toggle
+            as={CustomToggle}
+            isOpen={isOpen}
+            id="dropdown-custom-components"
+          >
+            <Header>{headerText}</Header>
+          </Dropdown.Toggle>
+          <Dropdown.Menu as={CustomMenu}>{renderNavBarItem()}</Dropdown.Menu>
+        </Dropdown>
+      </NavGroup>
+      {/* Artist Profile Menu */}
+      <NavGroup>
+        <Link href="https://modernmusician.typeform.com/to/b1MILDjf">
+          <Icon name="FaQuestionCircle" color="gray" />
+        </Link>
+        <Link href="notion://www.notion.so/StreetTeam-Updates-4af35f77dbd54ebfa587d272c6932fb4">
+          <Icon name="FaBell" color="gray" />
+        </Link>
+        <ArtistProfileDropdown
+          menuItems={renderArtistProfileItems()}
+        ></ArtistProfileDropdown>
+      </NavGroup>
     </NavBarContainer>
   );
 };
