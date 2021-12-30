@@ -27,7 +27,8 @@ export const Routes = () => {
         </Route>
         {/* support backwards compatability for secure/create-action-page (to be removed later on) */}
         <Route
-          path={[
+          exact path={[
+            '/',
             '/artist/create',
             '/admin/create-fan-magnet',
             '/artist/secure/create-action-page',
