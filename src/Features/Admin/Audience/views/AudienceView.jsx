@@ -11,8 +11,10 @@ import { RootContainer } from '../../CreateActions/views/CreateActionPage';
 import { useCurrentAuthUser } from '../../CreateActions/hooks/useCurrentAuthUser';
 import { getAllSubscribersFromArtistUser } from '../queries';
 import { useGradient } from '../../../../Hooks/useGradient';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import Color from 'color';
+import { ToastContainer, toast } from 'react-toastify';
+import { getBackendApiUrl } from '../../../../utils/sharedUtils';
 
 const BACKGROUND_COLOR = '#6850ea';
 
@@ -169,7 +171,7 @@ const BottomBarContainer = styled.div(({ color, textColor, theme }) => {
   };
 });
 
-const FacebookCustomAudienceContainer = styled.div({
+const FacebookCustomAudienceDiv = styled.div({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'row',
@@ -317,7 +319,7 @@ export const AudienceView = () => {
     filter: { onChangeFilter },
   } = useTable(columns, tableData);
 
-  const { userId } = useCurrentAuthUser();
+  const { userId, idToken } = useCurrentAuthUser();
   const { data, error, loading } = useQuery(getAllSubscribersFromArtistUser, {
     variables: {
       id: userId,
@@ -337,6 +339,43 @@ export const AudienceView = () => {
     setSearchValue(value);
     onChangeFilter(value);
   };
+
+  const createLookAlikeAudience = async () => {
+    console.log(`user id is`, userId);
+    const apiUrl = getBackendApiUrl();
+    const artistId=data?.getArtistUser?.artist.id;
+    if(userId && idToken && artistId){
+      let fetchUrl = `${apiUrl}/create-facebook-audience`;
+      let postBody = {
+        userId:userId, 
+        token:idToken,
+        artistId:artistId
+      }
+      try {
+        console.log(`calling fetch with`, fetchUrl);
+        const response = await fetch(fetchUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(postBody),
+        })
+          .then(rsp => rsp.json())
+          .then(json => {
+            if (json.error && json.error.message) {
+              console.error(json.error.message);
+            } else {
+              console.log(`create-custom-audience response is`, json);
+              toast.success("Created Custom Audience in Facebook!")
+            }
+          });
+      } catch (err) {
+        console.error(err);
+        toast.error("Unable to create custom audience")
+      }
+    }
+    else{
+      toast.warn("Something went wrong, please try refreshing the page")
+    }
+  }
 
   const onExport = () => {
     const csv = Papa.unparse(tableData);
@@ -364,6 +403,7 @@ export const AudienceView = () => {
   }
   return (
     <React.Fragment>
+      <ToastContainer autoClose={3000} />
       <NavBar
         headerText="Your Audience"
         artistId={data?.getArtistUser?.artist.id}
@@ -393,6 +433,12 @@ export const AudienceView = () => {
                     Export{' '}
                     <Icon name="FaExternalLinkAlt" color="black" size={20} />
                   </ExportButton>
+                  <FacebookCustomAudienceDiv>
+                    <Button onClick={createLookAlikeAudience}>
+                    Create StreetTeam Facebook Custom Audience
+                    <Icon name="HiUsers" color="white" size={20} />
+                  </Button>
+                  </FacebookCustomAudienceDiv>
                   <SearchLabel>
                     Search <Icon name="FaSearch" color="black" size={20} />
                     <input
@@ -409,18 +455,6 @@ export const AudienceView = () => {
         ) : (
           statusInfo
         )}
-        <Row>
-          <Col></Col>
-          <BottomBarContainer color="#4267B2" textColor="#ffffff">
-            <div />
-            <FacebookCustomAudienceContainer>
-              Create StreetTeam Facebook Custom Audience
-              <Icon name="HiUsers" color="white" size={20} />
-            </FacebookCustomAudienceContainer>
-            <div />
-          </BottomBarContainer>
-          <Col></Col>
-        </Row>
       </RootContainer>
     </React.Fragment>
   );

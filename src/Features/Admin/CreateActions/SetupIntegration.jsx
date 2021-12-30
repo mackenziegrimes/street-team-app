@@ -12,15 +12,16 @@ import { TextField } from '../../../Components/UI/TextField';
 import { Button } from '../../../Components/UI/Button';
 import { Icon } from '../../../Components/UI/Icon';
 import { useTheme } from '../../../Hooks/useTheme';
-import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
+import { FacebookGrantAdPermissions, FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
 import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
 import { facebookAppId, getBackendApiUrl } from '../../../utils/sharedUtils';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SelectList } from '../../../Components/UI/SelectList';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi', 'FacebookAdAccount'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -68,6 +69,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
     Amplitude: { apiKey: '', apiUrl: '' },
     ActiveCampaign: { apiKey: '', apiUrl: '' },
     Facebook: { apiKey: '', apiAccountId: '', apiUrl: '' },
+    FacebookAdAccount: { apiKey: '', apiAccountId: '', apiUrl: '' },
     Manychat: { apiKey: '', apiUrl: '' },
     StreetTeamApi: {apiKey:''}
   });
@@ -188,42 +190,6 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
     navigator.clipboard.writeText(config);
     toast.success("Copied JSON to clipboard!")
   };
-
-  const createLookAlikeAudience = async () => {
-    console.log(`user id is`, userId);
-    const apiUrl = getBackendApiUrl();
-    if(userId && idToken && artistId){
-      let fetchUrl = `${apiUrl}/create-facebook-audience`;
-      let postBody = {
-        userId:userId, 
-        token:idToken,
-        artistId:artistId
-      }
-      try {
-        console.log(`calling fetch with`, fetchUrl);
-        const response = await fetch(fetchUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(postBody),
-        })
-          .then(rsp => rsp.json())
-          .then(json => {
-            if (json.error && json.error.message) {
-              console.error(json.error.message);
-            } else {
-              console.log(`create-custom-audience response is`, json);
-              toast.success("Created Custom Audience in Facebook!")
-            }
-          });
-      } catch (err) {
-        console.error(err);
-        toast.error("Unable to create custom audience")
-      }
-    }
-    else{
-      toast.warn("Something went wrong, please try refreshing the page")
-    }
-  }
 
   return (
     <React.Fragment>
@@ -480,8 +446,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                     Facebook Custom Audiences
                   </h3>
                   <p>
-                    Automatically create Lookalike and Custom targeting
-                    audiences based on your StreetTeam community members
+                  Automatically create Lookalike and Custom targeting
+                  audiences based on your StreetTeam community members
                   </p>
                 </Col>
                 <IconContainer>
@@ -490,21 +456,11 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
               </Row>
               <Row style={{ marginTop: theme.spacing.md }}>
                 <Col>
-                  <Button
-                    style={{
-                      fontWeight: theme.fontWeights.semibold,
-                      fontFamily: theme.fonts.heading,
-                    }}
-                    onClick={createLookAlikeAudience}
-                  >
-                    <Icon
-                      name="FaUsers"
-                      color="black"
-                      size={20}
-                      style={{ marginRight: 10 }}
-                    />
-                    Create Lookalike/Custom Audiences
-                  </Button>
+                  <FacebookGrantAdPermissions
+                    userId={userId}
+                    artistId={artistId}
+                    facebookAdAccountId={formValue.FacebookAdAccount?.apiAccountId}
+                  />
                 </Col>
               </Row>
             </CreateActionContainer>

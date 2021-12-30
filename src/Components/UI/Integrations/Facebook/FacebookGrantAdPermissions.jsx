@@ -25,23 +25,25 @@ const OrText = styled.p({
   fontWeight: ({ theme }) => `${theme.fontWeights.bold} !important`,
 });
 
-// login with facebook to grant messaging permissions
-// TODO we'll want to read the saved data from the database at some point soon, but for now the user can just re-connect if they feel so inclined.
-export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId }) => {
+// login with facebook to grant ad management permissions
+// TODO -- there's a lot of re-used code here from the FacebookGrantPagePermissions.jsx page that could really be cleaned up into shared compnonents
+// TODO -- out of scope for this dev cylce, but we should create a better user experience with being able to search for accounts, use the friendly account names etc
+export const FacebookGrantAdPermissions = ({ userId, artistId, facebookAdAccountId }) => {
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
-  const [facebookPages, setFacebookPages] = useState();
+  const [facebookPages, setFacebookAdAccounts] = useState();
   const [facebookLoginObject, setFacebookLoginObject] = useState();
   const [formValue, setFormValue] = useState({
-    FacebookPage: '',
+    FacebookAdAccount: '',
   });
 
   useEffect(() => {
-    if(facebookPageId){
-      setFormValue({FacebookPage: facebookPageId})
+    if(facebookAdAccountId){
+      console.log(`setting formValue to ${facebookAdAccountId}`)
+      setFormValue({FacebookAdAccount: facebookAdAccountId})
     }
-  }, [facebookPageId])
-
+  }, [facebookAdAccountId])
+  console.log(`facebookAdAccountId is: ${facebookAdAccountId}`)
   const fbAsyncInit = () => {
     // init the fb sdk client
     const fb = window.FB;
@@ -72,10 +74,10 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
     if (!window.FB) createScript();
   }, []);
 
-  const getFBPageOptionsFromInternalAPI = async authObject => {
+  const getFBAdOptionsFromInternalAPI = async authObject => {
     const { userId, accessToken, facebookUserId } = authObject;
     console.log(`test1 inside user id is`, userId);
-    let fetchUrl = `${apiUrl}/get-available-facebook-pages?&userId=${userId}`;
+    let fetchUrl = `${apiUrl}/get-available-facebook-ad-accounts?&userId=${userId}`;
     if (accessToken && facebookUserId) {
       // if we have an updated access token, supply it. otherwise we just use the one stored in the database for this artist user
       fetchUrl += `&accessToken=${accessToken}&facebookUserId=${facebookUserId}`;
@@ -93,11 +95,11 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
           } else {
             console.log(`facebookOptionsAre`, json);
             const returnData = json?.data?.data?.map(item => {
-              const returnObject = { id: item.id, name: item.name };
+              const returnObject = { id: item.id, name: item.account_id };
               return returnObject;
             });
             console.log(`return data`, returnData);
-            setFacebookPages(returnData);
+            setFacebookAdAccounts(returnData);
           }
         });
     } catch (err) {
@@ -113,7 +115,7 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
     if (!facebookPages && userId && artistId) {
       console.log(`test1`, userId);
       // we don't really need the artistId here, but if there isn't one, the page isn't really done loading
-      getFBPageOptionsFromInternalAPI({ userId }).then(res => {
+      getFBAdOptionsFromInternalAPI({ userId }).then(res => {
         console.log(`internal API resrponse`, res);
       });
     }
@@ -136,9 +138,9 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
             input.facebookUserId = facebookUserId;
             input.accessToken = accessToken;
           }
-          console.log(`test1 -- getting FB pages with facebook creds`, input);
+          console.log(`test1 -- getting FB add accounts with facebook creds`, input);
           setLoading(true);
-          getFBPageOptionsFromInternalAPI(input).then(res => {
+          getFBAdOptionsFromInternalAPI(input).then(res => {
             console.log(`internal API resrponse`, res);
             setLoading(false);
           });
@@ -152,25 +154,25 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
       }
     );
   };
-  const updateDatabase = async facebookPageID => {
+  const updateDatabase = async facebookAdAccountId => {
     console.log(`facebookLoginObjectIs`, facebookLoginObject);
     // TODO this should be a PUT eventually got to change the API first though
     // these values come from the API response from the fb.login response (response.authResponse)
     try {
-      if (facebookPageID !== '') {
+      if (facebookAdAccountId !== '') {
         const facebookAccessToken = facebookLoginObject?.accessToken;
         const facebookUserId = facebookLoginObject?.userID;
-        console.log(`facebookPageID`, facebookPageID);
+        console.log(`facebookAdAccountId`, facebookAdAccountId);
         console.log(
           `updating database with these values`,
           userId,
           facebookAccessToken,
           facebookUserId,
-          facebookPageID,
+          facebookAdAccountId,
           artistId
         );
-        let updateUrl = `${apiUrl}/store-facebook-page-integration`;
-        let updateBody = {userId: userId, artistID: artistId, facebookPageId: facebookPageID}
+        let updateUrl = `${apiUrl}/store-facebook-ad-account-integration`;
+        let updateBody = {userId: userId, artistID: artistId, facebookAdAccountId: facebookAdAccountId}
         if (facebookUserId && facebookAccessToken) {
           updateBody['facebookUserAccessToken'] = facebookAccessToken;
           updateBody['facebookUserId'] = facebookUserId;
@@ -199,7 +201,7 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
   const selectOptions = useMemo(() => {
     const pleaseSelectOption = {
       value: '',
-      label: `Please Select a Page`,
+      label: `Please select a Facebook Ad Account`,
       isDisabled: true,
     };
     let pages = [];
@@ -231,22 +233,22 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
             backgroundColor: theme.colors.primary,
           }}
         >
-          Configure Facebook Page Integration
+          Connect Facebook Ad Account
         </Button>
       ) : (
         <div>
           <SelectList
             hideLabel
-            label="Facebook Page"
-            value={formValue.FacebookPage}
+            label="Facebook Ad Account"
+            value={formValue.FacebookAdAccount}
             onChange={e => {
               updateDatabase(e.target.value);
               setFormValue({
                 ...formValue,
-                FacebookPage: e.target.value,
+                FacebookAdAccount: e.target.value,
               });
             }}
-            placeholder="Facebook Page..."
+            placeholder="Facebook Ad..."
             options={selectOptions}
           />
           <OrContainer>
@@ -260,7 +262,7 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
               backgroundColor: theme.colors.gray,
             }}
           >
-            Re-Connect Facebook Page Account
+            Re-Connect Facebook Ad Account
           </Button>
         </div>
       )}
@@ -268,7 +270,7 @@ export const FacebookGrantPagePermissions = ({ userId, artistId, facebookPageId 
   );
 };
 
-FacebookGrantPagePermissions.propTypes = {
+FacebookGrantAdPermissions.propTypes = {
   userId: PropTypes.string.isRequired,
   artistId: PropTypes.string.isRequired,
 };
