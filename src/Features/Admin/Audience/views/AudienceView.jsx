@@ -111,10 +111,11 @@ const AudienceCountContainer = styled.div({
   alignItems: 'center',
   justifyContent: 'center',
   background: ({ color }) => color,
-  width: 250,
+  width: '25%',
   color: 'inherit',
   fontSize: ({ theme }) => theme.fontSizes.sm,
-  minHeight: '100%',
+  // minHeight: '100%',
+  padding: 10
 });
 
 const TopBarContainer = styled.div(({ color, textColor, theme }) => {
@@ -132,10 +133,12 @@ const TopBarContainer = styled.div(({ color, textColor, theme }) => {
       customDarken: 0.4,
     }),
     border: 'none',
-    height: '71px',
+    height: '85px',
     color: fontColor.hex(),
     marginBottom: theme.spacing.md,
     marginTop: theme.spacing.md,
+    // paddingTop: 30,
+    // paddingBottom: 30
   };
 });
 
@@ -195,11 +198,12 @@ const Title = styled.p(({ theme }) => {
   return {
     textAlign: 'left',
     wordWrap: 'break-word',
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: theme.fontWeights.bold,
     margin: 0,
     marginLeft: '25px',
     color: 'inherit',
+    fontFamily: 'Oswald'
   };
 });
 
