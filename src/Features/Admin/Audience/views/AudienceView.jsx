@@ -181,7 +181,11 @@ const FacebookCustomAudienceDiv = styled.div({
   justifyContent: 'flex-start',
   padding: '15px',
   minHeight: '100%',
-  fontSize: '20px'
+  fontSize: '20px',
+});
+
+const PrimaryButton = styled.button({
+  backgroundColor: 'red'
 });
 
 const Points = styled.p(({ theme }) => {
@@ -439,9 +443,9 @@ export const AudienceView = () => {
                   </ExportButton>
                   <FacebookCustomAudienceDiv>
                     <Button onClick={createLookAlikeAudience}>
-                    Create StreetTeam Facebook Custom Audience
-                    <Icon name="HiUsers" color="white" size={20} />
-                  </Button>
+                      Create StreetTeam Facebook Custom Audience
+                      <Icon name="HiUsers" color="5e30b8" size={20} />
+                    </Button>
                   </FacebookCustomAudienceDiv>
                   <SearchLabel>
                     Search <Icon name="FaSearch" color="black" size={20} />
