@@ -5,6 +5,7 @@ import * as Heroicons from 'react-icons/hi';
 import * as FontAwesome from 'react-icons/fa';
 import * as GameIcons from 'react-icons/gi';
 import * as Ionicons5 from 'react-icons/io5';
+import * as AntDesignIcons from "react-icons/ai";
 
 
 // TEMPORARY back compat
@@ -55,6 +56,9 @@ const checkIcon = name => {
       break;
     case 'Io':
       library = Ionicons5;
+      break;
+    case 'Ai':
+      library = AntDesignIcons;
       break;
     default:
       library = FontAwesome;

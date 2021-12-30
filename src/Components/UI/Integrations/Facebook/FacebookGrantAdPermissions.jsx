@@ -7,6 +7,10 @@ import { SelectList } from '../../SelectList';
 import { useTheme } from '../../../../Hooks/useTheme';
 import { getBackendApiUrl, facebookAppId } from '../../../../utils/sharedUtils';
 import { Spinner } from '../../Spinner';
+import { Icon } from '../../../../Components/UI/Icon';
+import { Container, Row, Col, Card, Modal } from 'react-bootstrap';
+
+
 // import { ConsoleLogger } from '@aws-amplify/core';
 
 // todo this should be done using environment variables, but for now this works -2021-11-11 SG
@@ -16,6 +20,11 @@ const OrContainer = styled.div({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+});
+
+const IconContainer = styled(Col)({
+  display: 'flex',
+  justifyContent: 'flex-end',
 });
 
 const OrText = styled.p({
@@ -230,9 +239,15 @@ export const FacebookGrantAdPermissions = ({ userId, artistId, facebookAdAccount
           style={{
             fontWeight: theme.fontWeights.semibold,
             fontFamily: theme.fonts.heading,
-            backgroundColor: theme.colors.primary,
+            backgroundColor: theme.colors.secondary,
           }}
         >
+          <Icon
+            name="FaFacebook"
+            color="black"
+            size={20}
+            style={{ marginRight: 10 }}
+          />
           Connect Facebook Ad Account
         </Button>
       ) : (
