@@ -78,7 +78,7 @@ export const FanMagnetStep2 = ({artistId}) => {
         handleClick={() => {
           // setFanMagnetSurvey(SURVEY_SELECTION.LOVE_IT);
           continueToNextStep();
-          trackInAmplitude('Fan Magnet Enjoyed',anonymousId(),null,artistId);
+          trackInAmplitude('Song Enjoyed',anonymousId(),null,artistId);
         }}
       >
         <span>👍</span>
