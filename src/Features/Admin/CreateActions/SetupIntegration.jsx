@@ -12,15 +12,16 @@ import { TextField } from '../../../Components/UI/TextField';
 import { Button } from '../../../Components/UI/Button';
 import { Icon } from '../../../Components/UI/Icon';
 import { useTheme } from '../../../Hooks/useTheme';
-import { FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
+import { FacebookGrantAdPermissions, FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
 import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
-import { facebookAppId } from '../../../utils/sharedUtils';
+import { facebookAppId, getBackendApiUrl } from '../../../utils/sharedUtils';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SelectList } from '../../../Components/UI/SelectList';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi', 'FacebookAdAccount'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -61,13 +62,14 @@ const CardBody = styled(Card.Body)(({ theme }) => {
   };
 });
 
-export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
+export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) => {
   const [activeIntegrations, setActiveIntegrations] = useState();
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
     Amplitude: { apiKey: '', apiUrl: '' },
     ActiveCampaign: { apiKey: '', apiUrl: '' },
     Facebook: { apiKey: '', apiAccountId: '', apiUrl: '' },
+    FacebookAdAccount: { apiKey: '', apiAccountId: '', apiUrl: '' },
     Manychat: { apiKey: '', apiUrl: '' },
     StreetTeamApi: {apiKey:''}
   });
@@ -255,14 +257,6 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                     ? `Copy Street Team Api Key`
                     : `Generate Street Team Api Key`}
                 </Button>
-                {/* <Col>
-                  <CreateStreetTeamApiKey
-                    userId={userId}
-                    artistId={artistId}
-                    streetTeamApiKey={formValue.StreetTeamApi?.apiKey}
-                  />
-                  
-                </Col> */}
               </Row>
             </CreateActionContainer>
             <CreateActionContainer>
@@ -400,7 +394,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   </p>
                 </Col>
                 <IconContainer>
-                  <Icon name="MdOutlineContactPage" color="white" />
+                  <Icon name="FaFacebook" color="white" />
                 </IconContainer>
               </Row>
               <Row style={{ marginTop: theme.spacing.md }}>
@@ -422,7 +416,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                   <p>Copy your code for your Facebook Messenger Ad</p>
                 </Col>
                 <IconContainer>
-                  <Icon name="MdOutlineContactPage" color="white" />
+                  <Icon name="FaCog" color="white" />
                 </IconContainer>
               </Row>
               <Row style={{ marginTop: theme.spacing.md }}>
@@ -442,6 +436,31 @@ export const SetupIntegration = ({ userId, artistId, actionPageId }) => {
                     />
                     Copy JSON Code
                   </Button>
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Facebook Custom Audiences
+                  </h3>
+                  <p>
+                  Automatically create Lookalike and Custom targeting
+                  audiences based on your StreetTeam community members
+                  </p>
+                </Col>
+                <IconContainer>
+                  <Icon name="FaFacebook" color="white" />
+                </IconContainer>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Col>
+                  <FacebookGrantAdPermissions
+                    userId={userId}
+                    artistId={artistId}
+                    facebookAdAccountId={formValue.FacebookAdAccount?.apiAccountId}
+                  />
                 </Col>
               </Row>
             </CreateActionContainer>

@@ -178,6 +178,14 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
       target: '_blank',
       showItem: true,
     },
+    {
+      showItem: true,
+      label: 'Your Integrations',
+      icon: 'FaCogs',
+      href: '/admin/integration',
+      target: '_blank',
+      showItem: true,
+    }
   ];
 
   const renderNavBarItem = () => {

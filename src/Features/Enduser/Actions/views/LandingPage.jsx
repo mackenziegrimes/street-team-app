@@ -125,7 +125,7 @@ export const LandingPage = () => {
       anonymousId()
       console.log(anonymousId())
       //track 
-      trackInAmplitude('Fan Magnet Clicked',anonymousId(),null,artistId);
+      trackInAmplitude('Song Clicked',anonymousId(),null,artistId);
     }
   },[artistId])
 
@@ -208,7 +208,7 @@ export const LandingPage = () => {
             margin="60px 0 45px"
             handleClick={() => {
               setCurrentStep(2)
-              trackInAmplitude('Fan Magnet Listened',anonymousId(),null,artistId);
+              trackInAmplitude('Song Listened',anonymousId(),null,artistId);
             }}
           >
             <span>

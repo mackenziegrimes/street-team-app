@@ -11,8 +11,10 @@ import { RootContainer } from '../../CreateActions/views/CreateActionPage';
 import { useCurrentAuthUser } from '../../CreateActions/hooks/useCurrentAuthUser';
 import { getAllSubscribersFromArtistUser } from '../queries';
 import { useGradient } from '../../../../Hooks/useGradient';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import Color from 'color';
+import { ToastContainer, toast } from 'react-toastify';
+import { getBackendApiUrl } from '../../../../utils/sharedUtils';
 
 const BACKGROUND_COLOR = '#6850ea';
 
@@ -109,10 +111,11 @@ const AudienceCountContainer = styled.div({
   alignItems: 'center',
   justifyContent: 'center',
   background: ({ color }) => color,
-  width: 250,
+  width: '25%',
   color: 'inherit',
   fontSize: ({ theme }) => theme.fontSizes.sm,
-  minHeight: '100%',
+  // minHeight: '100%',
+  padding: 10
 });
 
 const TopBarContainer = styled.div(({ color, textColor, theme }) => {
@@ -130,10 +133,12 @@ const TopBarContainer = styled.div(({ color, textColor, theme }) => {
       customDarken: 0.4,
     }),
     border: 'none',
-    height: '71px',
+    height: '85px',
     color: fontColor.hex(),
     marginBottom: theme.spacing.md,
     marginTop: theme.spacing.md,
+    // paddingTop: 30,
+    // paddingBottom: 30
   };
 });
 
@@ -144,6 +149,43 @@ const ContentContainer = styled.div({
   justifyContent: 'flex-start',
   padding: '15px',
   minHeight: '100%',
+});
+
+const BottomBarContainer = styled.div(({ color, textColor, theme }) => {
+  const fontColor = Color(textColor);
+  return {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    width: '35%',
+    borderRadius: '5px',
+    background: useGradient({
+      color,
+      customLighten: 0.01,
+      customDarken: 0.1,
+    }),
+    border: 'none',
+    height: '71px',
+    color: 'fontColor.hex()',
+    marginBottom: theme.spacing.md,
+    marginTop: theme.spacing.md,
+  };
+});
+
+const FacebookCustomAudienceDiv = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  padding: '15px',
+  minHeight: '100%',
+  fontSize: '20px',
+});
+
+const PrimaryButton = styled.button({
+  backgroundColor: 'red'
 });
 
 const Points = styled.p(({ theme }) => {
@@ -160,11 +202,12 @@ const Title = styled.p(({ theme }) => {
   return {
     textAlign: 'left',
     wordWrap: 'break-word',
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: theme.fontWeights.bold,
     margin: 0,
     marginLeft: '25px',
     color: 'inherit',
+    fontFamily: 'Oswald'
   };
 });
 
@@ -284,7 +327,7 @@ export const AudienceView = () => {
     filter: { onChangeFilter },
   } = useTable(columns, tableData);
 
-  const { userId } = useCurrentAuthUser();
+  const { userId, idToken } = useCurrentAuthUser();
   const { data, error, loading } = useQuery(getAllSubscribersFromArtistUser, {
     variables: {
       id: userId,
@@ -304,6 +347,43 @@ export const AudienceView = () => {
     setSearchValue(value);
     onChangeFilter(value);
   };
+
+  const createLookAlikeAudience = async () => {
+    console.log(`user id is`, userId);
+    const apiUrl = getBackendApiUrl();
+    const artistId=data?.getArtistUser?.artist.id;
+    if(userId && idToken && artistId){
+      let fetchUrl = `${apiUrl}/create-facebook-audience`;
+      let postBody = {
+        userId:userId, 
+        token:idToken,
+        artistId:artistId
+      }
+      try {
+        console.log(`calling fetch with`, fetchUrl);
+        const response = await fetch(fetchUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(postBody),
+        })
+          .then(rsp => rsp.json())
+          .then(json => {
+            if (json.error && json.error.message) {
+              console.error(json.error.message);
+            } else {
+              console.log(`create-custom-audience response is`, json);
+              toast.success("Created Custom Audience in Facebook!")
+            }
+          });
+      } catch (err) {
+        console.error(err);
+        toast.error("Unable to create custom audience")
+      }
+    }
+    else{
+      toast.warn("Something went wrong, please try refreshing the page")
+    }
+  }
 
   const onExport = () => {
     const csv = Papa.unparse(tableData);
@@ -331,7 +411,12 @@ export const AudienceView = () => {
   }
   return (
     <React.Fragment>
-      <NavBar headerText="Your Audience" artistId={data?.getArtistUser?.artist.id} integrations={data?.getArtistUser?.artist.integrations.items} />
+      <ToastContainer autoClose={3000} />
+      <NavBar
+        headerText="Your Audience"
+        artistId={data?.getArtistUser?.artist.id}
+        integrations={data?.getArtistUser?.artist.integrations.items}
+      />
       <RootContainer fluid>
         <Row>
           <Col>
@@ -356,6 +441,12 @@ export const AudienceView = () => {
                     Export{' '}
                     <Icon name="FaExternalLinkAlt" color="black" size={20} />
                   </ExportButton>
+                  <FacebookCustomAudienceDiv>
+                    <Button onClick={createLookAlikeAudience}>
+                      Create StreetTeam Facebook Custom Audience
+                      <Icon name="HiUsers" color="5e30b8" size={20} />
+                    </Button>
+                  </FacebookCustomAudienceDiv>
                   <SearchLabel>
                     Search <Icon name="FaSearch" color="black" size={20} />
                     <input

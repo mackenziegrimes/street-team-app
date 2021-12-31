@@ -22,7 +22,7 @@ export const useGetActionPage = () => {
   const [createLoading, setCreateLoading] = useState();
   const [createActionPageError, setCreateActionPageError] = useState();
 
-  let { userId, artistName } = useCurrentAuthUser();
+  let { userId, artistName, idToken } = useCurrentAuthUser();
   console.log(`1-- now the artist is`,artistName);
 
   const getArtistByEnduser = `query GetArtistUserActionPageData($id: ID!, $pageRoute: String) {
@@ -336,6 +336,7 @@ export const useGetActionPage = () => {
     actionPageData: responseActionPageData,
     userData,
     userId,
+    idToken,
     artistId,
     integrations
   };
