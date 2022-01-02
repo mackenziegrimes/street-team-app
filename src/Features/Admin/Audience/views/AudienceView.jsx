@@ -236,7 +236,18 @@ const formatTableData = data => {
       }
     );
 
-  console.log('All Enduser Data: ' + JSON.stringify(data.getArtistUser.artist.actionPages.items[0].subscribers.items));
+  // console.log('All Enduser Data: ' + JSON.stringify(data.getArtistUser.artist.actionPages.items[0].subscribers.items));
+  
+  // arr[i].ranking = i / arr.length; 
+  // sort the enduser data by point values & assign rankings
+  endUserData.sort((a, b) => (a.points < b.points) ? 1 : -1);
+  const enduserDataLength = endUserData.length;
+  for (let i = 0; i < enduserDataLength; i++){
+    const rank = (i + 1) / enduserDataLength;
+    endUserData[i].ranking = rank;
+    endUserData[i].rankLabel = rank <= 0.05 ? "Diamond" : rank <= 0.10 ? "Platinum" : rank <= 0.25 ? "Gold" : rank <= 0.50 ? "Silver" : rank <= 0.75 ? "Bronze" : "None"
+  }
+  console.log('All Enduser Data: ' + JSON.stringify(endUserData));
   return endUserData;
 };
 
@@ -318,6 +329,10 @@ export const AudienceView = () => {
         Header: 'Points',
         accessor: 'points',
       },
+      {
+        Header: 'Rank',
+        accessor: 'rankLabel'
+      }
     ],
     []
   );
