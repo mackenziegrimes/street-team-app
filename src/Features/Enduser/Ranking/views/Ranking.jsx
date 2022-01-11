@@ -211,7 +211,7 @@ export const Ranking = () => {
                 fontColor="white"
                 onClick={() => history.push(`/secure/${artist}`)}
               >
-                EARN MORE POINTS
+                EARN POINTS
               </Button>
             </ButtonGroup>
           </Col>

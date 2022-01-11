@@ -41,6 +41,8 @@ h1 {
 h2 {
   font-family: 'Open Sans';
   color: white;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
 }
 
 h3 {

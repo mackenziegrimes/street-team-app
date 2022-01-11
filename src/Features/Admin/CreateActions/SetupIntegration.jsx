@@ -253,8 +253,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                   }}
                 >
                   {formValue.StreetTeamApi?.apiKey
-                    ? `Copy Street Team Api Key`
-                    : `Generate Street Team Api Key`}
+                    ? `Copy StreetTeam Api Key`
+                    : `Generate StreetTeam Api Key`}
                 </Button>
               </Row>
             </CreateActionContainer>
