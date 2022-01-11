@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container';
 // });
 
 const ActionPageContainer = styled(Container)`
-  max-width: 450px;
+  max-width: 480px;
   margin: 15px auto;
   background-color: ${({ theme }) => theme.colors.gray3};
 

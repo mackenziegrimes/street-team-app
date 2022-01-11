@@ -115,7 +115,7 @@ const AudienceCountContainer = styled.div({
   color: 'inherit',
   fontSize: ({ theme }) => theme.fontSizes.sm,
   // minHeight: '100%',
-  padding: 10
+  padding: 10,
 });
 
 const TopBarContainer = styled.div(({ color, textColor, theme }) => {
@@ -185,7 +185,7 @@ const FacebookCustomAudienceDiv = styled.div({
 });
 
 const PrimaryButton = styled.button({
-  backgroundColor: 'red'
+  backgroundColor: 'red',
 });
 
 const Points = styled.p(({ theme }) => {
@@ -207,7 +207,7 @@ const Title = styled.p(({ theme }) => {
     margin: 0,
     marginLeft: '25px',
     color: 'inherit',
-    fontFamily: 'Oswald'
+    fontFamily: 'Oswald',
   };
 });
 
@@ -237,15 +237,26 @@ const formatTableData = data => {
     );
 
   // console.log('All Enduser Data: ' + JSON.stringify(data.getArtistUser.artist.actionPages.items[0].subscribers.items));
-  
-  // arr[i].ranking = i / arr.length; 
+
+  // arr[i].ranking = i / arr.length;
   // sort the enduser data by point values & assign rankings
-  endUserData.sort((a, b) => (a.points < b.points) ? 1 : -1);
+  endUserData.sort((a, b) => (a.points < b.points ? 1 : -1));
   const enduserDataLength = endUserData.length;
-  for (let i = 0; i < enduserDataLength; i++){
+  for (let i = 0; i < enduserDataLength; i++) {
     const rank = (i + 1) / enduserDataLength;
     endUserData[i].ranking = rank;
-    endUserData[i].rankLabel = rank <= 0.05 ? "Diamond" : rank <= 0.10 ? "Platinum" : rank <= 0.25 ? "Gold" : rank <= 0.50 ? "Silver" : rank <= 0.75 ? "Bronze" : "None"
+    endUserData[i].rankLabel =
+      rank <= 0.05
+        ? 'Diamond'
+        : rank <= 0.1
+        ? 'Platinum'
+        : rank <= 0.25
+        ? 'Gold'
+        : rank <= 0.5
+        ? 'Silver'
+        : rank <= 0.75
+        ? 'Bronze'
+        : 'None';
   }
   console.log('All Enduser Data: ' + JSON.stringify(endUserData));
   return endUserData;
@@ -331,8 +342,8 @@ export const AudienceView = () => {
       },
       {
         Header: 'Rank',
-        accessor: 'rankLabel'
-      }
+        accessor: 'rankLabel',
+      },
     ],
     []
   );
@@ -366,17 +377,17 @@ export const AudienceView = () => {
   const createLookAlikeAudience = async () => {
     console.log(`user id is`, userId);
     const apiUrl = getBackendApiUrl();
-    const artistId=data?.getArtistUser?.artist.id;
-    if(userId && idToken && artistId){
-      let fetchUrl = `${apiUrl}/create-facebook-audience`;
-      let postBody = {
-        userId:userId, 
-        token:idToken,
-        artistId:artistId
-      }
+    const artistId = data?.getArtistUser?.artist.id;
+    if (userId && idToken && artistId) {
+      const fetchUrl = `${apiUrl}/create-facebook-audience`;
+      const postBody = {
+        userId,
+        token: idToken,
+        artistId,
+      };
       try {
         console.log(`calling fetch with`, fetchUrl);
-        const response = await fetch(fetchUrl, {
+        await fetch(fetchUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(postBody),
@@ -387,18 +398,17 @@ export const AudienceView = () => {
               console.error(json.error.message);
             } else {
               console.log(`create-custom-audience response is`, json);
-              toast.success("Created Custom Audience in Facebook!")
+              toast.success('Created Custom Audience in Facebook!');
             }
           });
       } catch (err) {
         console.error(err);
-        toast.error("Unable to create custom audience")
+        toast.error('Unable to create custom audience');
       }
+    } else {
+      toast.warn('Something went wrong, please try refreshing the page');
     }
-    else{
-      toast.warn("Something went wrong, please try refreshing the page")
-    }
-  }
+  };
 
   const onExport = () => {
     const csv = Papa.unparse(tableData);

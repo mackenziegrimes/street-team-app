@@ -40,7 +40,7 @@ const MagnetButton = styled(FanMagnetButton)`
   div {
     width: auto;
   }
-  
+
   span {
     font-size: 55px;
     margin-right: 43px;
@@ -54,7 +54,7 @@ const MagnetButton = styled(FanMagnetButton)`
   }
 `;
 
-export const FanMagnetStep2 = ({artistId}) => {
+export const FanMagnetStep2 = ({ artistId }) => {
   // const { setFanMagnetSurvey } = useContext();
   const history = useHistory();
   const continueToNextStep = () => {
@@ -78,7 +78,7 @@ export const FanMagnetStep2 = ({artistId}) => {
         handleClick={() => {
           // setFanMagnetSurvey(SURVEY_SELECTION.LOVE_IT);
           continueToNextStep();
-          trackInAmplitude('Song Enjoyed',anonymousId(),null,artistId);
+          trackInAmplitude('Song Enjoyed', anonymousId(), null, artistId);
         }}
       >
         <span>👍</span>

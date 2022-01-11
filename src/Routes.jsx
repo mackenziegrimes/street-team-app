@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { SecureViewWrapper } from './Components/SecureViewWrapper';
 import { ActionsView } from './Features/Enduser/Actions/views/ActionsView';
+import { Ranking } from './Features/Enduser/Ranking/views/Ranking';
+import { UserProfile } from './Features/Enduser/UserProfile/views/UserProfile';
+import { Rewards } from './Features/Enduser/Rewards/views/Rewards';
 import { LandingPage } from './Features/Enduser/Actions/views/LandingPage';
 import { CreateActionPage } from './Features/Admin/CreateActions/views/CreateActionPage';
 import { Login } from './Components/Login/Login';
@@ -27,7 +30,8 @@ export const Routes = () => {
         </Route>
         {/* support backwards compatability for secure/create-action-page (to be removed later on) */}
         <Route
-          exact path={[
+          exact
+          path={[
             '/',
             '/artist/create',
             '/admin/create-fan-magnet',
@@ -64,6 +68,21 @@ export const Routes = () => {
           </SecureViewWrapper>
         </Route>
 
+        <Route path="/secure/:artist/ranking">
+          <SecureViewWrapper userRole="enduser">
+            <Ranking />
+          </SecureViewWrapper>
+        </Route>
+        <Route path="/secure/:artist/profile">
+          <SecureViewWrapper userRole="enduser">
+            <UserProfile />
+          </SecureViewWrapper>
+        </Route>
+        <Route path="/secure/:artist/rewards">
+          <SecureViewWrapper userRole="enduser">
+            <Rewards />
+          </SecureViewWrapper>
+        </Route>
         <Route path="/secure/:artist/:page?">
           <SecureViewWrapper userRole="enduser">
             <ActionsView />

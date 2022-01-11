@@ -1,69 +1,93 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/react-hooks';
-
+import styled from 'styled-components';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-
-import { useParams } from 'react-router-dom';
-import {
-  createEnduser
-} from '../../../../graphql/mutations';
+import { useParams, useHistory } from 'react-router-dom';
+import { NavBar } from '../../NavBar';
+import { createEnduser } from '../../../../graphql/mutations';
 import { getEnduser } from '../../../../graphql/queries';
 import { getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID } from '../graphql/getEnduserActionPageData';
-import { createEnduserPageSubscription, createEnduserPageSubscriptionCompletedActions } from '../graphql/createEnduserPageSubscription';
-import { ActionPage } from '../../../../Components/ActionPage';
 import {
-  StyledPageContainer,
-} from '../../../../Components/Page';
+  createEnduserPageSubscription,
+  createEnduserPageSubscriptionCompletedActions,
+} from '../graphql/createEnduserPageSubscription';
+import { ActionPage } from '../../../../Components/ActionPage';
+import { StyledPageContainer } from '../../../../Components/Page';
 import { Spinner } from '../../../../Components/UI/Spinner';
-import { Auth } from 'aws-amplify';
+import { Button } from '../../../../Components/UI/Button';
 import anonymousId from 'anonymous-id';
-import { tagInActiveCampaign, trackInAmplitude } from '../../../../utils/sharedUtils';
+import {
+  tagInActiveCampaign,
+  trackInAmplitude,
+} from '../../../../utils/sharedUtils';
 import { useCurrentAuthUser } from '../hooks/useCurrentAuthUser';
+import { useGetSubscriberData } from '../../Ranking/hooks';
+
+const ButtonContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: ({ theme }) => theme.spacing.md,
+  marginBottom: ({ theme }) => theme.spacing.md,
+  button: {
+    width: '85%',
+  },
+});
 
 export const ActionsView = () => {
   const [actionValues, setActionValues] = useState([]);
   const [actionPageID, setActionPageID] = useState(0);
   const [enduserPageSubscriptionID, setEnduserPageSubscriptionID] = useState(0);
-  const [totalPoints, setTotalPoints] = useState(0);
   const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
+  const history = useHistory();
 
-  let { userId, email ,firstName, lastName, phone} = useCurrentAuthUser();
-  console.log(`current auth user is `, userId,`email: ` ,email, `firstName: `, firstName, `lastName: `, lastName, phone);
+  const { userId, email, firstName, lastName, phone } = useCurrentAuthUser();
+  const { currentUserData } = useGetSubscriberData({
+    artistRoute: artist,
+    pageRoute: page,
+    enduserId: userId,
+  });
+  console.log(
+    `current auth user is `,
+    userId,
+    `email: `,
+    email,
+    `firstName: `,
+    firstName,
+    `lastName: `,
+    lastName,
+    phone
+  );
 
   // get the user data for the user -- used for making sure an enduser exists
   // this could be obtained with the rest of the action page data, but we're likely going to move this logic into a centralized place since we'll need to be verifying a user record exists on lots of pages
-  const {
-    data: enduserData,
-    loading: enduserLoading,
-    error: enduserError,
-    refetch: refetchEnduserData,
-  } = useQuery(gql(getEnduser), {
-    variables: { id: userId },
-  });
+  const { data: enduserData, refetch: refetchEnduserData } = useQuery(
+    gql(getEnduser),
+    {
+      variables: { id: userId },
+    }
+  );
 
   // define mutation for create a new enduser record
-  const [
-    addEnduser,
+  const [addEnduser, { loading: createEnduserLoading }] = useMutation(
+    gql(createEnduser),
     {
-      loading: createEnduserLoading,
-      data: createEnduserData,
-      error: createEnduserError,
-    },
-  ] = useMutation(gql(createEnduser), {
-    update(cache, { data: { addEnduser } }) {
-      // const {enduserData} = cache.readQuery({query:gql(getEnduser), input: {id: userId }});
-      cache.writeQuery({
-        query: gql(getEnduser),
-        data: { enduser: addEnduser },
-      });
-    },
-    refetchQueries: [{ query: gql(getEnduser), variables: { id: userId } }],
-    awaitRefetchQueries: true,
-  });
+      update(cache, { data: { addEnduser } }) {
+        // const {enduserData} = cache.readQuery({query:gql(getEnduser), input: {id: userId }});
+        cache.writeQuery({
+          query: gql(getEnduser),
+          data: { enduser: addEnduser },
+        });
+      },
+      refetchQueries: [{ query: gql(getEnduser), variables: { id: userId } }],
+      awaitRefetchQueries: true,
+    }
+  );
 
   // define mutation for creating a new subscription record
   const [addSubscription, { loading: loadingNewSubscription }] = useMutation(
@@ -112,27 +136,27 @@ export const ActionsView = () => {
     !createEnduserLoading
   ) {
     console.log('enduserInfo does not exist -- creating enduser');
-    //set up input variables
-    let inputVariables = {
+    // set up input variables
+    const inputVariables = {
       id: userId,
-      email: email,
-    }
+      email,
+    };
     let profileName;
-    if(firstName){
+    if (firstName) {
       inputVariables.firstName = firstName;
       profileName = firstName;
     }
-    if(lastName){
+    if (lastName) {
       inputVariables.lastName = lastName;
       profileName = profileName ? profileName + lastName : lastName;
     }
-    if(profileName){
+    if (profileName) {
       inputVariables.profileName = profileName;
     }
-    if(phone){
+    if (phone) {
       inputVariables.phone = phone;
     }
-    //create new enduser with the input variables
+    // create new enduser with the input variables
     const newEnduserData = addEnduser({
       variables: {
         input: inputVariables,
@@ -171,51 +195,35 @@ export const ActionsView = () => {
       },
     });
 
-    //use the id to figure out which button to track in amplitude
-    const clickedAction = actionButtonList.find(item => item.id===id);
-    //TODO this needs to be cleaner and in a method somewhere -SG 2021-11-19
-    //TODO also, after data migration, we should move all of these to reference serviceAction and not button icon
+    // use the id to figure out which button to track in amplitude
+    const clickedAction = actionButtonList.find(item => item.id === id);
+    // TODO this needs to be cleaner and in a method somewhere -SG 2021-11-19
+    // TODO also, after data migration, we should move all of these to reference serviceAction and not button icon
     let trackedName;
 
-    if(clickedAction.serviceAction==='StarterPackLink'){
-      trackedName = 'Starter Pack'
+    if (clickedAction.serviceAction === 'StarterPackLink') {
+      trackedName = 'Starter Pack';
+    } else if (clickedAction.serviceAction === 'JoinLink') {
+      trackedName = 'Community';
+    } else if (clickedAction.serviceAction === 'MusicLink') {
+      trackedName = 'MusicHub';
+    } else if (clickedAction.serviceAction === 'EmailLink') {
+      trackedName = 'Send Email';
+    } else if (clickedAction.serviceAction === 'ScheduleLink') {
+      trackedName = 'Call';
+    } else if (clickedAction.serviceAction === 'EventBriteLink') {
+      trackedName = 'Ticket';
     }
-    else if(clickedAction.serviceAction==='JoinLink'){
-      trackedName = 'Community'
-    }
-    else if(clickedAction.serviceAction==='MusicLink'){
-      trackedName = 'MusicHub'
-    }
-    else if(clickedAction.serviceAction==='EmailLink'){
-      trackedName = 'Send Email'
-    }
-    else if(clickedAction.serviceAction === 'ScheduleLink'){
-      trackedName = 'Call'
-    }
-    else if(clickedAction.serviceAction === 'EventBriteLink'){
-      trackedName = 'Ticket'
-    }
-    trackInAmplitude(`${trackedName} Clicked`,anonymousId(),userId,artistId);
+    trackInAmplitude(`${trackedName} Clicked`, anonymousId(), userId, artistId);
     tagInActiveCampaign(`TRG - ${trackedName} Clicked`, userId, artistId);
     console.log(`newSubscription data is ${newCompletedActionRecord}`);
   };
 
   useEffect(() => {
-    let total = 0;
-    for (let i = 0; i < actionValues.length; i++) {
-      const element = actionValues[i];
-      if (element.complete) {
-        total += element.points;
-      }
-    }
-    setTotalPoints(total);
-  }, [actionValues]);
-
-  useEffect(() => {
     if (actionPageData && actionPageData?.ArtistByRoute?.items?.length > 0) {
       const artist = actionPageData.ArtistByRoute.items[0];
-      if(artist){
-        setArtistId(artist.id)
+      if (artist) {
+        setArtistId(artist.id);
       }
       // this is currently assuming that 1) artist exsists at this route & 2) only one action page exists at this page route
       const actionPage =
@@ -245,12 +253,17 @@ export const ActionsView = () => {
     }
   }, [actionPageData]);
 
-  useEffect(()=> {
-    if(artistId && userId){
+  useEffect(() => {
+    if (artistId && userId) {
       anonymousId();
-      trackInAmplitude('Tribal Accelerator Visited',anonymousId(),userId,artistId);
+      trackInAmplitude(
+        'Tribal Accelerator Visited',
+        anonymousId(),
+        userId,
+        artistId
+      );
     }
-  },[artistId])
+  }, [artistId]);
 
   useEffect(() => {
     if (
@@ -265,21 +278,26 @@ export const ActionsView = () => {
         const newSubscriptionData = addSubscription({
           variables: {
             input: {
-              actionPageID: actionPageID,
+              actionPageID,
               enduserID: userId,
             },
           },
         });
         const additionalProperties = {
-          user_properties: 
-          {
-            name: firstName || '' + lastName || '',
-            email: email,
-            phone: phone
-          }
-        }
-        //track new subscriber in amplitude
-        trackInAmplitude('StreetTeam Joined',anonymousId(),userId,artistId,additionalProperties);
+          user_properties: {
+            name: firstName || lastName || '',
+            email,
+            phone,
+          },
+        };
+        // track new subscriber in amplitude
+        trackInAmplitude(
+          'StreetTeam Joined',
+          anonymousId(),
+          userId,
+          artistId,
+          additionalProperties
+        );
         tagInActiveCampaign('TRG - StreetTeam Joined', userId, artistId);
         console.log(`newSubscription data is ${newSubscriptionData}`);
       } else {
@@ -299,31 +317,31 @@ export const ActionsView = () => {
   if (loading)
     return (
       <StyledPageContainer>
-      <Container fluid>
-        <Row className="justify-content-md-center">
-          <Col md="auto" style={{ textAlign: 'center' }}>
-            <Spinner animation="border" role="status" variant="light" />
-          </Col>
-        </Row>
-      </Container>
+        <Container fluid>
+          <Row className="justify-content-md-center">
+            <Col md="auto" style={{ textAlign: 'center' }}>
+              <Spinner animation="border" role="status" variant="light" />
+            </Col>
+          </Row>
+        </Container>
       </StyledPageContainer>
     );
 
   if (
     actionPageData?.ArtistByRoute?.items?.length === 0 ||
     actionPageData?.ArtistByRoute?.items?.[0]?.actionPages?.items?.[0]
-      ?.actionButtons?.items.length === 0
-      || actionPageData.ArtistByRoute.items.length ===0 
+      ?.actionButtons?.items.length === 0 ||
+    actionPageData.ArtistByRoute.items.length === 0
   ) {
     return (
       <StyledPageContainer>
         <Container fluid>
           <Row className="justify-content-md-center">
             <Col md="auto" style={{ textAlign: 'center' }}>
-            <h1>There's nothing here 😿</h1>
-          </Col>
-        </Row>
-      </Container>
+              <h1>There's nothing here 😿</h1>
+            </Col>
+          </Row>
+        </Container>
       </StyledPageContainer>
     );
   }
@@ -342,9 +360,14 @@ export const ActionsView = () => {
     <ActionPage>
       <Row>
         <Col className="p-0">
-          <ActionPage.Stepper currentStep={2} />
+          <NavBar />
         </Col>
       </Row>
+      {/* <Row>
+        <Col className="p-0">
+          <ActionPage.Stepper currentStep={2} />
+        </Col>
+      </Row> */}
       <ActionPage.Body>
         <Row className="mb-3">
           <Col>
@@ -359,10 +382,26 @@ export const ActionsView = () => {
           state={actionValues}
           handleAction={handleAction}
         />
+        <ButtonContainer>
+          <Button
+            color="gray2"
+            fontColor="white"
+            onClick={() => {
+              history.push('ranking');
+            }}
+          >
+            CONTINUE
+          </Button>
+        </ButtonContainer>
       </ActionPage.Body>
       <Row>
         <Col className="p-0">
-          <ActionPage.TotalPoints totalPoints={totalPoints} />
+          <ActionPage.TotalPoints
+            totalPoints={currentUserData?.points}
+            name={`${firstName} ${lastName || ''}`}
+            tier={currentUserData?.tier}
+            pointsToNextTier={currentUserData?.pointsToTierLeader}
+          />
         </Col>
       </Row>
     </ActionPage>
