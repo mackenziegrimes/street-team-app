@@ -8,11 +8,11 @@ import Platinum from '../../../assets/TierIcons/Platinum_Fan_Tier.png';
 import Diamond from '../../../assets/TierIcons/Diamond_Fan_Tier.png';
 
 const ICON_IMPORTS = [
-  { path: Bronze, name: 'Bronze' },
-  { path: Silver, name: 'Silver' },
-  { path: Gold, name: 'Gold' },
-  { path: Platinum, name: 'Platinum' },
   { path: Diamond, name: 'Diamond' },
+  { path: Platinum, name: 'Platinum' },
+  { path: Gold, name: 'Gold' },
+  { path: Silver, name: 'Silver' },
+  { path: Bronze, name: 'Bronze' },
 ];
 
 const TotalPointsContainer = styled.div({
@@ -89,18 +89,26 @@ export const ActionTotalPoints = ({
   totalPoints,
   name,
   tier,
+  nextTier,
   pointsToNextTier,
+  rank
 }) => {
   const activeIcon = ICON_IMPORTS.find(icon => icon.name === tier);
+  console.log(`nextTier is`, nextTier);
+  
   return (
     <TotalPointsContainer>
       <TierIcon src={activeIcon.path} height="65px" />
       <ContentContainer>
         <Name>{name}</Name>
         <TierRank>
-          You're only {pointsToNextTier} points away from unlocking <b>Gold</b>!
+        {rank===1 ? 
+          `Congrats! You're the #1 StreetTeam Member 🎉🎉` 
+          :   `You're only ${pointsToNextTier} points away from unlocking ${nextTier}`
+        }
+        
         </TierRank>
-        <PointsLink>Click here to earn more FanPoints</PointsLink>
+        {/* <PointsLink>Click here to earn more FanPoints</PointsLink> */}
       </ContentContainer>
       <PointsContainer>
         <Points>{totalPoints}</Points>

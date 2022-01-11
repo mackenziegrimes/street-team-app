@@ -10,6 +10,7 @@ export const useCurrentAuthUser = () => {
     .then(userResponse => {
       if (!user) {
         console.log(`current AuthenticatedUser response`, userResponse);
+        window.localStorage.setItem('user', userResponse.username);
         setUser(userResponse);
       }
     })

@@ -115,7 +115,8 @@ const ButtonGroup = styled.div({
 export const Ranking = () => {
   const history = useHistory();
   const { artist, page = 'join' } = useParams();
-  const { userId, firstName, lastName } = useCurrentAuthUser();
+  // const { userId, firstName, lastName } = useCurrentAuthUser();
+  const userId = window.localStorage.getItem('user');
   const { tableData, currentUserData, artistName, loading } =
     useGetSubscriberData({
       artistRoute: artist,
@@ -123,9 +124,11 @@ export const Ranking = () => {
       enduserId: userId,
     });
   const tier = currentUserData?.tier || 'Bronze';
+  const firstName = currentUserData?.firstName;
+  const lastName = currentUserData?.lastName;
   const enduserTotalPoints = currentUserData?.points;
   const activeIcon = ICON_IMPORTS.find(icon => icon.name === tier);
-  const pointsToNextTier = currentUserData?.pointsToTierLeader;
+  const pointsToNextTier = currentUserData?.pointsToNextTier;
 
   const renderIcons = () => {
     return ICON_IMPORTS.map(({ path, name }) => {
@@ -220,6 +223,8 @@ export const Ranking = () => {
             totalPoints={enduserTotalPoints}
             name={`${firstName} ${lastName || ''}`}
             tier={tier}
+            nextTier={currentUserData?.nextTier}
+            rank= {currentUserData?.rank}
             pointsToNextTier={pointsToNextTier}
           />
         </Col>

@@ -22,6 +22,7 @@ import anonymousId from 'anonymous-id';
 import { cleanUrl, tagInActiveCampaign, timeAgoHoursFromString, trackInAmplitude } from '../../../../utils/sharedUtils';
 import { useCurrentAuthUser } from '../hooks/useCurrentAuthUser';
 import { useGetSubscriberData } from '../../Ranking/hooks';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 const ButtonContainer = styled.div({
   display: 'flex',
@@ -44,24 +45,18 @@ export const ActionsView = () => {
   const { artist, page = 'join' } = useParams();
   const history = useHistory();
 
-  const { userId, email, firstName, lastName, phone } = useCurrentAuthUser();
-  const { currentUserData } = useGetSubscriberData({
-    artistRoute: artist,
-    pageRoute: page,
-    enduserId: userId,
-  });
-  console.log(
-    `current auth user is `,
-    userId,
-    `email: `,
-    email,
-    `firstName: `,
-    firstName,
-    `lastName: `,
-    lastName,
-    phone
-  );
+  let { userId, email, firstName, lastName, phone } = useCurrentAuthUser();
+  userId = window.localStorage.getItem('user');
+  const { currentUserData, loading: loadingSubscriberData } = useGetSubscriberData({
+      artistRoute: artist,
+      pageRoute: page,
+      enduserId: userId,
+    });
 
+  email = email ? email : currentUserData?.email;
+  firstName = firstName ? firstName : currentUserData?.firstName;
+  lastName = lastName ? lastName : currentUserData?.lastName;
+  phone = phone ? phone : currentUserData?.phone;
   // get the user data for the user -- used for making sure an enduser exists
   // this could be obtained with the rest of the action page data, but we're likely going to move this logic into a centralized place since we'll need to be verifying a user record exists on lots of pages
   const { data: enduserData, refetch: refetchEnduserData } = useQuery(
@@ -245,22 +240,33 @@ export const ActionsView = () => {
       const actionArray = actionPage.actionButtons.items;
       setActionPageID(actionPage.id);
       //todo this needs to be abstracted to support mutliple repeatable actions
-      let loggedActionsToday = completedActions.map(item => {
-        if(item?.action?.serviceAction ==='SpotifyEmbed' && timeAgoHoursFromString(item.createdAt)<24){
-            return 1
-        }
-        else return 0;
-    }).reduce((total, val) => total + val) || 0;
+      let completedSpotifyActions;
+      if(completedActions){
+        completedSpotifyActions = completedActions.map(item => {
+          if(item?.action?.serviceAction ==='SpotifyEmbed' && timeAgoHoursFromString(item.createdAt)<24){
+              return 1
+          }
+          else return 0;
+        });
+      }
+      console.log(`competed actions are`, completedSpotifyActions);
+      let loggedActionsToday = completedSpotifyActions?.length > 1 ? completedSpotifyActions.reduce((total, val) => total + val) || 0 : 0;
       const values = [];
       for (let i = 0; i < actionArray.length; i++) {
         const element = actionArray[i];
+        if(element.serviceAction==='StarterPackLink'){
+          console.log(`starter pack is`,element);
+          let el_com = completedActions.find(record => record.actionID === element.id)
+          console.log(`starter pack el`, el_com)
+
+        }
         // eslint-disable-next-line max-len
         // if this id is in the enduserSubscription records completed action record, mark it as complete... there's gotta be a better way to do this -SG
         const completed =
-          completedActions && (loggedActionsToday >= 5 && element.serviceAction==='SpotifyEmbed') ||
-          (element.serviceAction !== 'SpotifyEmbed' && 
+          (completedActions && (element.serviceAction !== 'SpotifyEmbed' && 
           completedActions.find(record => record.actionID === element.id) !==
-            undefined);
+            undefined)) || 
+          (loggedActionsToday >= 5 && element.serviceAction==='SpotifyEmbed')
         values.push({
           id: element.id,
           complete: completed,
@@ -333,7 +339,7 @@ export const ActionsView = () => {
     }
   });
 
-  if (loading)
+  if (loading || loadingSubscriberData)
     return (
       <StyledPageContainer>
         <Container fluid>
@@ -350,7 +356,7 @@ export const ActionsView = () => {
     actionPageData?.ArtistByRoute?.items?.length === 0 ||
     actionPageData?.ArtistByRoute?.items?.[0]?.actionPages?.items?.[0]
       ?.actionButtons?.items.length === 0 ||
-    actionPageData.ArtistByRoute.items.length === 0
+    actionPageData?.ArtistByRoute?.items?.length === 0
   ) {
     return (
       <StyledPageContainer>
@@ -366,12 +372,12 @@ export const ActionsView = () => {
   }
 
   const actionPageInfo =
-    actionPageData.ArtistByRoute.items[0].actionPages.items[0];
+    actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0];
 
   const spotifyIntegration = actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]?.subscribers?.items[0]?.enduser?.integrations?.items?.find(item => item.serviceName?.toUpperCase() ==='SPOTIFY');
   let spotifyAuthToken = spotifyIntegration?.serviceApiKey;
 
-  const actionButtonList = actionPageInfo.actionButtons.items?.filter(item => {
+  const actionButtonList = actionPageInfo?.actionButtons?.items?.filter(item => {
     return (
       item.serviceAction !== 'SoundCloudEmbed' &&
       item.serviceAction !== 'ContinueButton'
@@ -413,7 +419,7 @@ export const ActionsView = () => {
             color="gray2"
             fontColor="white"
             onClick={() => {
-              history.push('ranking');
+              history.push(`${artist}/ranking`);
             }}
           >
             CONTINUE
@@ -426,7 +432,9 @@ export const ActionsView = () => {
             totalPoints={currentUserData?.points}
             name={`${firstName} ${lastName || ''}`}
             tier={currentUserData?.tier}
-            pointsToNextTier={currentUserData?.pointsToTierLeader}
+            nextTier={currentUserData?.nextTier}
+            rank= {currentUserData?.rank}
+            pointsToNextTier={currentUserData?.pointsToNextTier}
           />
         </Col>
       </Row>

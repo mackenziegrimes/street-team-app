@@ -88,16 +88,18 @@ export const SpotifyPlayerWidget = ({targetURL, spotifyAuthToken, pageId, enduse
     },[spotifyAuthToken]);
 
     useEffect(() => {
-        updateTotalPlays(); //update total plays when the page loads
-    },[]) 
+           updateTotalPlays(); //update total plays when the page loads
+    },[enduserId]) 
 
     const updateTotalPlays = async ()=>{
-        if(totalPlays < MAX_PLAYS_PER_DAY){
-            const plays = await trackPlays({userId: enduserId, pageId, service:"SPOTIFY"});
-            if(plays!== totalPlays){
-                setTotalPlays(plays);
+        if(spotifyAuthToken && spotifyAuthToken!=='undefined' && enduserId && pageId){
+            if(totalPlays < MAX_PLAYS_PER_DAY){
+                const plays = await trackPlays({userId: enduserId, pageId, service:"SPOTIFY"});
+                if(plays!== totalPlays){
+                    setTotalPlays(plays);
+                }
             }
-        }
+    }
     }
     useInterval(() => {
         updateTotalPlays();

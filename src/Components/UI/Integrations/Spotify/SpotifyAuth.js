@@ -36,7 +36,7 @@ export const saveSpotifyAuth = async (authToken, enduserId) => {
         const response = await fetch(postUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({serviceName: "spotify", serviceApiKey: authToken, enduserId: enduserId}),
+          body: JSON.stringify({service: "spotify", token: authToken, enduserId: enduserId}),
         });
         const responseJson = await response.json();
         const accessToken = responseJson.accessToken;
