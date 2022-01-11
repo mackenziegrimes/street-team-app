@@ -117,6 +117,10 @@ export const CreateActionPage = ({ type }) => {
           checked.bookTicket = true;
           values.bookTicket = element.targetURL;
         }
+        if (element.serviceAction === 'SpotifyEmbed') {
+          checked.playOnSpotify = true;
+          values.playOnSpotify = element.targetURL;
+        }
       }
       setActionChecked(checked);
       setActionValue(values);
@@ -192,7 +196,7 @@ export const CreateActionPage = ({ type }) => {
                 />
               )}
               {type === 'landing' && (
-                <PreviewLanding soundCloudURL={landingPageValues.soundCloud} />
+                <PreviewLanding embedURL={landingPageValues.soundCloud} />
               )}
             </Col>
           </Row>

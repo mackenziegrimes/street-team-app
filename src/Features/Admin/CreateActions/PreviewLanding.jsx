@@ -5,7 +5,7 @@ import { Col, Row, Container, Card } from 'react-bootstrap';
 import { Icon, FanMagnetButton } from '../../../Components/UI';
 import { PageHeader, PageContainer } from '../../../Components/Page';
 import { useTheme } from '../../../Hooks/useTheme';
-import { PlayWidget } from '../../../Components/UI/Integrations/SoundCloud/PlayWidget';
+import { PlayWidget } from '../../../Components/UI/Integrations/EmbedPlayWidget/PlayWidget';
 
 const PlayerContainer = styled.div`
   padding: 20px 0;
@@ -37,7 +37,7 @@ const HeaderRow = styled(Card.Body)(({ theme }) => {
   };
 });
 
-const SoundCloudPlaceholder = styled.div({
+const EmbedPlayerPlaceholder = styled.div({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -49,7 +49,7 @@ const SoundCloudPlaceholder = styled.div({
   fontSize: '2rem',
 });
 
-export const PreviewLanding = ({ soundCloudURL }) => {
+export const PreviewLanding = ({ embedURL }) => {
   const theme = useTheme();
   return (
     <Container>
@@ -65,14 +65,14 @@ export const PreviewLanding = ({ soundCloudURL }) => {
               Listen for 30 seconds to unlock a free gift!
             </PageHeader>
             <PlayerContainer>
-              {soundCloudURL ? (
+              {embedURL ? (
                 <div style={{ height: 165 }}>
-                  <PlayWidget sourceUrl={soundCloudURL} />
+                  <PlayWidget sourceUrl={embedURL} />
                 </div>
               ) : (
-                <SoundCloudPlaceholder>
-                  Enter SoundCloud URL To Preview
-                </SoundCloudPlaceholder>
+                <EmbedPlayerPlaceholder>
+                  Enter SoundCloud, Spotify, or Youtube URL To Preview
+                </EmbedPlayerPlaceholder>
               )}
             </PlayerContainer>
             <FanMagnetButton
@@ -99,10 +99,9 @@ export const PreviewLanding = ({ soundCloudURL }) => {
 };
 
 PreviewLanding.propTypes = {
-  soundCloudURL: PropTypes.string,
+  embedURL: PropTypes.string,
 };
 
 PreviewLanding.defaultProps = {
-  soundCloudURL: null,
-  // 'https://soundcloud.com/tobyfox-music/cyber-battle-solo-feat-lena',
+  embedURL: null,
 };

@@ -36,7 +36,6 @@ export const isProduction = () => {
   const currentUrl = window.location.href;
   // gets the current url root from the href
   const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
-  console.log(`test1`,frontEndUrl);
   if(frontEndUrl==='https://app.modern-musician.com'){
     return true;
   }
@@ -50,7 +49,6 @@ export const isDev = () => {
   const currentUrl = window.location.href;
   // gets the current url root from the href
   const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
-  console.log(`test1`,frontEndUrl);
   if(frontEndUrl==='https://dev.modern-musician.com'){
     return true;
   }
@@ -140,4 +138,11 @@ export const trackInAmplitude = async (eventName, deviceId, userId, artistId, ad
         return json
       }
     });
+}
+
+export const timeAgoHoursFromString = (timestampString ) => {
+  let timestamp = Date.parse(timestampString);
+  var seconds = Math.floor((new Date() - timestamp) / 1000); //time since in seconds
+  const hoursPast = (seconds)/3600;
+  return hoursPast
 }

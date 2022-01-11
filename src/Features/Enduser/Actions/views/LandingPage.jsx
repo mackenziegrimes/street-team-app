@@ -10,11 +10,8 @@ import { useParams } from 'react-router-dom';
 import { getActionPageByArtistAndPageRoute } from '../../../../graphql-custom/queries';
 import { getActionPagesByArtistRoute } from '../graphql/getActionPagesByArtist';
 import { Icon, FanMagnetButton, Spinner } from '../../../../Components/UI';
-import {
-  PublicClient,
-  SecureClient,
-} from '../../../../Components/ApolloProvider';
-import { PlayWidget } from '../../../../Components/UI/Integrations/SoundCloud/PlayWidget';
+import { PublicClient, SecureClient } from    '../../../../Components/ApolloProvider';
+import { PlayWidget } from '../../../../Components/UI/Integrations/EmbedPlayWidget/PlayWidget';
 import { FanMagnetStep2 } from './FanMagnetStep2';
 import { useHistory } from 'react-router-dom';
 import {
@@ -38,7 +35,7 @@ export const LandingPage = () => {
   const [artistId, setArtistId] = useState();
   const [dynamicClient, setDynamicClient] = useState();
   const [dataFetched, setDataFetched] = useState(false);
-  const [soundCloudURL, setSoundCloudURL] = useState('');
+  const [embedURL, setEmbedURL] = useState('');
   const [continueButtonDetails, setContineButtonDetails] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -102,9 +99,7 @@ export const LandingPage = () => {
         item => item.serviceAction === 'SoundCloudEmbed'
       );
       if (soundCloudAction) {
-        setSoundCloudURL(soundCloudAction.targetURL);
-      } else {
-        console.log(`no soundcloud url going to secure login page`);
+        setEmbedURL(soundCloudAction.targetURL);
         continueToNextStep();
       }
       const continueButton = landingPageData?.actionButtons.items.find(
@@ -211,7 +206,7 @@ export const LandingPage = () => {
           <LandingIconHeader> 🎁 </LandingIconHeader>
           <PageHeader>Listen for 30 seconds to unlock a free gift!</PageHeader>
           <PlayerContainer>
-            <PlayWidget sourceUrl={soundCloudURL} />
+            <PlayWidget sourceUrl={embedURL} />
           </PlayerContainer>
           <ClaimFreeGiftButton
             active={isButtonActive}

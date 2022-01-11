@@ -112,19 +112,26 @@ export const ActionButton = ({
   textColor,
   state,
   id,
+  serviceAction,
   handleAction,
 }) => {
   const complete = state?.find(item => item.id === id)?.complete;
 
   // All external links should be A tags
   const handleOnClick = () => {
-    if (!complete) {
+    if(serviceAction ==='SpotifyEmbed'){
       handleAction(id);
     }
-    if (targetURL) {
-      const cleanUrlString = cleanUrl(targetURL);
-      window.open(cleanUrlString, '_blank');
-    }
+    else{
+      if (!complete) {
+        handleAction(id);
+      }
+      if (targetURL) {
+        const cleanUrlString = cleanUrl(targetURL);
+        window.open(cleanUrlString, '_blank');
+      }
+  }
+
   };
 
   return (

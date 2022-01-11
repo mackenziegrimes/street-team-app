@@ -19,10 +19,7 @@ import { StyledPageContainer } from '../../../../Components/Page';
 import { Spinner } from '../../../../Components/UI/Spinner';
 import { Button } from '../../../../Components/UI/Button';
 import anonymousId from 'anonymous-id';
-import {
-  tagInActiveCampaign,
-  trackInAmplitude,
-} from '../../../../utils/sharedUtils';
+import { cleanUrl, tagInActiveCampaign, timeAgoHoursFromString, trackInAmplitude } from '../../../../utils/sharedUtils';
 import { useCurrentAuthUser } from '../hooks/useCurrentAuthUser';
 import { useGetSubscriberData } from '../../Ranking/hooks';
 
@@ -41,6 +38,7 @@ const ButtonContainer = styled.div({
 export const ActionsView = () => {
   const [actionValues, setActionValues] = useState([]);
   const [actionPageID, setActionPageID] = useState(0);
+  const [showSpotifyDropDown, setShowSpotifyDropdown ] = useState(true);
   const [enduserPageSubscriptionID, setEnduserPageSubscriptionID] = useState(0);
   const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
@@ -176,29 +174,42 @@ export const ActionsView = () => {
   );
 
   const handleAction = id => {
-    const updatedActions = actionValues.map(item => {
-      if (item.id === id)
-        return {
-          ...item,
-          complete: true,
-        };
-      return item;
-    });
-    setActionValues(updatedActions);
-    // create completed action record in the database
-    const newCompletedActionRecord = addCompletedAction({
-      variables: {
-        input: {
-          actionID: id,
-          enduserPageSubscriptionID,
+    //use the id to figure out which button to track in amplitude
+    const clickedAction = actionButtonList.find(item => item.id===id);
+    if(clickedAction.serviceAction==='SpotifyEmbed'){
+      //do nothing
+      setShowSpotifyDropdown(!showSpotifyDropDown); //toggle spotify dropdown
+    }
+    else{
+      //handle link actions
+      const updatedActions = actionValues.map(item => {
+        if (item.id === id)
+          return {
+            ...item,
+            complete: true,
+          };
+        return item;
+      });
+      setActionValues(updatedActions);
+      // create completed action record in the database
+      const newCompletedActionRecord = addCompletedAction({
+        variables: {
+          input: {
+            actionID: id,
+            enduserPageSubscriptionID,
+          },
         },
-      },
-    });
-
-    // use the id to figure out which button to track in amplitude
-    const clickedAction = actionButtonList.find(item => item.id === id);
-    // TODO this needs to be cleaner and in a method somewhere -SG 2021-11-19
-    // TODO also, after data migration, we should move all of these to reference serviceAction and not button icon
+      });
+      console.log(`newSubscription data is ${newCompletedActionRecord}`);
+      const targetURL = clickedAction.targetURL;
+      console.log(`targetURL is`, targetURL);
+      if (targetURL) {
+        const cleanUrlString = cleanUrl(targetURL);
+        window.open(cleanUrlString, '_blank');
+      }
+    }
+    //TODO this needs to be cleaner and in a method somewhere -SG 2021-11-19
+    //TODO also, after data migration, we should move all of these to reference serviceAction and not button icon
     let trackedName;
 
     if (clickedAction.serviceAction === 'StarterPackLink') {
@@ -216,7 +227,6 @@ export const ActionsView = () => {
     }
     trackInAmplitude(`${trackedName} Clicked`, anonymousId(), userId, artistId);
     tagInActiveCampaign(`TRG - ${trackedName} Clicked`, userId, artistId);
-    console.log(`newSubscription data is ${newCompletedActionRecord}`);
   };
 
   useEffect(() => {
@@ -234,19 +244,28 @@ export const ActionsView = () => {
           .items;
       const actionArray = actionPage.actionButtons.items;
       setActionPageID(actionPage.id);
+      //todo this needs to be abstracted to support mutliple repeatable actions
+      let loggedActionsToday = completedActions.map(item => {
+        if(item?.action?.serviceAction ==='SpotifyEmbed' && timeAgoHoursFromString(item.createdAt)<24){
+            return 1
+        }
+        else return 0;
+    }).reduce((total, val) => total + val) || 0;
       const values = [];
       for (let i = 0; i < actionArray.length; i++) {
         const element = actionArray[i];
         // eslint-disable-next-line max-len
         // if this id is in the enduserSubscription records completed action record, mark it as complete... there's gotta be a better way to do this -SG
         const completed =
-          completedActions &&
+          completedActions && (loggedActionsToday >= 5 && element.serviceAction==='SpotifyEmbed') ||
+          (element.serviceAction !== 'SpotifyEmbed' && 
           completedActions.find(record => record.actionID === element.id) !==
-            undefined;
+            undefined);
         values.push({
           id: element.id,
           complete: completed,
           points: +element.pointValue,
+          completedActions: loggedActionsToday,
         });
       }
       setActionValues(values);
@@ -349,6 +368,9 @@ export const ActionsView = () => {
   const actionPageInfo =
     actionPageData.ArtistByRoute.items[0].actionPages.items[0];
 
+  const spotifyIntegration = actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]?.subscribers?.items[0]?.enduser?.integrations?.items?.find(item => item.serviceName?.toUpperCase() ==='SPOTIFY');
+  let spotifyAuthToken = spotifyIntegration?.serviceApiKey;
+
   const actionButtonList = actionPageInfo.actionButtons.items?.filter(item => {
     return (
       item.serviceAction !== 'SoundCloudEmbed' &&
@@ -381,6 +403,10 @@ export const ActionsView = () => {
           data={actionButtonList}
           state={actionValues}
           handleAction={handleAction}
+          currentState={showSpotifyDropDown} //this needs to be "generalized"
+          enduserId={userId}
+          spotifyAuthToken={spotifyAuthToken}
+          pageId={actionPageInfo?.id}
         />
         <ButtonContainer>
           <Button

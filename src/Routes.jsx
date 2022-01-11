@@ -10,6 +10,7 @@ import { LandingPage } from './Features/Enduser/Actions/views/LandingPage';
 import { CreateActionPage } from './Features/Admin/CreateActions/views/CreateActionPage';
 import { Login } from './Components/Login/Login';
 import { Demo } from './Features/Admin/Audience/GetData';
+import { SpotifyPlayerWidget } from './Components/UI/Integrations/Spotify';
 import { AudienceView } from './Features/Admin/Audience/views/AudienceView';
 import { ArtistEdit } from './Features/Admin/ArtistEdit/views/ArtistEditPage';
 /*
@@ -23,9 +24,9 @@ export const Routes = () => {
     <Router>
       <Switch>
         <Route path="/test">
-          <Demo />
+          <SpotifyPlayerWidget />
         </Route>
-        <Route path="/login">
+        <Route path="/login/:service?">
           <Login />
         </Route>
         {/* support backwards compatability for secure/create-action-page (to be removed later on) */}
