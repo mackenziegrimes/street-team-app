@@ -96,6 +96,9 @@ export const ActionTotalPoints = ({
   const activeIcon = ICON_IMPORTS.find(icon => icon.name === tier);
   console.log(`nextTier is`, nextTier);
   
+  pointsToNextTier = (pointsToNextTier > 0) ? pointsToNextTier : '20';
+  nextTier = nextTier ?? 'new access & rewards!';
+
   return (
     <TotalPointsContainer>
       <TierIcon src={activeIcon.path} height="65px" />
