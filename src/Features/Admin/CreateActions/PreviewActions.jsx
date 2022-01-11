@@ -1,10 +1,12 @@
 import React from 'react';
+import Text from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row, Container } from 'react-bootstrap';
 import { ActionPage } from '../../../Components/ActionPage';
 import { useTheme } from '../../../Hooks/useTheme';
 import { apiActionsConfig } from './configs/actionsConfig';
 import { compareId } from '../../../utils/sharedUtils';
+import { useCurrentAuthUser } from '../CreateActions/hooks/useCurrentAuthUser';
 
 const filteredActions = actionChecked => {
   const activeActions = [];
@@ -19,6 +21,8 @@ const filteredActions = actionChecked => {
 export const PreviewActions = ({ actionChecked }) => {
   const actions = filteredActions(actionChecked);
   const theme = useTheme();
+  const adminData = useCurrentAuthUser();
+  const artistName = adminData.artistName ?? 'YourArtistName';
 
   return (
     <Container>
@@ -37,8 +41,16 @@ export const PreviewActions = ({ actionChecked }) => {
           <Row className="mb-3">
             <Col>
               <ActionPage.Header
-                heading="Increase your rewards!"
-                subHeading="Earn more points to unlock exclusive rewards & benefits"
+                heading="Increase Your Rewards"
+                subHeading={
+                  <>
+                    Earn StreetTeam Points to unlock exclusive rewards &
+                    benefits from
+                    <b>
+                      <i> {artistName}</i>
+                    </b>
+                  </>
+                }
               />
             </Col>
           </Row>

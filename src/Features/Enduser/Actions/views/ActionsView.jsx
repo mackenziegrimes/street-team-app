@@ -45,7 +45,7 @@ export const ActionsView = () => {
   const { artist, page = 'join' } = useParams();
   const history = useHistory();
 
-  let { userId, email, firstName, lastName, phone } = useCurrentAuthUser();
+  let { userId, email, firstName, lastName, phone, artistName } = useCurrentAuthUser();
   userId = window.localStorage.getItem('user');
   const { currentUserData, loading: loadingSubscriberData } = useGetSubscriberData({
       artistRoute: artist,
@@ -57,6 +57,8 @@ export const ActionsView = () => {
   firstName = firstName ? firstName : currentUserData?.firstName;
   lastName = lastName ? lastName : currentUserData?.lastName;
   phone = phone ? phone : currentUserData?.phone;
+  
+  artistName = artistName ?? 'YourArtistName';
   // get the user data for the user -- used for making sure an enduser exists
   // this could be obtained with the rest of the action page data, but we're likely going to move this logic into a centralized place since we'll need to be verifying a user record exists on lots of pages
   const { data: enduserData, refetch: refetchEnduserData } = useQuery(
@@ -400,8 +402,18 @@ export const ActionsView = () => {
         <Row className="mb-3">
           <Col>
             <ActionPage.Header
-              heading={actionPageInfo?.heading}
-              subHeading={actionPageInfo?.subheading}
+              // heading={actionPageInfo?.heading} // Add these ones we have configurable heading/subheading
+              // subHeading={actionPageInfo?.subheading}
+              heading="Increase Your Rewards"
+              subHeading={
+                <>
+                  Earn StreetTeam Points to unlock exclusive rewards & benefits
+                  from
+                  <b>
+                    <i> {artistName}</i>
+                  </b>
+                </>
+              }
             />
           </Col>
         </Row>
@@ -419,7 +431,7 @@ export const ActionsView = () => {
             color="gray2"
             fontColor="white"
             onClick={() => {
-              history.push(`${artist}/ranking`);
+              history.push(`/ranking`);
             }}
           >
             CONTINUE
@@ -433,7 +445,7 @@ export const ActionsView = () => {
             name={`${firstName} ${lastName || ''}`}
             tier={currentUserData?.tier}
             nextTier={currentUserData?.nextTier}
-            rank= {currentUserData?.rank}
+            rank={currentUserData?.rank}
             pointsToNextTier={currentUserData?.pointsToNextTier}
           />
         </Col>
