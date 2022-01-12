@@ -95,9 +95,6 @@ export const ActionTotalPoints = ({
 }) => {
   const activeIcon = ICON_IMPORTS.find(icon => icon.name === tier);
   console.log(`nextTier is`, nextTier);
-  
-  pointsToNextTier = (pointsToNextTier > 0) ? pointsToNextTier : '20';
-  nextTier = nextTier ?? 'new access & rewards!';
 
   return (
     <TotalPointsContainer>
@@ -105,11 +102,13 @@ export const ActionTotalPoints = ({
       <ContentContainer>
         <Name>{name}</Name>
         <TierRank>
-        {rank===1 ? 
-          `Congrats! You're the #1 StreetTeam Member 🎉🎉` 
-          :   `You're only ${pointsToNextTier} points away from unlocking ${nextTier}`
-        }
-        
+          {rank === 1 ? (
+            `Congrats! You're the #1 StreetTeam Member 🎉🎉`
+          ) : (
+            <>
+              You're only {pointsToNextTier} points away from unlocking <b>{nextTier}</b> access & rewards!
+            </>
+          )}
         </TierRank>
         {/* <PointsLink>Click here to earn more FanPoints</PointsLink> */}
       </ContentContainer>
@@ -132,7 +131,8 @@ ActionTotalPoints.propTypes = {
 
 ActionTotalPoints.defaultProps = {
   totalPoints: 0,
-  pointsToNextTier: 0,
+  pointsToNextTier: 20,
   name: null,
   tier: 'Bronze',
+  nextTier: 'Silver'
 };
