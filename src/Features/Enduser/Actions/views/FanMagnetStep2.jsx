@@ -9,6 +9,10 @@ import { PageHeader } from '../../../../Components/Page/PageHeader';
 import { useHistory } from 'react-router-dom';
 import anonymousId from 'anonymous-id';
 import { trackInAmplitude } from '../../../../utils/sharedUtils';
+import {
+  PageContainer,
+  StyledPageContainer,
+} from '../../../../Components/Page';
 
 export const SURVEY_SELECTION = {
   LOVE_IT: 'I loved it!',
@@ -67,49 +71,54 @@ export const FanMagnetStep2 = ({ artistId }) => {
     history.push(newRoute);
   };
 
+  artistId = localStorage.getItem('pageArtistId');
+  console.log("artist ID: " + artistId);
+
   return (
-    <React.Fragment>
-      <Step2MagnetHeader>Did you enjoy the song?</Step2MagnetHeader>
-      <MagnetButton
-        active
-        activeBgColor="linear-gradient(0deg, rgba(45,132,86,1) 0%, rgba(61,175,114,1) 100%);"
-        activeColor="white"
-        margin="0 0 50px"
-        handleClick={() => {
-          // setFanMagnetSurvey(SURVEY_SELECTION.LOVE_IT);
-          continueToNextStep();
-          trackInAmplitude('Song Enjoyed', anonymousId(), null, artistId);
-        }}
-      >
-        <span>👍</span>
-        <div>{SURVEY_SELECTION.LOVE_IT}</div>
-      </MagnetButton>
-      <MagnetButton
-        active
-        activeBgColor="linear-gradient(0deg, rgba(77,77,77,1) 0%, rgba(113,113,113,1) 100%);"
-        activeColor="white"
-        margin="0 0 50px"
-        handleClick={() => {
-          // setFanMagnetSurvey(SURVEY_SELECTION.OKAY);
-          continueToNextStep();
-        }}
-      >
-        <span>👌</span>
-        <div>{SURVEY_SELECTION.OKAY}</div>
-      </MagnetButton>
-      <MagnetButton
-        active
-        activeBgColor="linear-gradient(0deg, rgba(143,37,40,1) 0%, rgba(183,47,51,1) 100%);"
-        activeColor="white"
-        margin="0 0 50px"
-        handleClick={() => {
-          // setFanMagnetSurvey(SURVEY_SELECTION.DISLIKE);
-          continueToNextStep();
-        }}
-      >
-        <span>👎</span>
-        <div>{SURVEY_SELECTION.DISLIKE}</div>
-      </MagnetButton>
-    </React.Fragment>
+    <PageContainer>
+      <React.Fragment>
+        <Step2MagnetHeader>Did you enjoy the song?</Step2MagnetHeader>
+        <MagnetButton
+          active
+          activeBgColor="linear-gradient(0deg, rgba(45,132,86,1) 0%, rgba(61,175,114,1) 100%);"
+          activeColor="white"
+          margin="0 0 50px"
+          handleClick={() => {
+            // setFanMagnetSurvey(SURVEY_SELECTION.LOVE_IT);
+            continueToNextStep();
+            trackInAmplitude('Song Enjoyed', anonymousId(), null, artistId);
+          }}
+        >
+          <span>👍</span>
+          <div>{SURVEY_SELECTION.LOVE_IT}</div>
+        </MagnetButton>
+        <MagnetButton
+          active
+          activeBgColor="linear-gradient(0deg, rgba(77,77,77,1) 0%, rgba(113,113,113,1) 100%);"
+          activeColor="white"
+          margin="0 0 50px"
+          handleClick={() => {
+            // setFanMagnetSurvey(SURVEY_SELECTION.OKAY);
+            continueToNextStep();
+          }}
+        >
+          <span>👌</span>
+          <div>{SURVEY_SELECTION.OKAY}</div>
+        </MagnetButton>
+        <MagnetButton
+          active
+          activeBgColor="linear-gradient(0deg, rgba(143,37,40,1) 0%, rgba(183,47,51,1) 100%);"
+          activeColor="white"
+          margin="0 0 50px"
+          handleClick={() => {
+            // setFanMagnetSurvey(SURVEY_SELECTION.DISLIKE);
+            continueToNextStep();
+          }}
+        >
+          <span>👎</span>
+          <div>{SURVEY_SELECTION.DISLIKE}</div>
+        </MagnetButton>
+      </React.Fragment>
+    </PageContainer>
   );
 };
