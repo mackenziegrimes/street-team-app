@@ -9,6 +9,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { NavBar } from '../../NavBar';
 import { createEnduser } from '../../../../graphql/mutations';
 import { getEnduser } from '../../../../graphql/queries';
+import { getArtist } from '../../../../graphql/queries';
 import { getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID } from '../graphql/getEnduserActionPageData';
 import {
   createEnduserPageSubscription,
@@ -45,7 +46,7 @@ export const ActionsView = () => {
   const { artist, page = 'join' } = useParams();
   const history = useHistory();
 
-  let { userId, email, firstName, lastName, phone, artistName } = useCurrentAuthUser();
+  let { userId, email, firstName, lastName, phone } = useCurrentAuthUser();
   userId = window.localStorage.getItem('user');
   const { currentUserData, loading: loadingSubscriberData } = useGetSubscriberData({
       artistRoute: artist,
@@ -58,7 +59,10 @@ export const ActionsView = () => {
   lastName = lastName ? lastName : currentUserData?.lastName;
   phone = phone ? phone : currentUserData?.phone;
   
-  artistName = artistName ?? 'YourArtistName';
+  // console.log(actionPageData);
+
+  // artistName = artistName ?? currentUserData?.artistName ?? 'your support';
+
   // get the user data for the user -- used for making sure an enduser exists
   // this could be obtained with the rest of the action page data, but we're likely going to move this logic into a centralized place since we'll need to be verifying a user record exists on lots of pages
   const { data: enduserData, refetch: refetchEnduserData } = useQuery(
@@ -67,6 +71,18 @@ export const ActionsView = () => {
       variables: { id: userId },
     }
   );
+
+    const { data: artistData, refetch: refetchArtistData } = useQuery(
+      gql(getArtist),
+      {
+        variables: { id: artistId },
+      }
+    );
+  
+  let artistName = artistData?.getArtist?.artistName ?? '';
+  console.log("artistData:");
+  console.log(artistData)
+  // console.log(artistData.getArtist)
 
   // define mutation for create a new enduser record
   const [addEnduser, { loading: createEnduserLoading }] = useMutation(
@@ -169,6 +185,8 @@ export const ActionsView = () => {
       variables: { artistRoute: artist, pageRoute: page, enduserID: userId },
     }
   );
+
+console.log(actionPageData);
 
   const handleAction = id => {
     //use the id to figure out which button to track in amplitude
