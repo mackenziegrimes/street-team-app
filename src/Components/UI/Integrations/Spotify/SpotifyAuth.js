@@ -17,12 +17,13 @@ export const handleSpotifyAuth = async (authCode) => {
       const {accessToken,refreshToken} = responseJson;
       console.log(`spotify access token is ${accessToken}`);
       console.log(`spotify refresh token is ${refreshToken}`);
-        //2. store that access token in the cookies
-        //this is useful because we don't necessarily have the enduserId at this point (the enduser might not be logged in to SteetTeam), so we're going to stash it for sending to our backend later
-        if(accessToken && refreshToken){
-          window.localStorage.setItem('spotifyAccessToken', accessToken);
-          window.localStorage.setItem('spotifyRefreshToken', refreshToken);
-        }
+      //2. store that access token in the cookies
+      //this is useful because we don't necessarily have the enduserId at this point (the enduser might not be logged in to SteetTeam), so we're going to stash it for sending to our backend later
+      if(refreshToken){
+        console.log('yes! we have value');
+        window.localStorage.setItem('spotifyAccessToken', accessToken);
+        window.localStorage.setItem('spotifyRefreshToken', refreshToken);
+      }
       }
     catch(err){
         console.error(`getting spotify auth failed due to the following error:`);

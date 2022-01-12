@@ -136,7 +136,7 @@ export const SpotifyPlayerWidget = ({targetURL, spotifyAuthToken, pageId, enduse
                 saveSpotifyAuth(spotifyAuthToken, enduserId); //save new token to database
             }
         }
-        if(!authToken){
+        if(!authToken && spotifyAuthToken){
             setAuthToken(spotifyAuthToken);
         }
     },[spotifyAuthToken]);
@@ -159,7 +159,8 @@ export const SpotifyPlayerWidget = ({targetURL, spotifyAuthToken, pageId, enduse
         updateTotalPlays();
       }, POLLING_INTERVAL_SECONDS * 1000);
 
-    const remainingPlays = MAX_PLAYS_PER_DAY - totalPlays
+    const remainingPlays = MAX_PLAYS_PER_DAY - totalPlays;
+    console.log(`auth token is ${authToken}`);
   return (
     <div>
       <ContainerTriangle></ContainerTriangle>
