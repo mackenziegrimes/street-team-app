@@ -16,7 +16,7 @@ const platformConfigs = [
       if(url.includes('/track'))
        return "80"; 
       else
-        return '166';
+        return '180';
     }),
     getEmbedParametersFromShareLink: ((url,shareDomains) => {
       let embedId;
@@ -33,7 +33,7 @@ const platformConfigs = [
   {
     name: 'youtube',
     shareDomains:['https://www.youtube.com/watch?v=','https://youtu.be'],
-    iFrameHeight: (url => "166"),
+    iFrameHeight: (url => "280"),
     getEmbedLinkFromEmbedParameters: (params => {
       return `https://www.youtube.com/embed/${params.embedId}`
     }),
@@ -51,7 +51,8 @@ const platformConfigs = [
 ];
 
 const PlayerContainer = styled.div({
-  height: '100%',
+  // height: '100%',
+  position: 'relative', height: '100%', overflow: 'hidden'
 });
 
 //here we're using a class in order to reference properties of the platform and input variables within the defined get functions -SG
@@ -72,7 +73,7 @@ class Platform {
 }
 
 export const PlayWidget = ({ sourceUrl, iFrameHeight }) => {
-  let platformName, iFrameSource;
+  let platformName, iFrameSource, platformContainerStyling;
 
   platformConfigs.forEach(item => {
     const platform = new Platform(item);
@@ -81,23 +82,25 @@ export const PlayWidget = ({ sourceUrl, iFrameHeight }) => {
       if(iFrameSource){
         platformName = platform.name;
         iFrameHeight = iFrameHeight || platform.iFrameHeight(iFrameSource) || "100%";
+        platformContainerStyling = (platformName === 'youtube') ? {
+          paddingBottom: '56.25%' } : null
       }
     }
   });
     return (
-      <PlayerContainer>
+      <PlayerContainer style={platformContainerStyling}>
           <iframe
-            width="100%"
-            height={iFrameHeight}
-            src={iFrameSource}
-            frameBorder="no"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title={`${platformName}-embed`}
-            id={`${platformName}-widget`}
-            scrolling="no"
-            allowtransparency="true"
-            className="player-embed"
+          width="100%"
+          height={iFrameHeight}
+          src={iFrameSource}
+          frameBorder="no"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title={`${platformName}-embed`}
+          id={`${platformName}-widget`}
+          scrolling="no"
+          allowtransparency="true"
+          className={"player-embed " + platformName +"-embed"}
           />
       </PlayerContainer>
     );

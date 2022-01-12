@@ -26,6 +26,7 @@ body,
   -moz-osx-font-smoothing: grayscale;
   background-color: #171717 !important;
   width: 100%;
+  height: 100vh;
 }
 
 code {
@@ -143,4 +144,8 @@ INPUT[type=checkbox]:checked
   background-size: 1em;
   border-radius: 2px;
   color: white;
+}
+
+.youtube-embed {
+position: absolute; top: 0; left: 0; width: 100%; height: 100%
 }

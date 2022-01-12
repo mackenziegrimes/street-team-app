@@ -43,12 +43,20 @@ export const LandingPage = () => {
 
   const continueToNextStep = () => {
     //pull the root path from the location and push to the /secure path for that artist
+    // const path = window.location.pathname;
+    // const currentPathArray = window.location.pathname
+    //   .split('/')
+    //   .filter(x => x !== '');
+    // const newRoute = ['/feedback'].concat(currentPathArray[0]).join('/');
+    // history.push(newRoute);
+    localStorage.setItem('pageArtistId', artistId);
+    const baseUrl = window.location.href;
     const path = window.location.pathname;
     const currentPathArray = window.location.pathname
       .split('/')
       .filter(x => x !== '');
-    const newRoute = ['/secure'].concat(currentPathArray[0]).join('/');
-    history.push(newRoute);
+    const newRoute = ['/feedback'].concat(currentPathArray[0]).join('/');
+    window.open(baseUrl + '/feedback');
   };
 
   // here we're defining a default page route as "join" so if no pageRoute is provided, we'll use that
@@ -178,6 +186,7 @@ export const LandingPage = () => {
     width: auto;
     display: flex;
     justify-content: center;
+    target: _blank;
 
     @media (max-width: 600px) {
       font-size: 20px;
@@ -211,14 +220,16 @@ export const LandingPage = () => {
             <PlayWidget sourceUrl={embedURL} />
           </PlayerContainer>
           <ClaimFreeGiftButton
-            active={isButtonActive}
+            // active={isButtonActive}
+            active={true}
             activeBgColor={continueButtonDetails.backgroundColor || '#f5d772'}
             activeColor={continueButtonDetails.textColor || '#202021'}
             inactiveBgColor="#544c2e"
             margin="60px 0 45px"
             handleClick={() => {
-              setCurrentStep(2);
+              // setCurrentStep(2);
               trackInAmplitude('Song Listened', anonymousId(), null, artistId);
+              continueToNextStep();
             }}
           >
             <span>
@@ -234,7 +245,9 @@ export const LandingPage = () => {
           </ClaimFreeGiftButton>
         </React.Fragment>
       )}
-      {currentStep === 2 && <FanMagnetStep2 artistId={artistId} />}
+      {currentStep === 2 && (
+          <FanMagnetStep2 artistId={artistId} />
+      )}
     </PageContainer>
   );
 };
