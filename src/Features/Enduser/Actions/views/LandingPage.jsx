@@ -43,6 +43,7 @@ export const LandingPage = () => {
 
   const continueToNextStep = () => {
     //pull the root path from the location and push to the /secure path for that artist
+    // const path = window.location.pathname;
     const path = window.location.pathname;
     const currentPathArray = window.location.pathname
       .split('/')
