@@ -220,8 +220,8 @@ export const LandingPage = () => {
             <PlayWidget sourceUrl={embedURL} />
           </PlayerContainer>
           <ClaimFreeGiftButton
-            // active={isButtonActive}
-            active={true}
+            active={isButtonActive}
+            // active={true}
             activeBgColor={continueButtonDetails.backgroundColor || '#f5d772'}
             activeColor={continueButtonDetails.textColor || '#202021'}
             inactiveBgColor="#544c2e"
