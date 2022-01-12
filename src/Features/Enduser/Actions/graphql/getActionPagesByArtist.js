@@ -7,7 +7,6 @@ export const getActionPagesByArtistRoute= `query getActionPagesByArtistRoute($ar
           items {
             id
             artistID
-            creatorUserID
             pictureID
             pageTitle
             heading

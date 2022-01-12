@@ -1,67 +1,71 @@
 import Color from 'color';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { MdLibraryMusic } from 'react-icons/md';
 import { Icon } from '../Icon';
 import styled from 'styled-components';
 import { cleanUrl } from '../../../utils/sharedUtils';
-import { useGradient } from '../../../Hooks/useGradient';
 
-const PointsContainer = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: ({ color }) => color,
-  padding: '0px 25px 0px 25px',
-  color: 'inherit',
-  fontSize: ({ theme }) => theme.fontSizes.sm,
-  minHeight: '100%',
+const PointsContainer = styled.div(({ color, theme }) => {
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '5px 0 0 5px',
+    boxShadow: '0px 3px 6px #00000029',
+    background: `linear-gradient(90deg, ${color} 0%, ${color} 92%, ${color} 100%)`,
+    borderRight: '1px solid black',
+    color: 'inherit',
+    fontSize: theme.fontSizes.sm,
+    minHeight: '100%',
+    minWidth: '85px',
+  };
 });
 
 // eslint-disable-next-line no-unused-vars
-const ActionButtonContainer = styled(({ textColor, ...props }) => (
-  <Button {...props} />
-))(({ color, textColor, isDisabled }) => {
-  const fontColor = Color(textColor);
-
-  return {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    borderRadius: '0px',
-    background: useGradient({ color, customLighten: 0.01, customDarken: 0.38 }),
-    border: 'none',
-    padding: 0,
-    margin: 0,
-    height: '71px',
-    color: fontColor.hex(),
-    '&:hover, &:focus, &:active': {
-      color: fontColor,
-      background: useGradient({ color, customLighten: 0.08, customDarken: 0.25 }),
-      [PointsContainer]: {
-        background: Color(color).lighten(0.10),
-      },
-    },
-    ...(isDisabled && {
-      color: fontColor,
-      opacity: 0.35,
-      '&:hover': {
+const ActionButtonContainer = styled.button(
+  ({ color, textColor, isDisabled }) => {
+    const fontColor = Color(textColor);
+    const lighten = Color(color).lighten(0.1).hex();
+    return {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '100%',
+      borderRadius: '5px',
+      boxShadow: '0px 3px 6px #00000029',
+      background: `linear-gradient(90deg, ${color} 0%, ${color} 92%, ${color} 100%)`,
+      border: 'none',
+      padding: 0,
+      margin: 0,
+      height: '71px',
+      color: fontColor.hex(),
+      '&:hover, &:focus, &:active': {
         color: fontColor,
+        background: lighten,
+        [PointsContainer]: {
+          background: lighten,
+        },
       },
-    }),
-  };
-});
+      ...(isDisabled && {
+        color: fontColor,
+        opacity: 0.35,
+        '&:hover': {
+          color: fontColor,
+        },
+      }),
+    };
+  }
+);
 
 const ContentContainer = styled.div({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
-  padding: '15px',
+  justifyContent: 'space-between',
+  width: '100%',
+  paddingRight: '15px',
   minHeight: '100%',
 });
 
@@ -71,7 +75,7 @@ const Points = styled.p(({ theme }) => {
     fontWeight: theme.fontWeights.bold,
     fontSize: theme.fontSizes.xxl,
     margin: 0,
-    lineHeight: "100%",
+    lineHeight: '100%',
     color: 'inherit',
   };
 });
@@ -108,19 +112,26 @@ export const ActionButton = ({
   textColor,
   state,
   id,
+  serviceAction,
   handleAction,
 }) => {
   const complete = state?.find(item => item.id === id)?.complete;
 
   // All external links should be A tags
   const handleOnClick = () => {
-    if (!complete) {
+    if(serviceAction ==='SpotifyEmbed'){
       handleAction(id);
     }
-    if (targetURL) {
-      const cleanUrlString = cleanUrl(targetURL);
-      window.open(cleanUrlString, '_blank');
-    }
+    else{
+      if (!complete) {
+        handleAction(id);
+      }
+      if (targetURL) {
+        const cleanUrlString = cleanUrl(targetURL);
+        window.open(cleanUrlString, '_blank');
+      }
+  }
+
   };
 
   return (
@@ -130,18 +141,27 @@ export const ActionButton = ({
       isDisabled={complete}
       onClick={handleOnClick}
     >
+      <PointsContainer color={backgroundColor}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Icon name="FaPlus" size={12} />
+          <Points>{pointValue}</Points>
+        </div>
+        points
+      </PointsContainer>
       <ContentContainer>
+        <Title>{complete ? postActionText : preActionText}</Title>
         {buttonIcon ? (
           <ButtonIcon size={35} name={buttonIcon} textColor={textColor} />
         ) : (
           <ButtonIcon as={MdLibraryMusic} />
         )}
-        <Title>{complete ? postActionText : preActionText}</Title>
       </ContentContainer>
-      <PointsContainer color={backgroundColor}>
-        <Points>{pointValue}</Points>
-        points
-      </PointsContainer>
     </ActionButtonContainer>
   );
 };

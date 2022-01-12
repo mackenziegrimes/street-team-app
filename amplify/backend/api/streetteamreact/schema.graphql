@@ -51,6 +51,7 @@ type ArtistIntegrations
     serviceName: String
     serviceApiKey: String
     serviceAccountId: String
+    serviceAccountFriendlyName: String
     serviceApiUrl: String
   }
 
@@ -63,6 +64,7 @@ type Enduser
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -80,6 +82,7 @@ type Enduser
     @connection(keyName: "byEnduser", fields: ["id"])
   referredSubscribers: [EnduserPageSubscription]
     @connection(keyName: "byReferralEnduser",fields: ["id"])
+  integrations: [EnduserIntegrations] @connection(keyName: "byEnduser", fields:["id"])
   tags: [TagEnduserConnector] @connection(keyName: "byEnduser",fields:["id"])
 }
 
@@ -182,6 +185,7 @@ type EnduserPageSubscription
   facebookPageScopedId: String
   enduserPageSubscriptionCompletedActions: [EnduserPageSubscriptionCompletedActions] @connection(keyName: "byEnduserPageSubscription", fields: ["id"])
   enduserTotalPoints: Int
+  enduserRanking: String
 }
 
 type ActionPageButton
@@ -291,6 +295,30 @@ type TagEnduserConnector
     enduser: Enduser @connection(fields: ["enduserID"])
     tag: EnduserTag @connection(fields: ["tagID"])
   }
+
+type EnduserIntegrations
+@model
+  @aws_iam
+  @aws_cognito_user_pools
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  )
+  @key(name: "byEnduser", fields: ["enduserID"], queryField: "EnduserIntegrationsByEnduser"){
+  """
+  Enduser (fan) Integration record such as spotify, facebook etc
+  """
+  id: ID!
+  enduserID: ID!
+  enduser: Enduser! @connection(fields: ["enduserID"])
+  serviceName: String
+  serviceApiKey: String
+  serviceAccountId: String
+  serviceAccountFriendlyName: String
+  serviceApiUrl: String
+}
 
 type Picture
   @model

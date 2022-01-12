@@ -10,11 +10,13 @@ const HeaderContainer = styled.div({
 
 const Header = styled.h2({
   fontSize: ({ theme }) => theme.fontSizes.lg,
-  fontWeight: ({ theme }) => theme.fontWeights.semibold,
+  fontWeight: ({ theme }) => theme.fontWeights.bold,
 });
 
 const SubHeader = styled.h3({
   fontSize: ({ theme }) => theme.fontSizes.sm,
+  fontWeight: ({ theme }) => theme.fontWeights.semibold,
+  lineHeight: 'normal',
 });
 
 const Rule = styled.div({
@@ -26,7 +28,7 @@ export const ActionHeader = ({ heading, subHeading }) => {
   return (
     <HeaderContainer>
       <Header>{heading}</Header>
-      <Rule />
+      {/* <Rule /> */}
       <SubHeader>{subHeading}</SubHeader>
     </HeaderContainer>
   );

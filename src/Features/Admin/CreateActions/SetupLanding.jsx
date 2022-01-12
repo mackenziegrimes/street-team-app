@@ -103,7 +103,7 @@ export const SetupLanding = ({
     targetURL: landingPageValues.gift,
     backgroundColor: '#43C052',
     pointValue: 50,
-    position: 4,
+    position: 10,
     preActionText: 'Claim Your Free Gift',
     postActionText: 'Gift Claimed',
     textColor: 'white',
@@ -187,9 +187,9 @@ export const SetupLanding = ({
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                    Your Soundcloud Link
+                    Your Preview Link
                   </h3>
-                  <p>Paste a link to your song on SoundCloud...</p>
+                  <p>Paste a link to your song on SoundCloud, Youtube, or Spotify...</p>
                   {error && !landingPageValues?.soundCloud && (
                     <p style={{ color: 'red' }}>Required</p>
                   )}
@@ -202,7 +202,7 @@ export const SetupLanding = ({
                 <Col>
                   <TextField
                     hideLabel
-                    label="SoundCloud URL"
+                    label="Embed Music Player URL"
                     value={landingPageValues?.soundCloud}
                     onChange={e =>
                       setLandingPageValues({
@@ -210,7 +210,7 @@ export const SetupLanding = ({
                         soundCloud: e.target.value,
                       })
                     }
-                    placeholder="SoundCloud URL..."
+                    placeholder="SoundCloud, Spotify, or Youtube URL..."
                   />
                 </Col>
               </Row>

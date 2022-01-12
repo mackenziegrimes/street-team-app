@@ -24,18 +24,12 @@ export const Stepper = ({ currentStep, steps }) => {
         if (totalSteps !== index + 1) {
           return (
             <React.Fragment key={step}>
-              <StepperItem step={step} isActive={index + 1 <= currentStep} />
+              <StepperItem isComplete={index + 1 <= currentStep} />
               <StepperRule />
             </React.Fragment>
           );
         }
-        return (
-          <StepperItem
-            key={step}
-            step={step}
-            isActive={index + 1 <= currentStep}
-          />
-        );
+        return <StepperItem key={step} isComplete={index + 1 <= currentStep} />;
       })}
     </StepperContainer>
   );

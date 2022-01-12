@@ -115,78 +115,6 @@ export const createEnduserPageSubscription = /* GraphQL */ `
       }
       actionPage {
         id
-        artistID
-        creatorUserID
-        pictureID
-        pageTitle
-        heading
-        subheading
-        pageRoute
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          tags {
-            nextToken
-          }
-          route
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-        }
-        owner
-        subscribers {
-          items {
-            id
-            actionPageID
-            enduserID
-            referralEnduserID
-            enduserTotalPoints
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-        actionButtons {
-          items {
-            id
-            actionPageID
-            preActionText
-            postActionText
-            buttonIcon
-            backgroundColor
-            textColor
-            pointValue
-            position
-            targetURL
-            serviceAction
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-        picture {
-          id
-          publicUrl
-          name
-          owner
-          visibility
-          createdAt
-          file {
-            bucket
-            region
-            key
-          }
-          updatedAt
-        }
       }
       owner
       enduserPageSubscriptionCompletedActions {
@@ -305,7 +233,6 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         actionPage {
           id
           artistID
-          creatorUserID
           pictureID
           pageTitle
           heading
@@ -371,7 +298,6 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         actionpage {
           id
           artistID
-          creatorUserID
           pictureID
           pageTitle
           heading

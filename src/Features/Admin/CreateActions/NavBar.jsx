@@ -8,14 +8,14 @@ import { Icon } from '../../../Components/UI/Icon';
 import logo from '../../../assets/mm_square_bright.png';
 import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
 import { ArtistProfileDropdown } from './ArtistProfileDropdown';
-import Amplify, { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 
 const signOut = () => {
-    Auth.signOut()
+  Auth.signOut()
     .then(data => console.log(data))
-      .catch(err => console.log(err));
-window.location.reload(false);
-  }
+    .catch(err => console.log(err));
+  window.location.reload(false);
+};
 
 const NavBarContainer = styled(Navbar)({
   display: 'flex',
@@ -144,20 +144,19 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
   const location = useLocation();
 
   const handleBillingClick = async () => {
-    console.log('calling handleBillingClick',artistId)
-    if(artistId){
-      let response = await getBillingSessionUrl(artistId)
-      console.log(`stripe response in the handle click is`,response)
-      let billingUrl = response?.url;
-      if(billingUrl){
-        //opens in a new window
+    console.log('calling handleBillingClick', artistId);
+    if (artistId) {
+      const response = await getBillingSessionUrl(artistId);
+      console.log(`stripe response in the handle click is`, response);
+      const billingUrl = response?.url;
+      if (billingUrl) {
+        // opens in a new window
         window.open(billingUrl);
-      }
-      else{
-        console.log(`no billing account configured`)
+      } else {
+        console.log(`no billing account configured`);
       }
     }
-  }
+  };
   const NAVBAR_ITEMS = [
     {
       label: 'Your Fan Funnel',
@@ -179,29 +178,31 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
       showItem: true,
     },
     {
-      showItem: true,
       label: 'Your Integrations',
       icon: 'FaCogs',
       href: '/admin/integration',
       target: '_blank',
       showItem: true,
-    }
+    },
   ];
 
   const renderNavBarItem = () => {
     return NAVBAR_ITEMS.map(item => {
-      // console.log('location', location);
       const match = matchPath(location.pathname, { path: item.href });
-      {
-        if(item.showItem){
+
+      if (item.showItem) {
         return (
           <Dropdown.Item href={item.href} onClick={item.onClick} active={match}>
-            <Icon name={item.icon} style={{ marginRight: 15 }} target={item.target} />
+            <Icon
+              name={item.icon}
+              style={{ marginRight: 15 }}
+              target={item.target}
+            />
             {item.label}
           </Dropdown.Item>
         );
       }
-    }
+      return null;
     });
   };
 
@@ -240,27 +241,26 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
     },
   ];
 
-    const renderArtistProfileItems = () => {
-      return ARTIST_PROFILE_ITEMS.map(item => {
-        // console.log('location', location);
-        const match = matchPath(location.pathname, { path: item.href });
-        {
-          if (item.showItem) {
-            return (
-              <Dropdown.Item
-                href={item.href}
-                onClick={item.onClick}
-                active={match}
-                target={item.target}
-              >
-                <Icon name={item.icon} style={{ marginRight: 15 }} />
-                {item.label}
-              </Dropdown.Item>
-            );
-          }
-        }
-      });
-    };
+  const renderArtistProfileItems = () => {
+    return ARTIST_PROFILE_ITEMS.map(item => {
+      const match = matchPath(location.pathname, { path: item.href });
+
+      if (item.showItem) {
+        return (
+          <Dropdown.Item
+            href={item.href}
+            onClick={item.onClick}
+            active={match}
+            target={item.target}
+          >
+            <Icon name={item.icon} style={{ marginRight: 15 }} />
+            {item.label}
+          </Dropdown.Item>
+        );
+      }
+      return null;
+    });
+  };
 
   return (
     <NavBarContainer className="ml-auto" sticky="top">
@@ -287,9 +287,7 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
         <Link href="notion://www.notion.so/StreetTeam-Updates-4af35f77dbd54ebfa587d272c6932fb4">
           <Icon name="FaBell" color="gray" />
         </Link>
-        <ArtistProfileDropdown
-          menuItems={renderArtistProfileItems()}
-        ></ArtistProfileDropdown>
+        <ArtistProfileDropdown menuItems={renderArtistProfileItems()} />
       </NavGroup>
     </NavBarContainer>
   );

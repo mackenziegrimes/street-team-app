@@ -27,11 +27,11 @@ const DropdownMenu = styled.div({
     borderTop: '1px solid gray',
   },
   a: {
-      color: ({ theme }) => theme.colors.white,
-      padding: '15px',
+    color: ({ theme }) => theme.colors.white,
+    padding: '15px',
   },
   minWidth: '290px',
-    width: '100%',
+  width: '100%',
   top: 50,
   borderRadius: 12,
   backgroundColor: ({ theme }) => theme.colors.gray1,
@@ -76,19 +76,15 @@ const ArtistProfileDropdownToggle = React.forwardRef(
         onClick(e);
       }}
     >
-            {artistPicture ?
-                <Image
-                    src={artistPicture}
-                    roundedCircle
-                    style={{ width: 52, height: 52 }}
-                />
-                :
-                <Icon
-                    style={{ marginLeft: 10 }}
-                    name="FaUserCircle"
-                    color="gray"
-                />
-            }
+      {artistPicture ? (
+        <Image
+          src={artistPicture}
+          roundedCircle
+          style={{ width: 52, height: 52 }}
+        />
+      ) : (
+        <Icon style={{ marginLeft: 10 }} name="FaUserCircle" color="gray" />
+      )}
       <Icon
         style={{ marginLeft: 10 }}
         name="FaChevronDown"

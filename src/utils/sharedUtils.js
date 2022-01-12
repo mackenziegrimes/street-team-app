@@ -36,7 +36,6 @@ export const isProduction = () => {
   const currentUrl = window.location.href;
   // gets the current url root from the href
   const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
-  console.log(`test1`,frontEndUrl);
   if(frontEndUrl==='https://app.modern-musician.com'){
     return true;
   }
@@ -50,7 +49,6 @@ export const isDev = () => {
   const currentUrl = window.location.href;
   // gets the current url root from the href
   const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
-  console.log(`test1`,frontEndUrl);
   if(frontEndUrl==='https://dev.modern-musician.com'){
     return true;
   }
@@ -79,7 +77,7 @@ const devFacebookAppId = '871609296874018';
 export const facebookAppId = isProduction() ? productionFacebookAppId : devFacebookAppId
 
 export const tagInActiveCampaign = async (eventName, userId, artistId, additionalParams) => {
-  if(!eventName || !userId || !artistId){
+  if(!eventName || !userId || !artistId || isLocal){
     return
   }
   const params = {
@@ -91,24 +89,30 @@ export const tagInActiveCampaign = async (eventName, userId, artistId, additiona
     }
   }
   const trackUrl = getBackendApiUrl() + `/track-event`;
-  const response = await fetch(trackUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(params),
-  })
-    .then(rsp => rsp.json())
-    .then(json => {
-      if (json.error && json.error.message) {
-        console.error(json.error.message);
-      } else {
-        console.log(`results are`, json);
-        return json
-      }
-    });
+  try{
+    const response = await fetch(trackUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    })
+      .then(rsp => rsp.json())
+      .then(json => {
+        if (json.error && json.error.message) {
+          console.error(json.error.message);
+        } else {
+          console.log(`results are`, json);
+          return json
+        }
+      });
+    }
+  catch(err){
+    console.error(`unable to fetch track-event request for params`,params);
+    console.log(err);
+  }
 }
 
 export const trackInAmplitude = async (eventName, deviceId, userId, artistId, additionalParams) => {
-  if(!eventName || !deviceId || !artistId){
+  if(!eventName || !deviceId || !artistId || isLocal){
     return
   }
   const params = { "artistID": artistId,
@@ -126,6 +130,7 @@ export const trackInAmplitude = async (eventName, deviceId, userId, artistId, ad
     params.event = Object.assign(params.event,additionalParams);
   }
   const trackUrl = getBackendApiUrl() + `/track-event`;
+  try{
   const response = await fetch(trackUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -140,4 +145,17 @@ export const trackInAmplitude = async (eventName, deviceId, userId, artistId, ad
         return json
       }
     });
+  }
+  catch(err){
+    console.error(`unable to fetch track-event request for params`,params);
+    console.error(err);
+  }
+
+}
+
+export const timeAgoHoursFromString = (timestampString ) => {
+  let timestamp = Date.parse(timestampString);
+  var seconds = Math.floor((new Date() - timestamp) / 1000); //time since in seconds
+  const hoursPast = (seconds)/3600;
+  return hoursPast
 }

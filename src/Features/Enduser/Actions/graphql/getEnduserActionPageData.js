@@ -9,7 +9,6 @@ export const getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID = `quer
           items {
             id
             artistID
-            creatorUserID
             pictureID
             pageTitle
             heading
@@ -42,12 +41,26 @@ export const getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID = `quer
                     id
                     actionPageID
                     enduserID
+                    enduser {
+                      integrations {
+                        items {
+                          serviceName
+                          serviceApiKey
+                        }
+                      }
+                    }
                     enduserPageSubscriptionCompletedActions {
                         items {
                           id
                           isExpired
                           actionID
                           owner
+                          createdAt
+                          action {
+                            id
+                            pointValue
+                            serviceAction
+                            }
                         }
                       }
                     referralEnduserID

@@ -192,6 +192,7 @@ export const SetupActions = ({
         actionPageID: actionPageData.id,
         targetURL: newTargetUrl,
       };
+      console.log(`input variables are:`,inputVariables);
       if (actionPageData?.id) {
         // if the action buttons exist in the pageData, update them
         if (actionButtons) {
@@ -232,6 +233,71 @@ export const SetupActions = ({
           if (scheduleButton) {
             // update  the button
             inputVariables.id = scheduleButton.id;
+            updateActionButton({
+              variables: {
+                input: inputVariables,
+              },
+            });
+            recordExists = true; // don't go on to create a new record
+          }
+        }
+        if (!recordExists && !loadingActionPageButton) {
+          // create the button record
+          addActionPageButton({
+            variables: { input: inputVariables },
+          });
+        }
+      }
+    }
+    //handle playOnSpotify
+    if (actionValue?.playOnSpotify && actionChecked?.playOnSpotify) {
+      newTargetUrl = actionValue.playOnSpotify;
+      let recordExists = false;
+      const inputVariables = {
+        ...apiActionsConfig.playOnSpotify,
+        actionPageID: actionPageData.id,
+        targetURL: newTargetUrl,
+      };
+      if (actionPageData?.id) {
+        // if the action buttons exist in the pageData, update them
+        if (actionButtons) {
+          const button = actionButtons.find(
+            element => element.serviceAction === 'SpotifyEmbed'
+          );
+          if (button) {
+            // update  the button
+            inputVariables.id = button.id;
+            updateActionButton({ variables: { input: inputVariables } });
+            recordExists = true; // don't go on to create a new record
+          }
+        }
+        if (!recordExists && !loadingActionPageButton) {
+          // create the button record
+          addActionPageButton({
+            variables: { input: inputVariables },
+          });
+        }
+      }
+    }
+
+    // handle starterPack link
+    if (actionValue?.starterPack && actionChecked?.starterPack) {
+      const url = actionValue.starterPack;
+      let recordExists = false;
+      const inputVariables = {
+        ...apiActionsConfig.starterPack,
+        actionPageID: actionPageData.id,
+        targetURL: url,
+      };
+      if (actionPageData?.id) {
+        // if the action buttons exist in the pageData, update them
+        if (actionButtons) {
+          const button = actionButtons.find(
+            element => element.serviceAction === 'StarterPackLink'
+          );
+          if (button) {
+            // update  the button
+            inputVariables.id = button.id;
             updateActionButton({
               variables: {
                 input: inputVariables,

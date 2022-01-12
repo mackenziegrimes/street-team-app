@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import awsconfig from '../../aws-exports';
 import { useParams } from 'react-router-dom';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { handleSpotifyAuth } from '../UI/Integrations/Spotify/SpotifyAuth';
 
 Amplify.configure(awsconfig);
 
@@ -19,17 +20,10 @@ const Footer = styled.footer({
 });
 
 export const Login = () => {
-  const { userRole } = useParams();
+  const { userRole, service } = useParams();
   const [authState, setAuthState] = useState();
   const [userId, setUserId] = useState();
   const [route, setRoute] = useState();
-
-  // useEffect(() => {
-  //   onAuthUIStateChange((nextAuthState, authData) => {
-  //     setAuthState(nextAuthState);
-  //     setUserId(authData);
-  //   });
-  // }, []);
 
   const notArtist = userRole !== 'artist';
   const referrerRoute = '/test/me/out';
@@ -42,12 +36,39 @@ export const Login = () => {
   console.log(location.state);
   console.log(history);
 
-  const previousRoute = window.localStorage.getItem('route');
-  console.log(previousRoute);
+  const setRouteFromStorage = () => {
+    const previousRoute = window.localStorage.getItem('route') || "not-found";
+    console.log(`redirecting to: `, previousRoute);
+    setRoute(previousRoute);
+  }
+  
+  useEffect(() => {
+    if(service?.includes('spotify')){
+      //spotify redirect handling
+      // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
+      const code = new URLSearchParams(window.location.search).get('code');
+      console.log(`code is ${code}`)
+      const spotifyResponse = handleSpotifyAuth(code).then(response => {
+        //after we've handled the spotify auth, then we can set the route and redirect
+        setRouteFromStorage();
+      });
+    }
+    else{
+      if(!route){
+      setRouteFromStorage();
+      }
+    }
 
-  if (previousRoute) {
-    history.push(previousRoute);
-    // setRoute(previousRoute);
+  }, [service]);
+
+  //get the web referrer url
+  var referringUrl = document.referrer;
+  console.log(`referring url is : ${referringUrl}`);
+  console.log(`referring service is ${service}`);
+
+  if (route) {
+    //once this route value is set, we send redirect to the appropraite route
+    history.push(route); // redirect to the appropriate page
   }
 
   const loginProps = {
@@ -76,24 +97,5 @@ export const Login = () => {
 
   /// /secure/Artist/page - > not logged in
 
-  return route ? <div> loading</div> : <div> page not found </div>;
+  return service ? <div> loading </div> : <div> page not found </div>;
 };
-//   return authState === AuthState.SignedIn && userId ? (
-//     route ? (
-//           <Redirect
-//             to={{
-//               pathname: route,
-//               // search: "?utm=your+face"
-//             }}
-//           />):
-//           <div> page not found </div>
-//   ) : (
-//     <div>
-//     <button onClick={() => Auth.federatedSignIn({provider:"Facebook"})}>Sign In with FB</button>
-//     <AmplifyAuthenticator initialAuthState="signup" federated={federated}>
-//       <AmplifySignUp {...loginProps}/>
-//     </AmplifyAuthenticator>
-//     <button onClick={() => Auth.federatedSignIn()}>Sign In with AWS UI</button>
-//     </div>
-//   );
-// };

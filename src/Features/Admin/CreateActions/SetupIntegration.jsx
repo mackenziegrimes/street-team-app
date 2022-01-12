@@ -113,7 +113,6 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
 
   const saveIntegrations = () => {
     toast.success('Saved!');
-    console.log(`2-- form is now `, formValue)
     try {
       for (let i = 0; i < INPUT_KEYS.length; i++) {
         const key = INPUT_KEYS[i];
@@ -254,8 +253,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                   }}
                 >
                   {formValue.StreetTeamApi?.apiKey
-                    ? `Copy Street Team Api Key`
-                    : `Generate Street Team Api Key`}
+                    ? `Copy StreetTeam Api Key`
+                    : `Generate StreetTeam Api Key`}
                 </Button>
               </Row>
             </CreateActionContainer>

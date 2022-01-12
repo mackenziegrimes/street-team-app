@@ -72,7 +72,6 @@ export const useGetActionPage = () => {
           items {
             id
             artistID
-            creatorUserID
             pictureID
             pageTitle
             heading
