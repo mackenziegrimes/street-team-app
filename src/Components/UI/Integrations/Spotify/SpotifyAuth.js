@@ -5,7 +5,7 @@ export const handleSpotifyAuth = async (authCode) => {
     //handle the auth code from the spotify redirect by calling our backend api - following this design https://dev.to/dipscoder/spotify-authentication-using-client-react-and-server-expressjs-27l0#2
     //1. call our backend api with the auth code to get our access token
     //2. store that access token in the cookies
-    
+    if(authCode){
     const postUrl = getBackendApiUrl() + `/spotify-auth`;
     try{
       const response = await fetch(postUrl, {
@@ -19,12 +19,18 @@ export const handleSpotifyAuth = async (authCode) => {
       console.log(`spotify refresh token is ${refreshToken}`);
         //2. store that access token in the cookies
         //this is useful because we don't necessarily have the enduserId at this point (the enduser might not be logged in to SteetTeam), so we're going to stash it for sending to our backend later
-        window.localStorage.setItem('spotifyAccessToken', accessToken);
-        window.localStorage.setItem('spotifyRefreshToken', refreshToken);
+        if(accessToken && refreshToken){
+          window.localStorage.setItem('spotifyAccessToken', accessToken);
+          window.localStorage.setItem('spotifyRefreshToken', refreshToken);
+        }
       }
     catch(err){
         console.error(`getting spotify auth failed due to the following error:`);
         console.error(err);
+    }
+    }
+    else{
+      console.log('handleSpotifyAuth called with no authCode parameter')
     }
     return 'done';
 }

@@ -123,7 +123,7 @@ const LockedPlayWidget = styled.div({
 });
 
 const MAX_PLAYS_PER_DAY = 5;
-const POLLING_INTERVAL_SECONDS = 5;
+const POLLING_INTERVAL_SECONDS = 30; //poll every 30 seconds for now
 
 export const SpotifyPlayerWidget = ({targetURL, spotifyAuthToken, pageId, enduserId, completedActions, remainingActions}) => {
     const [totalPlays, setTotalPlays] = useState(0);

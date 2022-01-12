@@ -39,7 +39,7 @@ const ButtonContainer = styled.div({
 export const ActionsView = () => {
   const [actionValues, setActionValues] = useState([]);
   // const [actionPageID, setActionPageID] = useState(0);
-  const [showSpotifyDropDown, setShowSpotifyDropdown ] = useState(true);
+  const [showSpotifyDropDown, setShowSpotifyDropdown ] = useState(false);
   // const [enduserPageSubscriptionID, setEnduserPageSubscriptionID] = useState(0);
   const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
@@ -357,7 +357,7 @@ console.log(actionPageData);
             color="gray2"
             fontColor="white"
             onClick={() => {
-              history.push(`/ranking`);
+              history.push(`${artist}/ranking`);
             }}
           >
             CONTINUE
