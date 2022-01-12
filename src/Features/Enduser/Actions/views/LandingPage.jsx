@@ -100,7 +100,9 @@ export const LandingPage = () => {
       );
       if (soundCloudAction) {
         setEmbedURL(soundCloudAction.targetURL);
-        continueToNextStep();
+      }
+      else{
+        continueToNextStep(); //if there is no embed player for this page, just forward to the Tribal Accelerator
       }
       const continueButton = landingPageData?.actionButtons.items.find(
         item => item.serviceAction === 'ContinueButton'

@@ -11,7 +11,6 @@ import { createEnduser } from '../../../../graphql/mutations';
 import { getEnduser } from '../../../../graphql/queries';
 import { getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID } from '../graphql/getEnduserActionPageData';
 import {
-  createEnduserPageSubscription,
   createEnduserPageSubscriptionCompletedActions,
 } from '../graphql/createEnduserPageSubscription';
 import { ActionPage } from '../../../../Components/ActionPage';
@@ -38,69 +37,23 @@ const ButtonContainer = styled.div({
 
 export const ActionsView = () => {
   const [actionValues, setActionValues] = useState([]);
-  const [actionPageID, setActionPageID] = useState(0);
+  // const [actionPageID, setActionPageID] = useState(0);
   const [showSpotifyDropDown, setShowSpotifyDropdown ] = useState(true);
-  const [enduserPageSubscriptionID, setEnduserPageSubscriptionID] = useState(0);
+  // const [enduserPageSubscriptionID, setEnduserPageSubscriptionID] = useState(0);
   const [artistId, setArtistId] = useState(null);
   const { artist, page = 'join' } = useParams();
   const history = useHistory();
 
-  let { userId, email, firstName, lastName, phone } = useCurrentAuthUser();
-  userId = window.localStorage.getItem('user');
-  const { currentUserData, loading: loadingSubscriberData } = useGetSubscriberData({
+  // userId = (userId || loadingUser) ? userId : window.localStorage.getItem('user'); //if no user id, pull it from local storage
+  const { currentUserData, actionPageData, loading } = useGetSubscriberData({
       artistRoute: artist,
       pageRoute: page,
-      enduserId: userId,
     });
-
-  email = email ? email : currentUserData?.email;
-  firstName = firstName ? firstName : currentUserData?.firstName;
-  lastName = lastName ? lastName : currentUserData?.lastName;
-  phone = phone ? phone : currentUserData?.phone;
-  // get the user data for the user -- used for making sure an enduser exists
-  // this could be obtained with the rest of the action page data, but we're likely going to move this logic into a centralized place since we'll need to be verifying a user record exists on lots of pages
-  const { data: enduserData, refetch: refetchEnduserData } = useQuery(
-    gql(getEnduser),
-    {
-      variables: { id: userId },
-    }
-  );
-
-  // define mutation for create a new enduser record
-  const [addEnduser, { loading: createEnduserLoading }] = useMutation(
-    gql(createEnduser),
-    {
-      update(cache, { data: { addEnduser } }) {
-        // const {enduserData} = cache.readQuery({query:gql(getEnduser), input: {id: userId }});
-        cache.writeQuery({
-          query: gql(getEnduser),
-          data: { enduser: addEnduser },
-        });
-      },
-      refetchQueries: [{ query: gql(getEnduser), variables: { id: userId } }],
-      awaitRefetchQueries: true,
-    }
-  );
-
-  // define mutation for creating a new subscription record
-  const [addSubscription, { loading: loadingNewSubscription }] = useMutation(
-    gql(createEnduserPageSubscription),
-    {
-      refetchQueries: [
-        {
-          query: gql(
-            getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID
-          ),
-          variables: {
-            artistRoute: artist,
-            pageRoute: page,
-            enduserID: userId,
-          },
-        },
-      ],
-      awaitRefetchQueries: true,
-    }
-  );
+console.log('hi current user data',currentUserData)
+  let firstName = currentUserData?.firstName;
+  let lastName = currentUserData?.lastName;
+  let userId = currentUserData?.id;
+  let enduserPageSubscriptionID = currentUserData?.subscriptionId;
 
   // define mutation for creating a new completedAction record
   const [addCompletedAction, { loading: loadingCompletedAction }] = useMutation(
@@ -122,51 +75,13 @@ export const ActionsView = () => {
     }
   );
 
-  // create a new enduser if one doesn't exist to match Auth credentials
-  if (
-    enduserData != null &&
-    enduserData.getEnduser == null &&
-    !createEnduserLoading
-  ) {
-    console.log('enduserInfo does not exist -- creating enduser');
-    // set up input variables
-    const inputVariables = {
-      id: userId,
-      email,
-    };
-    let profileName;
-    if (firstName) {
-      inputVariables.firstName = firstName;
-      profileName = firstName;
-    }
-    if (lastName) {
-      inputVariables.lastName = lastName;
-      profileName = profileName ? profileName + lastName : lastName;
-    }
-    if (profileName) {
-      inputVariables.profileName = profileName;
-    }
-    if (phone) {
-      inputVariables.phone = phone;
-    }
-    // create new enduser with the input variables
-    const newEnduserData = addEnduser({
-      variables: {
-        input: inputVariables,
-      },
-    });
-    console.log(newEnduserData);
-    console.log('enduser record created');
-    refetchEnduserData();
-  }
-
   // get the data for building the landing page
-  const { data: actionPageData, loading } = useQuery(
-    gql(getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID),
-    {
-      variables: { artistRoute: artist, pageRoute: page, enduserID: userId },
-    }
-  );
+  // const { data: actionPageData, loading } = useQuery(
+  //   gql(getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID),
+  //   {
+  //     variables: { artistRoute: artist, pageRoute: page, enduserID: userId },
+  //   }
+  // );
 
   const handleAction = id => {
     //use the id to figure out which button to track in amplitude
@@ -195,7 +110,7 @@ export const ActionsView = () => {
           },
         },
       });
-      console.log(`newSubscription data is ${newCompletedActionRecord}`);
+      console.log(`newSubscription data is ${JSON.stringify(newCompletedActionRecord) }`);
       const targetURL = clickedAction.targetURL;
       console.log(`targetURL is`, targetURL);
       if (targetURL) {
@@ -224,7 +139,9 @@ export const ActionsView = () => {
     tagInActiveCampaign(`TRG - ${trackedName} Clicked`, userId, artistId);
   };
 
+  let actionPageID = actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]?.id
   useEffect(() => {
+
     if (actionPageData && actionPageData?.ArtistByRoute?.items?.length > 0) {
       const artist = actionPageData.ArtistByRoute.items[0];
       if (artist) {
@@ -233,12 +150,13 @@ export const ActionsView = () => {
       // this is currently assuming that 1) artist exsists at this route & 2) only one action page exists at this page route
       const actionPage =
         actionPageData.ArtistByRoute.items[0].actionPages.items[0];
-      const completedActions =
-        actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]
-          ?.subscribers?.items[0]?.enduserPageSubscriptionCompletedActions
-          .items;
+        console.log(`22 -- action page is `, actionPage);
+      const completedActions = currentUserData?.completedActions;
+        // actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]
+        //   ?.subscribers?.items[0]?.enduserPageSubscriptionCompletedActions
+        //   .items;
       const actionArray = actionPage.actionButtons.items;
-      setActionPageID(actionPage.id);
+      console.log(`22 -- action page id is `, actionPage.id);
       //todo this needs to be abstracted to support mutliple repeatable actions
       let completedSpotifyActions;
       if(completedActions){
@@ -264,7 +182,7 @@ export const ActionsView = () => {
         // if this id is in the enduserSubscription records completed action record, mark it as complete... there's gotta be a better way to do this -SG
         const completed =
           (completedActions && (element.serviceAction !== 'SpotifyEmbed' && 
-          completedActions.find(record => record.actionID === element.id) !==
+          completedActions.find(record => record?.action?.id === element.id) !==
             undefined)) || 
           (loggedActionsToday >= 5 && element.serviceAction==='SpotifyEmbed')
         values.push({
@@ -290,56 +208,63 @@ export const ActionsView = () => {
     }
   }, [artistId]);
 
-  useEffect(() => {
-    if (
-      !loadingNewSubscription &&
-      actionPageData &&
-      actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]
-        ?.subscribers?.items?.length < 1
-    ) {
-      // create a new enduser subscription for this page if one doesn't already exist
-      if (actionPageID && userId) {
-        // TODO need to add the referral ID here when creating a subscription
-        const newSubscriptionData = addSubscription({
-          variables: {
-            input: {
-              actionPageID,
-              enduserID: userId,
-            },
-          },
-        });
-        const additionalProperties = {
-          user_properties: {
-            name: firstName || lastName || '',
-            email,
-            phone,
-          },
-        };
-        // track new subscriber in amplitude
-        trackInAmplitude(
-          'StreetTeam Joined',
-          anonymousId(),
-          userId,
-          artistId,
-          additionalProperties
-        );
-        tagInActiveCampaign('TRG - StreetTeam Joined', userId, artistId);
-        console.log(`newSubscription data is ${newSubscriptionData}`);
-      } else {
-        console.log(`need userId and actionPageID to create a record`);
-      }
-    } else if (
-      actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]
-        ?.subscribers?.items?.length > 0
-    ) {
-      setEnduserPageSubscriptionID(
-        actionPageData.ArtistByRoute.items[0].actionPages.items[0].subscribers
-          .items[0].id
-      );
-    }
-  });
 
-  if (loading || loadingSubscriberData)
+  //moved to userGetSubscriberData
+  // useEffect(() => {
+  //   let actionPageSubscription = actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]
+  //       ?.subscribers?.items?.find(item => item.actionPageID===actionPageID);
+  //   console.log(`22-- actionPageId`,actionPageID)
+  //   console.log(`22-- all actionPageSubs`, actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]?.subscribers?.items);
+  //   console.log(`22-- subscription`,actionPageSubscription);
+  //   console.log(`22-- loadingNewSubscription`,loadingNewSubscription);
+  //   console.log(`22-- loadingUser`,loadingUser);
+  //   if (
+  //     !loadingNewSubscription && !actionPageSubscription && !loadingUser
+  //   ) {
+  //     console.log(`22-- actionPageID is ${actionPageID} and userID is ${userId}`);
+  //     // create a new enduser subscription for this page if one doesn't already exist
+  //     if (actionPageID && userId) {
+  //       // TODO need to add the referral ID here when creating a subscription
+  //       const newSubscriptionData = addSubscription({
+  //         variables: {
+  //           input: {
+  //             actionPageID,
+  //             enduserID: userId,
+  //           },
+  //         },
+  //       });
+  //       const additionalProperties = {
+  //         user_properties: {
+  //           name: firstName || lastName || '',
+  //           email,
+  //           phone,
+  //         },
+  //       };
+  //       // track new subscriber in amplitude
+  //       trackInAmplitude(
+  //         'StreetTeam Joined',
+  //         anonymousId(),
+  //         userId,
+  //         artistId,
+  //         additionalProperties
+  //       );
+  //       tagInActiveCampaign('TRG - StreetTeam Joined', userId, artistId);
+  //       console.log(`newSubscription data is ${newSubscriptionData}`);
+  //     } else {
+  //       console.log(`need userId and actionPageID to create a record`);
+  //     }
+  //   } else if (
+  //     actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]
+  //       ?.subscribers?.items?.length > 0
+  //   ) {
+  //     setEnduserPageSubscriptionID(
+  //       actionPageData.ArtistByRoute.items[0].actionPages.items[0].subscribers
+  //         .items[0].id
+  //     );
+  //   }
+  // },[loadingUser]);
+
+  if (loading)
     return (
       <StyledPageContainer>
         <Container fluid>

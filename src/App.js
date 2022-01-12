@@ -3,6 +3,7 @@ import { Routes } from './Routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // import { FanMagnetProvider } from './Context/FanMagnetContext';
+import { SecureProvider } from './Components/SecureViewWrapper';
 
 // NOTE: the default AWSAppSyncClient uses an outdated apollo-client dependency
 // we're building a custom client instead
@@ -16,7 +17,9 @@ function App() {
   return (
     <ApolloProvider client={SecureClient}>
       <ThemeProvider>
-          <Routes />
+          <SecureProvider>
+            <Routes />
+          </SecureProvider>
       </ThemeProvider>
     </ApolloProvider>
   );

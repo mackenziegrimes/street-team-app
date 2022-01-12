@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import {
@@ -14,6 +14,9 @@ import { Icon } from '../UI/Icon';
 import { PageContainer, PageHeader } from '../Page';
 import { FanMagnetButton } from '../UI';
 import queryString from 'query-string';
+import { useContext } from 'react';
+import { SecureProvider } from '.';
+import { UserContext } from './SecureViewContext';
 
 // here we're copying the constant config (aws-exports.js) because config is read only. -- then updating location.href
 var updatedConfig = awsconfig;
@@ -26,18 +29,6 @@ updatedConfig.oauth.redirectSignIn = redirectUrl;
 updatedConfig.oauth.redirectSignOut = redirectUrl;
 console.log(`redirectUrl`, redirectUrl);
 Amplify.configure(updatedConfig);
-
-function checkUser() {
-  Auth.currentAuthenticatedUser()
-    .then(user => console.log({ user }))
-    .catch(err => console.log(err));
-}
-
-function signOut() {
-  Auth.signOut()
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-}
 
 const Footer = styled.footer({
   height: '50px',
@@ -110,6 +101,11 @@ export const SecureViewWrapper = ({ userRole, children }) => {
   let location = useLocation();
   const [authState, setAuthState] = useState();
   const [userId, setUserId] = useState();
+  const context = useContext(UserContext);
+  console.log('hii', context);
+  // const authState = context?.authState;
+  // const userId = context?.userId;
+
   const [showSignupForm, setShowSignupForm] = useState(false);
 
   const path = window.location.pathname;
@@ -124,30 +120,6 @@ export const SecureViewWrapper = ({ userRole, children }) => {
   }
 
   console.log('hello from secure wrapper');
-
-  // set the initial authState if the current user is already authenticated (in the case of oauth redirect, it will be)
-  if (authState === undefined) {
-    try {
-      Auth.currentAuthenticatedUser()
-        .then(authData => {
-          setAuthState(AuthState.SignedIn);
-          setUserId(authData);
-        })
-        .catch(error =>
-          console.log(`2 -- error in signing in current auth user`, error)
-        );
-    } catch (err) {
-      console.error(`1 -- unable to login current auth user`, err);
-    }
-  }
-
-  // use this useEffect to changes state
-  useEffect(() => {
-    onAuthUIStateChange((nextAuthState, authData) => {
-      setAuthState(nextAuthState);
-      setUserId(authData);
-    });
-  }, []);
 
   const signUpProps = {
     headerText:
@@ -175,17 +147,13 @@ export const SecureViewWrapper = ({ userRole, children }) => {
     facebookAppId: '1889301381171290', // login here https://developers.facebook.com/apps/
   };
 
-  console.log(`authState`, authState);
-  console.log(`userId`, userId);
-  return authState === AuthState.SignedIn && userId ? (
+  return context.authState === AuthState.SignedIn && context.userId ? (
     <div
       style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
     >
-      <div style={{ flex: '1 0 auto' }}>{children}</div>
+        <div style={{ flex: '1 0 auto' }}>{children}</div>
       <Footer>
         <AmplifySignOut />
-        {/* <Button onClick={checkUser}>Check User</Button> */}
-        {/* <Button onClick={signOut}>Sign Out</Button> */}
       </Footer>
     </div>
   ) : (

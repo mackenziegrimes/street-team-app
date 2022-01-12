@@ -9,7 +9,6 @@ export const getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID = `quer
           items {
             id
             artistID
-            creatorUserID
             pictureID
             pageTitle
             heading
