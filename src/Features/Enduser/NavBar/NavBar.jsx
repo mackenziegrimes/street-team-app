@@ -22,17 +22,17 @@ const NAVBAR_ITEMS = [
     showItem: true,
   },
   {
-    label: 'Earn More Points',
+    label: 'Earn Points',
     href: '/',
     showItem: true,
   },
   {
-    label: 'StreetTeam Rankings',
+    label: 'Rankings',
     href: '/ranking',
     showItem: true,
   },
   {
-    label: 'Your Rewards',
+    label: 'Rewards',
     href: '/rewards',
     // target: '_blank',
     showItem: true,
