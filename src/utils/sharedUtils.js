@@ -77,7 +77,7 @@ const devFacebookAppId = '871609296874018';
 export const facebookAppId = isProduction() ? productionFacebookAppId : devFacebookAppId
 
 export const tagInActiveCampaign = async (eventName, userId, artistId, additionalParams) => {
-  if(!eventName || !userId || !artistId){
+  if(!eventName || !userId || !artistId || isLocal){
     return
   }
   const params = {
@@ -112,7 +112,7 @@ export const tagInActiveCampaign = async (eventName, userId, artistId, additiona
 }
 
 export const trackInAmplitude = async (eventName, deviceId, userId, artistId, additionalParams) => {
-  if(!eventName || !deviceId || !artistId){
+  if(!eventName || !deviceId || !artistId || isLocal){
     return
   }
   const params = { "artistID": artistId,

@@ -9,6 +9,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { NavBar } from '../../NavBar';
 import { createEnduser } from '../../../../graphql/mutations';
 import { getEnduser } from '../../../../graphql/queries';
+import { getArtist } from '../../../../graphql/queries';
 import { getActionPageAndEnduserDetailsByArtistPageRouteAndEnduserID } from '../graphql/getEnduserActionPageData';
 import {
   createEnduserPageSubscriptionCompletedActions,
@@ -45,7 +46,7 @@ export const ActionsView = () => {
   const history = useHistory();
 
   // userId = (userId || loadingUser) ? userId : window.localStorage.getItem('user'); //if no user id, pull it from local storage
-  const { currentUserData, actionPageData, loading } = useGetSubscriberData({
+  const { currentUserData, actionPageData, artistName, loading } = useGetSubscriberData({
       artistRoute: artist,
       pageRoute: page,
     });
@@ -82,6 +83,8 @@ console.log('hi current user data',currentUserData)
   //     variables: { artistRoute: artist, pageRoute: page, enduserID: userId },
   //   }
   // );
+
+console.log(actionPageData);
 
   const handleAction = id => {
     //use the id to figure out which button to track in amplitude
@@ -325,8 +328,18 @@ console.log('hi current user data',currentUserData)
         <Row className="mb-3">
           <Col>
             <ActionPage.Header
-              heading={actionPageInfo?.heading}
-              subHeading={actionPageInfo?.subheading}
+              // heading={actionPageInfo?.heading} // Add these ones we have configurable heading/subheading
+              // subHeading={actionPageInfo?.subheading}
+              heading="Increase Your Rewards"
+              subHeading={
+                <>
+                  Earn StreetTeam Points to unlock exclusive rewards & benefits
+                  from
+                  <b>
+                    <i> {artistName}</i>
+                  </b>
+                </>
+              }
             />
           </Col>
         </Row>
@@ -344,7 +357,7 @@ console.log('hi current user data',currentUserData)
             color="gray2"
             fontColor="white"
             onClick={() => {
-              history.push(`${artist}/ranking`);
+              history.push(`/ranking`);
             }}
           >
             CONTINUE
@@ -358,7 +371,7 @@ console.log('hi current user data',currentUserData)
             name={`${firstName} ${lastName || ''}`}
             tier={currentUserData?.tier}
             nextTier={currentUserData?.nextTier}
-            rank= {currentUserData?.rank}
+            rank={currentUserData?.rank}
             pointsToNextTier={currentUserData?.pointsToNextTier}
           />
         </Col>

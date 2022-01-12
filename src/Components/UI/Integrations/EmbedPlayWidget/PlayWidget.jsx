@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 const platformConfigs = [
   {
@@ -49,6 +50,10 @@ const platformConfigs = [
   }
 ];
 
+const PlayerContainer = styled.div({
+  height: '100%',
+});
+
 //here we're using a class in order to reference properties of the platform and input variables within the defined get functions -SG
 class Platform {
   constructor(params){
@@ -80,20 +85,20 @@ export const PlayWidget = ({ sourceUrl }) => {
     }
   });
     return (
-      <div className="video-responsive">
-      <iframe
-        width="100%"
-        height={iFrameHeight}
-        src={iFrameSource}
-        frameBorder="no"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title={`${platformName}-embed`}
-        id={`${platformName}-widget`}
-        scrolling="no"
-        allowtransparency="true"
-        className="player-embed"
-      />
-    </div>
-    )
+      <PlayerContainer>
+          <iframe
+            width="100%"
+            height={iFrameHeight}
+            src={iFrameSource}
+            frameBorder="no"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={`${platformName}-embed`}
+            id={`${platformName}-widget`}
+            scrolling="no"
+            allowtransparency="true"
+            className="player-embed"
+          />
+      </PlayerContainer>
+    );
 };
