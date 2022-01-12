@@ -127,12 +127,17 @@ const POLLING_INTERVAL_SECONDS = 5;
 
 export const SpotifyPlayerWidget = ({targetURL, spotifyAuthToken, pageId, enduserId, completedActions, remainingActions}) => {
     const [totalPlays, setTotalPlays] = useState(0);
+    const [authToken, setAuthToken] = useState();
     useEffect(() => {
+        console.log(`spotifyauthtoken`,spotifyAuthToken);
         if(!spotifyAuthToken){
             spotifyAuthToken = window.localStorage.getItem('spotifyRefreshToken'); //if there's no existing spotify auth token for this user, try pulling it from localStorage (which it would be in if the user just authed with spotify) 
             if(spotifyAuthToken){
                 saveSpotifyAuth(spotifyAuthToken, enduserId); //save new token to database
             }
+        }
+        if(!authToken){
+            setAuthToken(spotifyAuthToken);
         }
     },[spotifyAuthToken]);
 
@@ -175,7 +180,7 @@ export const SpotifyPlayerWidget = ({targetURL, spotifyAuthToken, pageId, enduse
             </>
           </InstructionContainer>
         </TopBarContainer>
-        {spotifyAuthToken ? (
+        {authToken ? (
           <PlayWidget sourceUrl={targetURL} />
         ) : (
           <UnlockContainer>
@@ -200,7 +205,7 @@ export const SpotifyPlayerWidget = ({targetURL, spotifyAuthToken, pageId, enduse
               </ButtonContainer>
             </UnlockButton>
             <LockedPlayWidget>
-              <PlayWidget sourceUrl={targetURL}></PlayWidget>
+              <PlayWidget sourceUrl={targetURL} iFrameHeight={80}></PlayWidget>
             </LockedPlayWidget>
           </UnlockContainer>
         )}

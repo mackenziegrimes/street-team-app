@@ -302,7 +302,7 @@ console.log(actionPageData);
   const actionPageInfo =
     actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0];
 
-  const spotifyIntegration = actionPageData?.ArtistByRoute?.items[0]?.actionPages?.items[0]?.subscribers?.items[0]?.enduser?.integrations?.items?.find(item => item.serviceName?.toUpperCase() ==='SPOTIFY');
+  const spotifyIntegration = actionPageData?.getEnduser.integrations?.items?.find(item => item.serviceName?.toUpperCase() ==='SPOTIFY');
   let spotifyAuthToken = spotifyIntegration?.serviceApiKey;
 
   const actionButtonList = actionPageInfo?.actionButtons?.items?.filter(item => {

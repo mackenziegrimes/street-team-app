@@ -71,8 +71,8 @@ class Platform {
   }
 }
 
-export const PlayWidget = ({ sourceUrl }) => {
-  let platformName, iFrameSource, iFrameHeight;
+export const PlayWidget = ({ sourceUrl, iFrameHeight }) => {
+  let platformName, iFrameSource;
 
   platformConfigs.forEach(item => {
     const platform = new Platform(item);
@@ -80,7 +80,7 @@ export const PlayWidget = ({ sourceUrl }) => {
       iFrameSource = platform.getEmbedLinkFromEmbedParameters(platform.getEmbedParametersFromShareLink(sourceUrl));
       if(iFrameSource){
         platformName = platform.name;
-        iFrameHeight = platform.iFrameHeight(iFrameSource) || "100%";
+        iFrameHeight = iFrameHeight || platform.iFrameHeight(iFrameSource) || "100%";
       }
     }
   });

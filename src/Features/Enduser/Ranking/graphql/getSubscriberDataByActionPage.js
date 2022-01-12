@@ -78,6 +78,19 @@ export const getActionPageAndSubscriberDetailsByArtistPageRoute= `query getArtis
     firstName
     lastName
     email
+    integrations {
+      items {
+        id
+        enduserID
+        serviceName
+        serviceApiKey
+        serviceAccountId
+        serviceAccountFriendlyName
+        serviceApiUrl
+        createdAt
+        updatedAt
+      }
+    }
   }
 }
 `;
