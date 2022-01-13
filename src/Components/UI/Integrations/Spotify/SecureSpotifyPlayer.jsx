@@ -13,8 +13,9 @@ import { trackPlays } from './SpotifyActions';
 import { saveSpotifyAuth } from './SpotifyAuth';
 import { loginUrl } from "./SpotifyUrl";
 
-const PlayerContainer = styled(Container)({
-    width: '100%',
+export const PlayerContainer = styled(Container)({
+  width: '100%',
+  maxWidth: '100%',
     // height: '100%',
     position: 'relative',
     border: '1px',
@@ -101,7 +102,7 @@ const UnlockContainer = styled.div({
     // opacity: '50%',
 });
 
-const ContainerTriangle = styled.div({
+export const ContainerTriangle = styled.div({
   display: 'block',
   position: 'relative',
   width: '0',

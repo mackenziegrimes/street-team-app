@@ -23,10 +23,12 @@ import anonymousId from 'anonymous-id';
 import { trackInAmplitude } from '../../../../utils/sharedUtils';
 import { isLocal } from '../../../../utils/sharedUtils';
 import { StyledPageIcon } from '../../../../Components/SecureViewWrapper/SecureViewWrapper';
+import { PlayerContainer } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
+import { ContainerTriangle } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
 
-const PlayerContainer = styled.div`
-  padding: 20px 0;
-`;
+// const PlayerContainer = styled.div`
+//   padding: 20px 0;
+// `;
 
 // landing page is essentially an action page that is public, so there are no points and we're using a different Apollo client (no auth)
 export const LandingPage = () => {
@@ -43,12 +45,20 @@ export const LandingPage = () => {
 
   const continueToNextStep = () => {
     //pull the root path from the location and push to the /secure path for that artist
+    // const path = window.location.pathname;
+    // const currentPathArray = window.location.pathname
+    //   .split('/')
+    //   .filter(x => x !== '');
+    // const newRoute = ['/feedback'].concat(currentPathArray[0]).join('/');
+    // history.push(newRoute);
+    localStorage.setItem('pageArtistId', artistId);
+    const baseUrl = window.location.href;
     const path = window.location.pathname;
     const currentPathArray = window.location.pathname
       .split('/')
       .filter(x => x !== '');
-    const newRoute = ['/secure'].concat(currentPathArray[0]).join('/');
-    history.push(newRoute);
+    const newRoute = ['/feedback'].concat(currentPathArray[0]).join('/');
+    window.open(baseUrl + '/feedback');
   };
 
   // here we're defining a default page route as "join" so if no pageRoute is provided, we'll use that
@@ -170,6 +180,11 @@ export const LandingPage = () => {
     margin-bottom: -15px;
   `;
 
+  const CenteredTriangle = styled(ContainerTriangle)`
+    margin: 0 auto -32px auto;
+
+  `;
+
   const ClaimFreeGiftButton = styled(FanMagnetButton)`
     margin: 30px 0 20px 0;
     font-size: 35px;
@@ -178,7 +193,8 @@ export const LandingPage = () => {
     width: auto;
     display: flex;
     justify-content: center;
-
+    target: _blank;
+    border: none;
     @media (max-width: 600px) {
       font-size: 20px;
     }
@@ -210,15 +226,24 @@ export const LandingPage = () => {
           <PlayerContainer>
             <PlayWidget sourceUrl={embedURL} />
           </PlayerContainer>
+          <CenteredTriangle
+            style={
+              isButtonActive
+                ? { borderBottom: '20px solid '+ (continueButtonDetails.backgroundColor ?? '#f5d772') }
+                : { borderBottom: '20px solid #544C2E' }
+            }
+          />
           <ClaimFreeGiftButton
             active={isButtonActive}
+            // active={true}
             activeBgColor={continueButtonDetails.backgroundColor || '#f5d772'}
             activeColor={continueButtonDetails.textColor || '#202021'}
             inactiveBgColor="#544c2e"
             margin="60px 0 45px"
             handleClick={() => {
-              setCurrentStep(2);
+              // setCurrentStep(2);
               trackInAmplitude('Song Listened', anonymousId(), null, artistId);
+              continueToNextStep();
             }}
           >
             <span>

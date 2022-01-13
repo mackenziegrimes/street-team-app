@@ -103,7 +103,10 @@ export const ActionTotalPoints = ({
         <Name>{name}</Name>
         <TierRank>
           {rank === 1 ? (
-            `Congrats! You're the #1 StreetTeam Member 🎉🎉`
+            <>
+              Congrats! You are the <b>#1 StreetTeam</b> member in the entire community
+              🎉🎉
+            </>
           ) : (
             <>
               You're only {pointsToNextTier} points away from unlocking <b>{nextTier}</b> access & rewards!

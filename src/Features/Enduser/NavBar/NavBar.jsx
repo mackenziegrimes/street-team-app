@@ -117,9 +117,9 @@ const EnduserDropdownToggle = React.forwardRef(
       {children}
       <Icon
         style={{ marginLeft: 10 }}
-        name="FaChevronDown"
-        size={20}
-        color="gray"
+        name="FaCaretDown"
+        size={25}
+        color="white"
       />
     </DropdownButton>
   )
@@ -135,7 +135,10 @@ const NavBarContainer = styled(BootstrapNavBar)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: ({ theme }) => theme.spacing.md,
+  paddingLeft: ({ theme }) => theme.spacing.xl,
+  paddingRight: ({ theme }) => theme.spacing.xl,
+  paddingTop: ({ theme }) => theme.spacing.md,
+  paddingBottom: ({ theme }) => theme.spacing.md,
   background: ({ theme }) => theme.colors.gray2,
 });
 
