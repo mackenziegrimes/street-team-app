@@ -23,9 +23,18 @@ import anonymousId from 'anonymous-id';
 import { trackInAmplitude } from '../../../../utils/sharedUtils';
 import { isLocal } from '../../../../utils/sharedUtils';
 import { StyledPageIcon } from '../../../../Components/SecureViewWrapper/SecureViewWrapper';
+import { PlayerContainer } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
+import { ContainerTriangle } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
 
-const PlayerContainer = styled.div`
-  padding: 20px 0;
+// const PlayerContainer = styled.div`
+//   padding: 20px 0;
+// `;
+
+const LandingPlayerContainer = styled(PlayerContainer)`
+  margin: 20px 0;
+  @media (min-width: 576px) {
+    max-width: 100%;
+  }
 `;
 
 // landing page is essentially an action page that is public, so there are no points and we're using a different Apollo client (no auth)
@@ -178,6 +187,11 @@ export const LandingPage = () => {
     margin-bottom: -15px;
   `;
 
+  const CenteredTriangle = styled(ContainerTriangle)`
+    margin: 0 auto -32px auto;
+
+  `;
+
   const ClaimFreeGiftButton = styled(FanMagnetButton)`
     margin: 30px 0 20px 0;
     font-size: 35px;
@@ -187,7 +201,7 @@ export const LandingPage = () => {
     display: flex;
     justify-content: center;
     target: _blank;
-
+    border: none;
     @media (max-width: 600px) {
       font-size: 20px;
     }
@@ -219,6 +233,13 @@ export const LandingPage = () => {
           <PlayerContainer>
             <PlayWidget sourceUrl={embedURL} />
           </PlayerContainer>
+          <CenteredTriangle
+            style={
+              isButtonActive
+                ? { borderBottom: '20px solid '+ (continueButtonDetails.backgroundColor ?? '#f5d772') }
+                : { borderBottom: '20px solid #544C2E' }
+            }
+          />
           <ClaimFreeGiftButton
             active={isButtonActive}
             // active={true}
@@ -245,9 +266,7 @@ export const LandingPage = () => {
           </ClaimFreeGiftButton>
         </React.Fragment>
       )}
-      {currentStep === 2 && (
-          <FanMagnetStep2 artistId={artistId} />
-      )}
+      {currentStep === 2 && <FanMagnetStep2 artistId={artistId} />}
     </PageContainer>
   );
 };
