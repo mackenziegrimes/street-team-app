@@ -94,7 +94,7 @@ export const ActionTotalPoints = ({
   rank
 }) => {
   const activeIcon = ICON_IMPORTS.find(icon => icon.name === tier);
-  console.log(`nextTier is`, nextTier);
+  // console.log(`nextTier is`, nextTier);
 
   return (
     <TotalPointsContainer>
@@ -107,7 +107,13 @@ export const ActionTotalPoints = ({
               Congrats! You are the <b>#1 StreetTeam</b> member in the entire community
               🎉🎉
             </>
-          ) : (
+          ) : tier === 'Diamond' ?             
+            (
+            <>
+              Congrats! You've reached the ultimate <b>{tier}</b> level of access & rewards. You are a legend 🙌
+            </>
+          ) :            
+            (
             <>
               You're only {pointsToNextTier} points away from unlocking <b>{nextTier}</b> access & rewards!
             </>
