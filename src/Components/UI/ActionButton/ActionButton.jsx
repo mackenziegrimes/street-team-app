@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { cleanUrl } from '../../../utils/sharedUtils';
 
 const PointsContainer = styled.div(({ color, theme }) => {
-  const lighten = Color(color).lighten(0.1).hex();
+  const lighten = Color(color).lighten(0.04).hex();
     const newColor = Color(color);
     const darkest = newColor.darken(0.05).hex();
   
@@ -31,10 +31,10 @@ const PointsContainer = styled.div(({ color, theme }) => {
 const ActionButtonContainer = styled.button(
   ({ color, textColor, isDisabled }) => {
     const fontColor = Color(textColor);
-    const lighten = Color(color).lighten(0.1).hex();
+    const lighten = Color(color).lighten(0.04).hex();
     const newColor = Color(color);
-    const darker = newColor.darken(0.1).hex();
-    const darkest = newColor.darken(0.3).hex();
+    const darker = newColor.darken(0.10).hex();
+    const darkest = newColor.darken(0.12).hex();
     return {
       display: 'flex',
       flexDirection: 'row',
@@ -42,7 +42,7 @@ const ActionButtonContainer = styled.button(
       width: '100%',
       borderRadius: '5px',
       boxShadow: '0px 3px 6px #00000029',
-      background: `linear-gradient(90deg, ${darkest} 0%, ${darker} 27%, ${color} 100%)`,
+      background: `linear-gradient(90deg, ${darkest} 15%, ${darker} 40%, ${color} 100%)`,
       border: 'none',
       padding: 0,
       margin: 0,
@@ -156,7 +156,7 @@ export const ActionButton = ({
             alignItems: 'center',
           }}
         >
-          <Icon name="FaPlus" size={12} />
+          <Icon name="FaPlus" size={12} style={{ marginLeft: "-8px" }} />
           <Points>{pointValue}</Points>
         </div>
         points
