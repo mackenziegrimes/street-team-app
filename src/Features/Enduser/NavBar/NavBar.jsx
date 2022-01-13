@@ -117,9 +117,9 @@ const EnduserDropdownToggle = React.forwardRef(
       {children}
       <Icon
         style={{ marginLeft: 10 }}
-        name="FaChevronDown"
-        size={20}
-        color="gray"
+        name="FaCaretDown"
+        size={25}
+        color="white"
       />
     </DropdownButton>
   )
