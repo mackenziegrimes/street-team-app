@@ -109,8 +109,7 @@ export const ActionTotalPoints = ({
             </>
           ) : (
             <>
-              You're only {pointsToNextTier} points away from unlocking
-              <b>{nextTier}</b> access & rewards!
+              You're only {pointsToNextTier} points away from unlocking <b>{nextTier}</b> access & rewards!
             </>
           )}
         </TierRank>

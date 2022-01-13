@@ -149,9 +149,14 @@ export const SecureViewWrapper = ({ userRole, children }) => {
 
   return context.authState === AuthState.SignedIn && context.userId ? (
     <div
-      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        background: '#171717',
+      }}
     >
-        <div style={{ flex: '1 0 auto' }}>{children}</div>
+      <div style={{ flex: '1 0 auto' }}>{children}</div>
       <Footer>
         <AmplifySignOut />
       </Footer>

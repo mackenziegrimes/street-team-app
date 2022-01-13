@@ -6,6 +6,7 @@ import { Icon, FanMagnetButton } from '../../../Components/UI';
 import { PageHeader, PageContainer } from '../../../Components/Page';
 import { useTheme } from '../../../Hooks/useTheme';
 import { PlayWidget } from '../../../Components/UI/Integrations/EmbedPlayWidget/PlayWidget';
+import { ContainerTriangle } from '../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
 
 const PlayerContainer = styled.div`
   padding: 20px 0;
@@ -49,6 +50,40 @@ const EmbedPlayerPlaceholder = styled.div({
   fontSize: '2rem',
 });
 
+  const CenteredTriangle = styled(ContainerTriangle)`
+    margin: 0 auto -32px auto;
+  `;
+
+  const ClaimFreeGiftButton = styled(FanMagnetButton)`
+    margin: 30px 0 20px 0;
+    font-size: 35px;
+    font-weight: 500;
+    padding: 25px 17px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    target: _blank;
+    border: none;
+    @media (max-width: 600px) {
+      font-size: 20px;
+    }
+
+    div {
+      width: auto;
+    }
+
+    span {
+      font-size: 55px;
+      margin-right: 25px;
+      display: flex;
+
+      @media (max-width: 600px) {
+        margin-right: 10px;
+        font-size: 45px;
+      }
+    }
+  `;
+
 export const PreviewLanding = ({ embedURL }) => {
   const theme = useTheme();
   return (
@@ -66,16 +101,15 @@ export const PreviewLanding = ({ embedURL }) => {
             </PageHeader>
             <PlayerContainer>
               {embedURL ? (
-                <div style={{ height: 165 }}>
                   <PlayWidget sourceUrl={embedURL} />
-                </div>
               ) : (
                 <EmbedPlayerPlaceholder>
                   Enter SoundCloud, Spotify, or Youtube URL To Preview
                 </EmbedPlayerPlaceholder>
               )}
             </PlayerContainer>
-            <FanMagnetButton
+            <CenteredTriangle style={{ borderBottom: '20px solid #807650' }} />
+            <ClaimFreeGiftButton
               active
               activeBgColor="#807650"
               activeColor="#202021"
@@ -90,7 +124,7 @@ export const PreviewLanding = ({ embedURL }) => {
                 />
                 CLAIM YOUR FREE GIFT
               </ButtonContainer>
-            </FanMagnetButton>
+            </ClaimFreeGiftButton>
           </PageContainer>
         </HeaderRow>
       </ActionCard>
