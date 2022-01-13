@@ -30,13 +30,6 @@ import { ContainerTriangle } from '../../../../Components/UI/Integrations/Spotif
 //   padding: 20px 0;
 // `;
 
-const LandingPlayerContainer = styled(PlayerContainer)`
-  margin: 20px 0;
-  @media (min-width: 576px) {
-    max-width: 100%;
-  }
-`;
-
 // landing page is essentially an action page that is public, so there are no points and we're using a different Apollo client (no auth)
 export const LandingPage = () => {
   const [authState, setAuthState] = useState();
