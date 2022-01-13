@@ -7,6 +7,10 @@ import styled from 'styled-components';
 import { cleanUrl } from '../../../utils/sharedUtils';
 
 const PointsContainer = styled.div(({ color, theme }) => {
+  const lighten = Color(color).lighten(0.1).hex();
+    const newColor = Color(color);
+    const darkest = newColor.darken(0.05).hex();
+  
   return {
     display: 'flex',
     flexDirection: 'column',
@@ -14,8 +18,8 @@ const PointsContainer = styled.div(({ color, theme }) => {
     justifyContent: 'center',
     borderRadius: '5px 0 0 5px',
     boxShadow: '0px 3px 6px #00000029',
-    background: `linear-gradient(90deg, ${color} 0%, ${color} 92%, ${color} 100%)`,
-    borderRight: '1px solid black',
+    background: `linear-gradient(90deg, ${darkest} 0%, ${color} 50%, ${darkest} 100%)`,
+    // borderRight: '1px solid black',
     color: 'inherit',
     fontSize: theme.fontSizes.sm,
     minHeight: '100%',
@@ -28,6 +32,9 @@ const ActionButtonContainer = styled.button(
   ({ color, textColor, isDisabled }) => {
     const fontColor = Color(textColor);
     const lighten = Color(color).lighten(0.1).hex();
+    const newColor = Color(color);
+    const darker = newColor.darken(0.1).hex();
+    const darkest = newColor.darken(0.3).hex();
     return {
       display: 'flex',
       flexDirection: 'row',
@@ -35,7 +42,7 @@ const ActionButtonContainer = styled.button(
       width: '100%',
       borderRadius: '5px',
       boxShadow: '0px 3px 6px #00000029',
-      background: `linear-gradient(90deg, ${color} 0%, ${color} 92%, ${color} 100%)`,
+      background: `linear-gradient(90deg, ${darkest} 0%, ${darker} 27%, ${color} 100%)`,
       border: 'none',
       padding: 0,
       margin: 0,
