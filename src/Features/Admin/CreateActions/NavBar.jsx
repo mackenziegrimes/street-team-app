@@ -216,7 +216,7 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
     {
       label: 'Training Portal',
       icon: 'FaGraduationCap',
-      href: 'https://members.modern-musician.com/',
+      href: 'https://members.modern-musician.com/products/streetteam-app-training-setup-guide',
       showItem: true,
     },
     {
