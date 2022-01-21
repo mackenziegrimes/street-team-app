@@ -57,13 +57,7 @@ export const isDev = () => {
   }
 }
 
-export const isLocal = () => {
-  if(isProduction() || isDev()){
-    return false
-  } else {
-    return true
-  }
-}
+export const isLocal = isProduction() || isDev() ? false : true;
 
 
 export const getBackendApiUrl = () => {
