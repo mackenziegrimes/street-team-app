@@ -21,7 +21,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SelectList } from '../../../Components/UI/SelectList';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi', 'FacebookAdAccount'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi', 'FacebookAdAccount', 'GoogleSheets'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -71,7 +71,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
     Facebook: { apiKey: '', apiAccountId: '', apiUrl: '' },
     FacebookAdAccount: { apiKey: '', apiAccountId: '', apiUrl: '' },
     Manychat: { apiKey: '', apiUrl: '' },
-    StreetTeamApi: {apiKey:''}
+    StreetTeamApi: { apiKey: '' },
+    GoogleSheets: {apiKey: '', apiFaUrl: ''}
   });
 
   const theme = useTheme();
@@ -442,11 +443,11 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                    Facebook Custom Audiences
+                    Facebook Ad Account
                   </h3>
                   <p>
-                  Automatically create Lookalike and Custom targeting
-                  audiences based on your StreetTeam community members
+                    Automatically create Lookalike and Custom targeting
+                    audiences based on your StreetTeam community members & automated reporting
                   </p>
                 </Col>
                 <IconContainer>
@@ -458,7 +459,43 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                   <FacebookGrantAdPermissions
                     userId={userId}
                     artistId={artistId}
-                    facebookAdAccountId={formValue.FacebookAdAccount?.apiAccountId}
+                    facebookAdAccountId={
+                      formValue.FacebookAdAccount?.apiAccountId
+                    }
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Funnel Accelerator Reporting
+                  </h3>
+                  <p>
+                    Copy/paste your Funnel Accelerator URL below...
+                  </p>
+                </Col>
+                <IconContainer>
+                  <Icon name="SiGooglesheets" color="white" />
+                </IconContainer>
+              </Row>
+              <Row>
+                <Col>
+                  <TextField
+                    hideLabel
+                    label="Google Sheets Funnel Accelerator API Key"
+                    value={formValue.GoogleSheets.apiKey}
+                    onChange={e =>
+                      setFormValue({
+                        ...formValue,
+                        GoogleSheets: {
+                          ...formValue.GoogleSheets,
+                          apiKey: e.target.value,
+                        },
+                      })
+                    }
+                    placeholder="Funnel Accelerator URL..."
                   />
                 </Col>
               </Row>

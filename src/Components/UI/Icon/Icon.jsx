@@ -6,6 +6,7 @@ import * as FontAwesome from 'react-icons/fa';
 import * as GameIcons from 'react-icons/gi';
 import * as Ionicons5 from 'react-icons/io5';
 import * as AntDesignIcons from "react-icons/ai";
+import * as SimpleIcons from 'react-icons/si';
 
 
 // TEMPORARY back compat
@@ -59,6 +60,9 @@ const checkIcon = name => {
       break;
     case 'Ai':
       library = AntDesignIcons;
+      break;
+    case 'Si':
+      library = SimpleIcons;
       break;
     default:
       library = FontAwesome;
