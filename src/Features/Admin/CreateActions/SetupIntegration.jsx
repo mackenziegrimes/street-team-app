@@ -447,7 +447,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                   </h3>
                   <p>
                     Automatically create Lookalike and Custom targeting
-                    audiences based on your StreetTeam community members & automated reporting
+                    audiences based on your StreetTeam community members
                   </p>
                 </Col>
                 <IconContainer>
