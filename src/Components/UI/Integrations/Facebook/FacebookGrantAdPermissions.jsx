@@ -158,7 +158,7 @@ export const FacebookGrantAdPermissions = ({ userId, artistId, facebookAdAccount
       },
       {
         // the authorized scopes
-        scope: 'email,public_profile,pages_messaging,pages_show_list,ads_management',
+        scope: 'email,public_profile,pages_messaging,pages_show_list,ads_management,ads_read',
         return_scopes: true,
       }
     );
