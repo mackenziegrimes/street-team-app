@@ -8,7 +8,7 @@ function TopNavbar() {
             <div className="navbar-row"> 
                 <div className="navbar-block-left"> 
                     <div className="navbar-image-box">
-                        <img src="../../../mm_square_bright.png" className="navbar-image" />
+                        <img src="../../../streetteam_logo.png" className="navbar-image" />
                     </div>
                     <div className="navbar-right-divider"> <FaAngleRight /> </div>
                     <div> <p className="navbar-contest-title"> Create Your Action Card </p> </div>
