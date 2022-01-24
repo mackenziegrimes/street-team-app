@@ -8,7 +8,7 @@ function ArtistNavbar() {
         <div class="navbar-row">
           <div class="navbar-block-left">
             <div class="navbar-image-box">
-              <img src="../streetteam_logo.png" class="navbar-image" />
+              <img src="../streetteam_reverse_logo.png" class="navbar-image" />
             </div>
             <div class="navbar-right-divider">
               {' '}

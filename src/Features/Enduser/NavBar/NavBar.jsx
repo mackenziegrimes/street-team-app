@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import { useLocation, useParams } from 'react-router-dom';
 import { Navbar as BootstrapNavBar, Image, Dropdown } from 'react-bootstrap';
 import { matchPath } from 'react-router';
-import logo from '../../../assets/streetteam_logo.png';
+import logo from '../../../assets/streetteam_reverse_logo.png';
 import { Icon } from '../../../Components/UI/Icon';
 
 const signOut = () => {

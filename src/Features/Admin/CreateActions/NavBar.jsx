@@ -5,7 +5,7 @@ import { Navbar, Dropdown } from 'react-bootstrap';
 import { matchPath } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
-import logo from '../../../assets/streetteam_logo.png';
+import logo from '../../../assets/streetteam_reverse_logo.png';
 import { getBillingSessionUrl } from './hooks/getBillingSessionUrl';
 import { ArtistProfileDropdown } from './ArtistProfileDropdown';
 import { Auth } from 'aws-amplify';
