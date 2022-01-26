@@ -20,8 +20,7 @@ import {
   StyledPageContainer,
 } from '../../../../Components/Page';
 import anonymousId from 'anonymous-id';
-import { trackInAmplitude } from '../../../../utils/sharedUtils';
-import { isLocal } from '../../../../utils/sharedUtils';
+import { isLocal, trackInAmplitude } from '../../../../utils/sharedUtils';
 import { StyledPageIcon } from '../../../../Components/SecureViewWrapper/SecureViewWrapper';
 import { PlayerContainer } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
 import { ContainerTriangle } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
@@ -57,8 +56,11 @@ export const LandingPage = () => {
     const currentPathArray = window.location.pathname
       .split('/')
       .filter(x => x !== '');
-    const newRoute = ['/feedback'].concat(currentPathArray[0]).join('/');
-    window.open(baseUrl + '/feedback');
+    const newRoute = `/${currentPathArray[0]}/feedback`;
+    console.log(`newRoute is`, newRoute);
+    console.log(`currentPathArray is`, currentPathArray)
+    history.push(newRoute); // changed to redirecting from opening a new page because of mobile issues -SG 
+    // window.open(baseUrl + '/feedback');
   };
 
   // here we're defining a default page route as "join" so if no pageRoute is provided, we'll use that
@@ -130,7 +132,7 @@ export const LandingPage = () => {
   }, [actionPageData]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsButtonActive(true), 30000);
+    const timer = setTimeout(() => setIsButtonActive(true), isLocal ? 2000 : 30000);
     return () => clearTimeout(timer);
   }, []);
 
