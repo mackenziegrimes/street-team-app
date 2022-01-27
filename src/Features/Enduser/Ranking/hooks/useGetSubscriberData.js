@@ -120,6 +120,7 @@ export const useGetSubscriberData = ({ artistRoute, pageRoute }) => {
       onCompleted:  data => {
         let enduserId = userId;
         const actionPageID = data.ArtistByRoute?.items[0]?.actionPages?.items[0]?.id;
+        const artistId = data.ArtistByRoute?.items[0]?.id;
         const endUserData = data.ArtistByRoute?.items[0]?.actionPages?.items[0]?.subscribers?.items
         const currentUserSubscription = (endUserData && enduserId) ? endUserData?.find(item => item?.enduserID === enduserId) : undefined;
         if(!currentUserSubscription){
@@ -131,6 +132,25 @@ export const useGetSubscriberData = ({ artistRoute, pageRoute }) => {
               },
             },
           });
+          //// track new subscriber in amplitude and active campaign
+          const additionalProperties = {
+            user_properties: {
+              name: firstName || lastName || '',
+              email,
+              phone,
+            },
+          };
+          // track new subscriber in amplitude
+          trackInAmplitude(
+            'StreetTeam Joined',
+            anonymousId(),
+            userId,
+            artistId,
+            additionalProperties
+          );
+          tagInActiveCampaign('TRG - StreetTeam Joined', userId, artistId);
+          console.log(`newSubscription data is ${JSON.stringify(newSubscriptionData)}`);
+          ////
           refetchUserData();
         }
         else{
