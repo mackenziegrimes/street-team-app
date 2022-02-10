@@ -50,7 +50,7 @@ export const Login = () => {
       //spotify redirect handling
       // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
       const code = new URLSearchParams(window.location.search).get('code');
-      console.log(`code is ${code}`)
+      console.log(`spotify code is ${code}`)
       const spotifyResponse = handleSpotifyAuth(code).then(response => {
         //after we've handled the spotify auth, then we can set the route and redirect
         setRouteFromStorage();
@@ -59,7 +59,7 @@ export const Login = () => {
       //zoom redirect handling
       // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
       const code = new URLSearchParams(window.location.search).get('code');
-      console.log(`code is ${code}`);
+      console.log(`zoom code is ${code}`);
       const zoomResponse = handleZoomAuth(code).then(response => {
         //after we've handled the Zoom auth, then we can set the route and redirect
         setRouteFromStorage();
@@ -68,7 +68,7 @@ export const Login = () => {
       //discord redirect handling
       // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
       const code = new URLSearchParams(window.location.search).get('code');
-      console.log(`code is ${code}`);
+      console.log(`discord code is ${code}`);
       const discordResponse = handleDiscordAuth(code).then(response => {
         //after we've handled the Discord auth, then we can set the route and redirect
         setRouteFromStorage();

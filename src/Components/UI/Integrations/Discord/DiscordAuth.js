@@ -1,7 +1,7 @@
 import { getBackendApiUrl } from "../../../../utils/sharedUtils";
 
 export const handleDiscordAuth = async (authCode) => {
-    console.log(`auth code is `, authCode);
+    console.log(`discord auth code is `, authCode);
     //handle the auth code from the discord redirect by calling our backend api
     //1. call our backend api with the auth code to get our access token
     //2. store that access token in the cookies
@@ -23,6 +23,8 @@ export const handleDiscordAuth = async (authCode) => {
         console.log('yes! we have value');
         window.localStorage.setItem('discordAccessToken', accessToken);
         window.localStorage.setItem('discordRefreshToken', refreshToken);
+      } else {
+        console.log('did not receive the discord refresh token')
       }
       }
     catch(err){
