@@ -1,6 +1,8 @@
 import { getBackendApiUrl } from "../../../../utils/sharedUtils";
+import { useCurrentAuthUser } from "../../../../Features/Admin/CreateActions/hooks/useCurrentAuthUser";
 
-export const handleZoomAuth = async (authCode) => {
+export const handleZoomAuth = async (authCode,userId) => {
+  
     console.log(`auth code is `, authCode);
     //handle the auth code from the zoom redirect by calling our backend api
     //1. call our backend api with the auth code to get our access token
@@ -14,17 +16,19 @@ export const handleZoomAuth = async (authCode) => {
         body: JSON.stringify({auth_code: authCode}),
       });
       const responseJson = await response.json();
-      const {accessToken,refreshToken} = responseJson;
+      console.log('responseJson',responseJson)
+      const {accessToken,refreshToken,expiresIn} = responseJson;
       console.log(`zoom access token is ${accessToken}`);
       console.log(`zoom refresh token is ${refreshToken}`);
-      //2. store that access token in the cookies
-      //this is useful because we don't necessarily have the enduserId at this point (the enduser might not be logged in to SteetTeam), so we're going to stash it for sending to our backend later
+
       if(refreshToken){
         console.log('yes! we have value');
         window.localStorage.setItem('zoomAccessToken', accessToken);
         window.localStorage.setItem('zoomRefreshToken', refreshToken);
       }
-      }
+      const responseAuth = await saveZoomAuth(accessToken, refreshToken, expiresIn, userId)
+      console.log('zoom',responseAuth);
+    }
     catch(err){
         console.error(`getting zoom auth failed due to the following error:`);
         console.error(err);
@@ -36,17 +40,23 @@ export const handleZoomAuth = async (authCode) => {
     return 'done';
 }
 
-export const saveZoomAuth = async (authToken, enduserId) => {
-    console.log(`saving zoom auth token:`,authToken, `for enduserId`,enduserId);
-    const postUrl = getBackendApiUrl() + `/zoom-enduser-integration`;
+export const saveZoomAuth = async (accessToken, refreshToken, expiresIn, artistId) => {
+    console.log(`saving zoom integration for artistId`,artistId);
+    const postUrl = getBackendApiUrl() + `/zoom-artist-integration`;
     try{
         const response = await fetch(postUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({service: "zoom", token: authToken, enduserId: enduserId}),
+          body: JSON.stringify({
+            service: 'zoom',
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            expiresIn: expiresIn,
+            artistId: artistId,
+          }),
         });
         const responseJson = await response.json();
-        const accessToken = responseJson.accessToken;
+        // const accessToken = responseJson.accessToken;
         console.log(responseJson);
     }
     catch(err){

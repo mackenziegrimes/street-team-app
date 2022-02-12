@@ -59,8 +59,9 @@ export const Login = () => {
       //zoom redirect handling
       // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
       const code = new URLSearchParams(window.location.search).get('code');
-      console.log(`zoom code is ${code}`);
-      const zoomResponse = handleZoomAuth(code).then(response => {
+      console.log(`code is ${code}`);
+      const zoomResponse = handleZoomAuth(code,userId).then(response => {
+        console.log('zoomResponse', response);
         //after we've handled the Zoom auth, then we can set the route and redirect
         setRouteFromStorage();
       });

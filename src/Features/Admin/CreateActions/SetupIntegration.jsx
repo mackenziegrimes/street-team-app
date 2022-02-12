@@ -13,6 +13,8 @@ import { Button } from '../../../Components/UI/Button';
 import { Icon } from '../../../Components/UI/Icon';
 import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantAdPermissions, FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
+import { ZoomGrantPermissions } from '../../../Components/UI/Integrations/Zoom/ZoomGrantPermissions';
+
 import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
 import { facebookAppId, getBackendApiUrl } from '../../../utils/sharedUtils';
 import { v4 as uuidv4 } from 'uuid';
@@ -72,7 +74,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
     FacebookAdAccount: { apiKey: '', apiAccountId: '', apiUrl: '' },
     Manychat: { apiKey: '', apiUrl: '' },
     StreetTeamApi: { apiKey: '' },
-    GoogleSheets: {apiKey: '', apiFaUrl: ''}
+    GoogleSheets: { apiKey: '', apiFaUrl: '' },
+    Zoom: {apiKey: '', apiUrl: '', apiAccountId: ''},
   });
 
   const theme = useTheme();
@@ -472,9 +475,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
                     Funnel Accelerator Reporting
                   </h3>
-                  <p>
-                    Copy/paste your Funnel Accelerator URL below...
-                  </p>
+                  <p>Copy/paste your Funnel Accelerator URL below...</p>
                 </Col>
                 <IconContainer>
                   <Icon name="SiGooglesheets" color="white" />
@@ -496,6 +497,33 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                       })
                     }
                     placeholder="Funnel Accelerator URL..."
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer>
+            <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Zoom Integration
+                  </h3>
+                  <p>
+                    Integrate with Zoom for Artist Showcase tracking and
+                    reporting...
+                  </p>
+                </Col>
+                <IconContainer>
+                  <Icon name="IoVideocam" color="white" />
+                </IconContainer>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Col>
+                  <ZoomGrantPermissions
+                    userId={userId}
+                    artistId={artistId}
+                    zoomAccountId={
+                      formValue.ZoomAccount?.apiAccountId
+                    }
                   />
                 </Col>
               </Row>
