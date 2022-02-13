@@ -473,38 +473,6 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                    Funnel Accelerator Reporting
-                  </h3>
-                  <p>Copy/paste your Funnel Accelerator URL below...</p>
-                </Col>
-                <IconContainer>
-                  <Icon name="SiGooglesheets" color="white" />
-                </IconContainer>
-              </Row>
-              <Row>
-                <Col>
-                  <TextField
-                    hideLabel
-                    label="Google Sheets Funnel Accelerator API Key"
-                    value={formValue.GoogleSheets.apiKey}
-                    onChange={e =>
-                      setFormValue({
-                        ...formValue,
-                        GoogleSheets: {
-                          ...formValue.GoogleSheets,
-                          apiKey: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Funnel Accelerator URL..."
-                  />
-                </Col>
-              </Row>
-            </CreateActionContainer>
-            <CreateActionContainer>
-              <Row>
-                <Col xs={10}>
-                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
                     Zoom Integration
                   </h3>
                   <p>
