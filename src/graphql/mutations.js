@@ -638,6 +638,7 @@ export const createEnduser = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -699,6 +700,7 @@ export const createEnduser = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -844,6 +846,7 @@ export const updateEnduser = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -905,6 +908,7 @@ export const updateEnduser = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -1050,6 +1054,7 @@ export const deleteEnduser = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -1111,6 +1116,7 @@ export const deleteEnduser = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -1673,6 +1679,7 @@ export const createActionPage = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -1903,6 +1910,7 @@ export const updateActionPage = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -2133,6 +2141,7 @@ export const deleteActionPage = /* GraphQL */ `
           enduserID
           referralEnduserID
           facebookPageScopedId
+          anonymousID
           enduserTotalPoints
           enduserRanking
           createdAt
@@ -2250,6 +2259,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
       enduserID
       referralEnduserID
       facebookPageScopedId
+      anonymousID
       enduserTotalPoints
       enduserRanking
       createdAt
@@ -2300,6 +2310,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2315,6 +2326,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2370,6 +2382,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2385,6 +2398,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2459,6 +2473,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2516,6 +2531,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2556,6 +2572,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
       enduserID
       referralEnduserID
       facebookPageScopedId
+      anonymousID
       enduserTotalPoints
       enduserRanking
       createdAt
@@ -2606,6 +2623,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2621,6 +2639,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2676,6 +2695,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2691,6 +2711,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2765,6 +2786,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2822,6 +2844,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2862,6 +2885,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
       enduserID
       referralEnduserID
       facebookPageScopedId
+      anonymousID
       enduserTotalPoints
       enduserRanking
       createdAt
@@ -2912,6 +2936,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2927,6 +2952,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2982,6 +3008,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -2997,6 +3024,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3071,6 +3099,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3128,6 +3157,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3241,6 +3271,7 @@ export const createActionPageButton = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3298,6 +3329,7 @@ export const createActionPageButton = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3411,6 +3443,7 @@ export const updateActionPageButton = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3468,6 +3501,7 @@ export const updateActionPageButton = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3581,6 +3615,7 @@ export const deleteActionPageButton = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3638,6 +3673,7 @@ export const deleteActionPageButton = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -3688,6 +3724,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         enduserID
         referralEnduserID
         facebookPageScopedId
+        anonymousID
         enduserTotalPoints
         enduserRanking
         createdAt
@@ -3917,6 +3954,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         enduserID
         referralEnduserID
         facebookPageScopedId
+        anonymousID
         enduserTotalPoints
         enduserRanking
         createdAt
@@ -4146,6 +4184,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         enduserID
         referralEnduserID
         facebookPageScopedId
+        anonymousID
         enduserTotalPoints
         enduserRanking
         createdAt
@@ -4364,6 +4403,8 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
       artistID
       enduserID
       referralEnduserID
+      facebookPageScopedId
+      anonymousID
       createdAt
       updatedAt
       artist {
@@ -4463,6 +4504,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4478,6 +4520,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4533,6 +4576,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4548,6 +4592,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4571,6 +4616,8 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
       artistID
       enduserID
       referralEnduserID
+      facebookPageScopedId
+      anonymousID
       createdAt
       updatedAt
       artist {
@@ -4670,6 +4717,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4685,6 +4733,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4740,6 +4789,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4755,6 +4805,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4778,6 +4829,8 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
       artistID
       enduserID
       referralEnduserID
+      facebookPageScopedId
+      anonymousID
       createdAt
       updatedAt
       artist {
@@ -4877,6 +4930,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4892,6 +4946,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4947,6 +5002,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4962,6 +5018,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -4972,6 +5029,591 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
         }
       }
       owner
+    }
+  }
+`;
+export const createEvent = /* GraphQL */ `
+  mutation CreateEvent(
+    $input: CreateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    createEvent(input: $input, condition: $condition) {
+      id
+      artistSubscriptionID
+      pageSubscriptionID
+      enduserID
+      artistUserID
+      artistUser {
+        items {
+          id
+          username
+          firstName
+          lastName
+          email
+          phoneNumber
+          artistID
+          facebookUserID
+          facebookLongLivedUserAccessToken
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+          actionPages {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      friendlyName
+      type
+      properties
+      createdAt
+      updatedAt
+      enduser {
+        items {
+          id
+          username
+          firstName
+          lastName
+          email
+          phone
+          profileName
+          profilePicture
+          profileDescription
+          profileSocialLink
+          integrations {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          createdAt
+          updatedAt
+          owner
+          EnduserPageSubscription {
+            nextToken
+          }
+          referredSubscribers {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      pageSubscription {
+        items {
+          id
+          actionPageID
+          enduserID
+          referralEnduserID
+          facebookPageScopedId
+          anonymousID
+          enduserTotalPoints
+          enduserRanking
+          createdAt
+          updatedAt
+          enduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          referralEnduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          actionPage {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+          enduserPageSubscriptionCompletedActions {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      artistSubscription {
+        items {
+          id
+          artistID
+          enduserID
+          referralEnduserID
+          facebookPageScopedId
+          anonymousID
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          enduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          referralEnduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const updateEvent = /* GraphQL */ `
+  mutation UpdateEvent(
+    $input: UpdateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    updateEvent(input: $input, condition: $condition) {
+      id
+      artistSubscriptionID
+      pageSubscriptionID
+      enduserID
+      artistUserID
+      artistUser {
+        items {
+          id
+          username
+          firstName
+          lastName
+          email
+          phoneNumber
+          artistID
+          facebookUserID
+          facebookLongLivedUserAccessToken
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+          actionPages {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      friendlyName
+      type
+      properties
+      createdAt
+      updatedAt
+      enduser {
+        items {
+          id
+          username
+          firstName
+          lastName
+          email
+          phone
+          profileName
+          profilePicture
+          profileDescription
+          profileSocialLink
+          integrations {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          createdAt
+          updatedAt
+          owner
+          EnduserPageSubscription {
+            nextToken
+          }
+          referredSubscribers {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      pageSubscription {
+        items {
+          id
+          actionPageID
+          enduserID
+          referralEnduserID
+          facebookPageScopedId
+          anonymousID
+          enduserTotalPoints
+          enduserRanking
+          createdAt
+          updatedAt
+          enduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          referralEnduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          actionPage {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+          enduserPageSubscriptionCompletedActions {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      artistSubscription {
+        items {
+          id
+          artistID
+          enduserID
+          referralEnduserID
+          facebookPageScopedId
+          anonymousID
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          enduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          referralEnduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const deleteEvent = /* GraphQL */ `
+  mutation DeleteEvent(
+    $input: DeleteEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    deleteEvent(input: $input, condition: $condition) {
+      id
+      artistSubscriptionID
+      pageSubscriptionID
+      enduserID
+      artistUserID
+      artistUser {
+        items {
+          id
+          username
+          firstName
+          lastName
+          email
+          phoneNumber
+          artistID
+          facebookUserID
+          facebookLongLivedUserAccessToken
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+          actionPages {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      friendlyName
+      type
+      properties
+      createdAt
+      updatedAt
+      enduser {
+        items {
+          id
+          username
+          firstName
+          lastName
+          email
+          phone
+          profileName
+          profilePicture
+          profileDescription
+          profileSocialLink
+          integrations {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          createdAt
+          updatedAt
+          owner
+          EnduserPageSubscription {
+            nextToken
+          }
+          referredSubscribers {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      pageSubscription {
+        items {
+          id
+          actionPageID
+          enduserID
+          referralEnduserID
+          facebookPageScopedId
+          anonymousID
+          enduserTotalPoints
+          enduserRanking
+          createdAt
+          updatedAt
+          enduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          referralEnduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          actionPage {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+          enduserPageSubscriptionCompletedActions {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      artistSubscription {
+        items {
+          id
+          artistID
+          enduserID
+          referralEnduserID
+          facebookPageScopedId
+          anonymousID
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          enduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          referralEnduser {
+            id
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -5266,6 +5908,7 @@ export const createTagEnduserConnector = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5281,6 +5924,7 @@ export const createTagEnduserConnector = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5380,6 +6024,7 @@ export const updateTagEnduserConnector = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5395,6 +6040,7 @@ export const updateTagEnduserConnector = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5494,6 +6140,7 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5509,6 +6156,7 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5582,6 +6230,7 @@ export const createEnduserIntegrations = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5597,6 +6246,7 @@ export const createEnduserIntegrations = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5671,6 +6321,7 @@ export const updateEnduserIntegrations = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5686,6 +6337,7 @@ export const updateEnduserIntegrations = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5760,6 +6412,7 @@ export const deleteEnduserIntegrations = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt
@@ -5775,6 +6428,7 @@ export const deleteEnduserIntegrations = /* GraphQL */ `
             enduserID
             referralEnduserID
             facebookPageScopedId
+            anonymousID
             enduserTotalPoints
             enduserRanking
             createdAt

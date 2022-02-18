@@ -166,6 +166,7 @@ type EnduserPageSubscription
   @key(name: "byActionPage", fields: ["actionPageID"], queryField: "EnduserPageSubscriptionByActionPage")
   @key(name: "byEnduser", fields: ["enduserID"], queryField: "EnduserPageSubscriptionByEnduser")
   @key(name: "byFacebookPageScopedId", fields: ["facebookPageScopedId"], queryField: "EnduserPageSubscriptionByFacebookPageScopedId")
+  @key(name: "byAnonymousId", fields: ["anonymousID"], queryField: "EnduserPageSubscriptionByAnonymousID")
   @key(
     name: "byReferralEnduser",
     fields: ["referralEnduserID"], 
@@ -183,9 +184,12 @@ type EnduserPageSubscription
   enduser: Enduser! @connection(fields: ["enduserID"])
   referralEnduser: Enduser @connection(fields: ["referralEnduserID"])
   facebookPageScopedId: String
+  anonymousID: String
   enduserPageSubscriptionCompletedActions: [EnduserPageSubscriptionCompletedActions] @connection(keyName: "byEnduserPageSubscription", fields: ["id"])
   enduserTotalPoints: Int
   enduserRanking: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 type ActionPageButton
@@ -239,6 +243,8 @@ type EnduserPageSubscriptionCompletedActions
   actionID: ID!
   action: ActionPageButton @connection(fields: ["actionID"])
   isExpired: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 type EnduserArtistSubscription
@@ -254,6 +260,7 @@ type EnduserArtistSubscription
   )
   @key(name: "byArtist", fields: ["artistID"], queryField: "EnduserArtistSubscriptionsByArtist")
   @key(name: "byEnduser", fields: ["enduserID"], queryField: "EnduserArtistSubscriptionsByEnduser")
+  @key(name: "byAnonymousId", fields: ["anonymousID"], queryField: "EnduserPageSubscriptionByAnonymousID")
   @key(
     name: "byReferralEnduser",
     fields: ["referralEnduserID"], 
@@ -266,10 +273,44 @@ type EnduserArtistSubscription
   artistID: ID!
   enduserID: ID!
   referralEnduserID: ID
+  facebookPageScopedId: String
+  anonymousID: String
   artist: Artist! @connection(fields: ["artistID"])
   enduser: Enduser! @connection(fields: ["enduserID"])
   referralEnduser: Enduser @connection(fields: ["referralEnduserID"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
+
+""" 
+Event Type
+Notes:  - Events can be associated with a specific ArtistSubscription (Fan) or PageSubscription 
+        - This is different than CompletedActions which can have a point value, events are simply a record of an event taking place
+"""
+type Event @model
+  @key(name: "byArtistSubscription", fields: ["artistSubscriptionID"], queryField: "EventByArtistSubscription")
+  @key(name: "byPageSubscription", fields: ["pageSubscriptionID"], queryField: "EventByPageSubscription")
+  @key(name: "byEnduser", fields: ["enduserID"], queryField: "EventByEnduser")
+  @key(name: "byArtistUser", fields: ["artistUserID"], queryField: "EventByArtistUser")
+  {
+    id: ID!
+    artistSubscriptionID: ID
+    artistSubscription: [EnduserArtistSubscription] @connection(fields: ["artistSubscriptionID"])
+    pageSubscriptionID: ID
+    pageSubscription: [EnduserPageSubscription] @connection(fields: ["pageSubscriptionID"])
+    enduserID: ID
+    enduser: [Enduser] @connection(fields: ["enduserID"])
+    artistUserID: ID
+    artistUser: [ArtistUser] @connection(fields: ["artistUserID"])
+    friendlyName: String
+    """
+    type should probably eventually be it's own defined type set instead of open to any kind of string
+    """
+    type: String
+    properties: AWSJSON
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+  }
 
 """
 EnduserTags are a way for artists to track users based on any variety of metadata, likely to include a) specific actions they want to track b) tiers of fans c) location groupings etc
@@ -282,6 +323,8 @@ type EnduserTag @model
   artistID: ID
   artist: [Artist] @connection(fields: ["artistID"])
   endusers: [TagEnduserConnector] @connection(keyName: "byTag",fields:["id"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 "Many-To-Many Connector between tags & endusers"
