@@ -111,6 +111,30 @@ export const createArtist = /* GraphQL */ `
         }
         nextToken
       }
+      summaryData {
+        items {
+          id
+          artistID
+          timeFrameStart
+          timeFrameEnd
+          type
+          properties
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -221,6 +245,30 @@ export const updateArtist = /* GraphQL */ `
             createdAt
             updatedAt
           }
+        }
+        nextToken
+      }
+      summaryData {
+        items {
+          id
+          artistID
+          timeFrameStart
+          timeFrameEnd
+          type
+          properties
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
         }
         nextToken
       }
@@ -337,6 +385,30 @@ export const deleteArtist = /* GraphQL */ `
         }
         nextToken
       }
+      summaryData {
+        items {
+          id
+          artistID
+          timeFrameStart
+          timeFrameEnd
+          type
+          properties
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -399,6 +471,20 @@ export const createArtistIntegrations = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -475,6 +561,20 @@ export const updateArtistIntegrations = /* GraphQL */ `
           }
           nextToken
         }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       owner
     }
@@ -539,6 +639,20 @@ export const deleteArtistIntegrations = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -1241,6 +1355,20 @@ export const createArtistUser = /* GraphQL */ `
           }
           nextToken
         }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       owner
       actionPages {
@@ -1362,6 +1490,20 @@ export const updateArtistUser = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -1495,6 +1637,20 @@ export const deleteArtistUser = /* GraphQL */ `
           }
           nextToken
         }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       owner
       actionPages {
@@ -1594,6 +1750,9 @@ export const createActionPage = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         actionPages {
@@ -1664,6 +1823,20 @@ export const createActionPage = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -1825,6 +1998,9 @@ export const updateActionPage = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         actionPages {
@@ -1895,6 +2071,20 @@ export const updateActionPage = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -2056,6 +2246,9 @@ export const deleteActionPage = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         actionPages {
@@ -2126,6 +2319,20 @@ export const deleteActionPage = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -2464,6 +2671,9 @@ export const createEnduserPageSubscription = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         subscribers {
@@ -2775,6 +2985,9 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -3090,6 +3303,9 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         subscribers {
@@ -3260,6 +3476,9 @@ export const createActionPageButton = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -3434,6 +3653,9 @@ export const updateActionPageButton = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         subscribers {
@@ -3604,6 +3826,9 @@ export const deleteActionPageButton = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -4457,6 +4682,20 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
           }
           nextToken
         }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       enduser {
         id
@@ -4670,6 +4909,20 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
           }
           nextToken
         }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       enduser {
         id
@@ -4877,6 +5130,20 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -5679,6 +5946,9 @@ export const createEnduserTag = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         nextToken
       }
@@ -5747,6 +6017,9 @@ export const updateEnduserTag = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         nextToken
       }
@@ -5813,6 +6086,9 @@ export const deleteEnduserTag = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -6431,6 +6707,255 @@ export const deleteEnduserIntegrations = /* GraphQL */ `
             anonymousID
             enduserTotalPoints
             enduserRanking
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      owner
+    }
+  }
+`;
+export const createStreetTeamSummaryData = /* GraphQL */ `
+  mutation CreateStreetTeamSummaryData(
+    $input: CreateStreetTeamSummaryDataInput!
+    $condition: ModelStreetTeamSummaryDataConditionInput
+  ) {
+    createStreetTeamSummaryData(input: $input, condition: $condition) {
+      id
+      artistID
+      timeFrameStart
+      timeFrameEnd
+      type
+      properties
+      createdAt
+      updatedAt
+      artist {
+        id
+        artistName
+        genre
+        profilePicture
+        tags {
+          items {
+            id
+            tag
+            artistID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        route
+        integrations {
+          items {
+            id
+            artistID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+        actionPages {
+          items {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      owner
+    }
+  }
+`;
+export const updateStreetTeamSummaryData = /* GraphQL */ `
+  mutation UpdateStreetTeamSummaryData(
+    $input: UpdateStreetTeamSummaryDataInput!
+    $condition: ModelStreetTeamSummaryDataConditionInput
+  ) {
+    updateStreetTeamSummaryData(input: $input, condition: $condition) {
+      id
+      artistID
+      timeFrameStart
+      timeFrameEnd
+      type
+      properties
+      createdAt
+      updatedAt
+      artist {
+        id
+        artistName
+        genre
+        profilePicture
+        tags {
+          items {
+            id
+            tag
+            artistID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        route
+        integrations {
+          items {
+            id
+            artistID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+        actionPages {
+          items {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      owner
+    }
+  }
+`;
+export const deleteStreetTeamSummaryData = /* GraphQL */ `
+  mutation DeleteStreetTeamSummaryData(
+    $input: DeleteStreetTeamSummaryDataInput!
+    $condition: ModelStreetTeamSummaryDataConditionInput
+  ) {
+    deleteStreetTeamSummaryData(input: $input, condition: $condition) {
+      id
+      artistID
+      timeFrameStart
+      timeFrameEnd
+      type
+      properties
+      createdAt
+      updatedAt
+      artist {
+        id
+        artistName
+        genre
+        profilePicture
+        tags {
+          items {
+            id
+            tag
+            artistID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        route
+        integrations {
+          items {
+            id
+            artistID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+        actionPages {
+          items {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner

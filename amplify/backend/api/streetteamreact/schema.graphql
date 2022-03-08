@@ -21,6 +21,7 @@ type Artist
   "route is used to route to specific pages"
   route: String
   integrations: [ArtistIntegrations] @connection(keyName: "byArtist", fields:["id"])
+  summaryData: [StreetTeamSummaryData] @connection(keyName: "byArtist", fields:["id"])
 }
 
 """
@@ -363,6 +364,33 @@ type EnduserIntegrations
   serviceApiUrl: String
 }
 
+type StreetTeamSummaryData
+@model
+  @aws_cognito_user_pools
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  )
+  @key(name: "byArtist", fields: ["artistID","timeFrameStart", "timeFrameEnd"], queryField: "summaryDataByArtist"){
+  """
+  StreetTeam Summary Data for getting a high level understanding of StreetTeam related statstics and analytics
+  """
+  id: ID!
+  artistID: ID!
+  artist: Artist @connection(fields: ["artistID"])
+  timeFrameStart: String
+  timeFrameEnd: String
+  """
+  type should probably eventually be it's own defined type set instead of open to any kind of string
+  right now this represents different types of data (Facebook, StreetTeam, external source, etc)
+  """
+  type: String 
+  properties: AWSJSON
+}
 type Picture
   @model
   @aws_iam

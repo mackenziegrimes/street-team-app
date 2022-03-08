@@ -63,6 +63,20 @@ export const getArtistIntegrations = /* GraphQL */ `
           }
           nextToken
         }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       owner
     }
@@ -105,6 +119,9 @@ export const listArtistIntegrationss = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -172,6 +189,20 @@ export const getArtistUser = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -273,6 +304,9 @@ export const listArtistUsers = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -635,6 +669,9 @@ export const getEnduserTag = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -1424,6 +1461,30 @@ export const getArtist = /* GraphQL */ `
         }
         nextToken
       }
+      summaryData {
+        items {
+          id
+          artistID
+          timeFrameStart
+          timeFrameEnd
+          type
+          properties
+          createdAt
+          updatedAt
+          artist {
+            id
+            artistName
+            genre
+            profilePicture
+            route
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -1478,6 +1539,20 @@ export const listArtists = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -1548,6 +1623,20 @@ export const artistByRoute = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -1883,6 +1972,9 @@ export const getActionPage = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         actionPages {
@@ -1953,6 +2045,20 @@ export const getActionPage = /* GraphQL */ `
             heading
             subheading
             pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
             createdAt
             updatedAt
             owner
@@ -2138,6 +2244,9 @@ export const listActionPages = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         subscribers {
@@ -2267,6 +2376,9 @@ export const actionPagesByArtist = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         owner
         subscribers {
@@ -2392,6 +2504,9 @@ export const actionPagesByRoute = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -2661,6 +2776,9 @@ export const getEnduserPageSubscription = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -3426,6 +3544,9 @@ export const getActionPageButton = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -4258,6 +4379,20 @@ export const getEnduserArtistSubscription = /* GraphQL */ `
           }
           nextToken
         }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       enduser {
         id
@@ -4445,6 +4580,9 @@ export const listEnduserArtistSubscriptions = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         enduser {
           id
@@ -4548,6 +4686,9 @@ export const enduserArtistSubscriptionsByArtist = /* GraphQL */ `
           actionPages {
             nextToken
           }
+          summaryData {
+            nextToken
+          }
         }
         enduser {
           id
@@ -4649,6 +4790,9 @@ export const enduserArtistSubscriptionsByEnduser = /* GraphQL */ `
           updatedAt
           owner
           actionPages {
+            nextToken
+          }
+          summaryData {
             nextToken
           }
         }
@@ -5007,6 +5151,188 @@ export const enduserPageSubscriptionByReferralEnduser = /* GraphQL */ `
           }
           nextToken
         }
+      }
+      nextToken
+    }
+  }
+`;
+export const getStreetTeamSummaryData = /* GraphQL */ `
+  query GetStreetTeamSummaryData($id: ID!) {
+    getStreetTeamSummaryData(id: $id) {
+      id
+      artistID
+      timeFrameStart
+      timeFrameEnd
+      type
+      properties
+      createdAt
+      updatedAt
+      artist {
+        id
+        artistName
+        genre
+        profilePicture
+        tags {
+          items {
+            id
+            tag
+            artistID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        route
+        integrations {
+          items {
+            id
+            artistID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+        actionPages {
+          items {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        summaryData {
+          items {
+            id
+            artistID
+            timeFrameStart
+            timeFrameEnd
+            type
+            properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      owner
+    }
+  }
+`;
+export const listStreetTeamSummaryDatas = /* GraphQL */ `
+  query ListStreetTeamSummaryDatas(
+    $filter: ModelStreetTeamSummaryDataFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listStreetTeamSummaryDatas(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        artistID
+        timeFrameStart
+        timeFrameEnd
+        type
+        properties
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          tags {
+            nextToken
+          }
+          route
+          integrations {
+            nextToken
+          }
+          createdAt
+          updatedAt
+          owner
+          actionPages {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const summaryDataByArtist = /* GraphQL */ `
+  query SummaryDataByArtist(
+    $artistID: ID
+    $timeFrameStartTimeFrameEnd: ModelStreetTeamSummaryDataByArtistCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelStreetTeamSummaryDataFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    summaryDataByArtist(
+      artistID: $artistID
+      timeFrameStartTimeFrameEnd: $timeFrameStartTimeFrameEnd
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        artistID
+        timeFrameStart
+        timeFrameEnd
+        type
+        properties
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          tags {
+            nextToken
+          }
+          route
+          integrations {
+            nextToken
+          }
+          createdAt
+          updatedAt
+          owner
+          actionPages {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        owner
       }
       nextToken
     }
