@@ -67,7 +67,8 @@ type Enduser
       { allow: groups, groups: ["everyone"], operations: [read] }
       { allow: groups, groups: ["Admin"] }
     ]
-  ) {
+  )
+  @key(name: "byEmail", fields: ["email"], queryField: "EnduserByEmail") {
   id: ID!
   username: String
   firstName: String
