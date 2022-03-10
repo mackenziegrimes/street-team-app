@@ -141,14 +141,19 @@ export const useGetSubscriberData = ({ artistRoute, pageRoute }) => {
             additionalProperties
           );
           tagInActiveCampaign('TRG - StreetTeam Joined', userId, artistId);
-          console.log(`newSubscription data is ${JSON.stringify(newSubscriptionData)}`);
           ////
+          const psid = window.localStorage.getItem('psid'); //stored here from landing page entry point
+          const newSubscriptionInput = {
+            actionPageID,
+            enduserID: userId,
+            anonymousID: anonymousId(),
+          }
+          if(psid){
+            newSubscriptionInput['facebookPageScopedId']=psid;
+          }
           const newSubscriptionData = addSubscription({
             variables: {
-              input: {
-                actionPageID,
-                enduserID: userId,
-              },
+              input: newSubscriptionInput,
             },
           });
           refetchUserData();

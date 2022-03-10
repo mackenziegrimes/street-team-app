@@ -1,3 +1,6 @@
+import React from "react";
+import { useLocation } from "react-router-dom";
+
 export const compareId = (key, order = 'asc') => {
   return function innerSort(a, b) {
     if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -152,4 +155,11 @@ export const timeAgoHoursFromString = (timestampString ) => {
   var seconds = Math.floor((new Date() - timestamp) / 1000); //time since in seconds
   const hoursPast = (seconds)/3600;
   return hoursPast
+}
+
+  // A custom hook that builds on useLocation to parse
+// the query string for you.
+export const useQueryParams = () => {
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
 }
