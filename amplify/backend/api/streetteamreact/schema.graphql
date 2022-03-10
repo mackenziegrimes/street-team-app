@@ -290,10 +290,12 @@ Notes:  - Events can be associated with a specific ArtistSubscription (Fan) or P
         - This is different than CompletedActions which can have a point value, events are simply a record of an event taking place
 """
 type Event @model
-  @key(name: "byArtistSubscription", fields: ["artistSubscriptionID"], queryField: "EventByArtistSubscription")
-  @key(name: "byPageSubscription", fields: ["pageSubscriptionID"], queryField: "EventByPageSubscription")
-  @key(name: "byEnduser", fields: ["enduserID"], queryField: "EventByEnduser")
-  @key(name: "byArtistUser", fields: ["artistUserID"], queryField: "EventByArtistUser")
+  @key(name: "byArtistSubscription", fields: ["artistSubscriptionID", "type"], queryField: "EventByArtistSubscription")
+  @key(name: "byPageSubscription", fields: ["pageSubscriptionID", "type"], queryField: "EventByPageSubscription")
+  @key(name: "byEnduser", fields: ["enduserID", "type"], queryField: "EventByEnduser")
+  @key(name: "byArtistUser", fields: ["artistUserID", "type"], queryField: "EventByArtistUser")
+  @key(name: "byArtist", fields: ["artistID","type"], queryField: "EventByArtist")
+  @key(name: "byPage", fields: ["pageID","type"], queryField: "EventByPage")
   {
     id: ID!
     artistSubscriptionID: ID
@@ -304,6 +306,10 @@ type Event @model
     enduser: [Enduser] @connection(fields: ["enduserID"])
     artistUserID: ID
     artistUser: [ArtistUser] @connection(fields: ["artistUserID"])
+    artistID: ID
+    artist: [Artist] @connection(fields: ["artistID"])
+    pageID: ID
+    page: [EnduserPageSubscription] @connection(fields: ["pageID"])
     friendlyName: String
     """
     type should probably eventually be it's own defined type set instead of open to any kind of string
