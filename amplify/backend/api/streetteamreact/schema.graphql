@@ -311,6 +311,11 @@ type Event @model
     pageID: ID
     page: [EnduserPageSubscription] @connection(fields: ["pageID"])
     friendlyName: String
+    eventName: String
+    source: String
+    platform: String
+    isExpired: String
+    revenue: String
     """
     type should probably eventually be it's own defined type set instead of open to any kind of string
     """
