@@ -5343,6 +5343,11 @@ export const createEvent = /* GraphQL */ `
       artistID
       pageID
       friendlyName
+      eventName
+      source
+      platform
+      isExpired
+      revenue
       type
       properties
       createdAt
@@ -5627,6 +5632,11 @@ export const updateEvent = /* GraphQL */ `
       artistID
       pageID
       friendlyName
+      eventName
+      source
+      platform
+      isExpired
+      revenue
       type
       properties
       createdAt
@@ -5911,6 +5921,11 @@ export const deleteEvent = /* GraphQL */ `
       artistID
       pageID
       friendlyName
+      eventName
+      source
+      platform
+      isExpired
+      revenue
       type
       properties
       createdAt

@@ -699,6 +699,11 @@ export const onCreateEvent = /* GraphQL */ `
       artistID
       pageID
       friendlyName
+      eventName
+      source
+      platform
+      isExpired
+      revenue
       type
       properties
       createdAt
@@ -980,6 +985,11 @@ export const onUpdateEvent = /* GraphQL */ `
       artistID
       pageID
       friendlyName
+      eventName
+      source
+      platform
+      isExpired
+      revenue
       type
       properties
       createdAt
@@ -1261,6 +1271,11 @@ export const onDeleteEvent = /* GraphQL */ `
       artistID
       pageID
       friendlyName
+      eventName
+      source
+      platform
+      isExpired
+      revenue
       type
       properties
       createdAt

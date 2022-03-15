@@ -373,6 +373,11 @@ export const getEvent = /* GraphQL */ `
       artistID
       pageID
       friendlyName
+      eventName
+      source
+      platform
+      isExpired
+      revenue
       type
       properties
       createdAt
@@ -646,6 +651,11 @@ export const listEvents = /* GraphQL */ `
         artistID
         pageID
         friendlyName
+        eventName
+        source
+        platform
+        isExpired
+        revenue
         type
         properties
         createdAt
@@ -1026,6 +1036,11 @@ export const eventByArtistSubscription = /* GraphQL */ `
         artistID
         pageID
         friendlyName
+        eventName
+        source
+        platform
+        isExpired
+        revenue
         type
         properties
         createdAt
@@ -1155,6 +1170,11 @@ export const eventByPageSubscription = /* GraphQL */ `
         artistID
         pageID
         friendlyName
+        eventName
+        source
+        platform
+        isExpired
+        revenue
         type
         properties
         createdAt
@@ -1284,6 +1304,11 @@ export const eventByEnduser = /* GraphQL */ `
         artistID
         pageID
         friendlyName
+        eventName
+        source
+        platform
+        isExpired
+        revenue
         type
         properties
         createdAt
@@ -1413,6 +1438,11 @@ export const eventByArtistUser = /* GraphQL */ `
         artistID
         pageID
         friendlyName
+        eventName
+        source
+        platform
+        isExpired
+        revenue
         type
         properties
         createdAt
@@ -1542,6 +1572,11 @@ export const eventByArtist = /* GraphQL */ `
         artistID
         pageID
         friendlyName
+        eventName
+        source
+        platform
+        isExpired
+        revenue
         type
         properties
         createdAt
@@ -1671,6 +1706,11 @@ export const eventByPage = /* GraphQL */ `
         artistID
         pageID
         friendlyName
+        eventName
+        source
+        platform
+        isExpired
+        revenue
         type
         properties
         createdAt
