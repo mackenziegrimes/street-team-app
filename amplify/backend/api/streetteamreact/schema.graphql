@@ -41,6 +41,7 @@ type ArtistIntegrations
     @key(name: "byArtist", fields: ["artistID", "id"])
     @key(name: "byServiceAccountId", fields: ["serviceAccountId", "serviceName"])
     @key(name: "byServiceApiUrl", fields: ["serviceApiUrl", "serviceName"])
+    @key(name: "byServiceApiKey", fields: ["serviceApiKey", "serviceName"])
     {
     """
     Artist User manages an Artist Type giving them permissions to access and edit that artists records
@@ -291,13 +292,21 @@ Notes:  - Events can be associated with a specific ArtistSubscription (Fan) or P
 """
 type Event @model
   @key(name: "byArtistSubscription", fields: ["artistSubscriptionID", "type"], queryField: "EventByArtistSubscription")
-  @key(name: "byPageSubscription", fields: ["pageSubscriptionID", "type"], queryField: "EventByPageSubscription")
+  @key(name: "byPageSubscription", fields: ["pageSubscriptionID", "eventName"], queryField: "EventByPageSubscription")
   @key(name: "byEnduser", fields: ["enduserID", "type"], queryField: "EventByEnduser")
   @key(name: "byArtistUser", fields: ["artistUserID", "type"], queryField: "EventByArtistUser")
-  @key(name: "byArtist", fields: ["artistID","type"], queryField: "EventByArtist")
+  @key(name: "byArtist", fields: ["artistID","eventName"], queryField: "EventByArtist")
   @key(name: "byPage", fields: ["pageID","type"], queryField: "EventByPage")
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+    ]
+  )
   {
     id: ID!
+    eventName: String!
     artistSubscriptionID: ID
     artistSubscription: [EnduserArtistSubscription] @connection(fields: ["artistSubscriptionID"])
     pageSubscriptionID: ID
@@ -311,7 +320,6 @@ type Event @model
     pageID: ID
     page: [EnduserPageSubscription] @connection(fields: ["pageID"])
     friendlyName: String
-    eventName: String
     source: String
     platform: String
     isExpired: String
@@ -330,7 +338,15 @@ EnduserTags are a way for artists to track users based on any variety of metadat
 Tags are intended to be unique to each artist account, meaning tags are not shared across accounts
 """
 type EnduserTag @model 
-  @key(name: "byArtist", fields: ["artistID"], queryField: "TagsByArtist"){
+  @key(name: "byArtist", fields: ["artistID"], queryField: "TagsByArtist")
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+    ]
+  )
+  {
   id: ID!
   tag: String
   artistID: ID
@@ -423,7 +439,8 @@ type Picture
   file: S3Object
 }
 
-type S3Object {
+type S3Object 
+{
   bucket: String!
   region: String!
   key: String!
