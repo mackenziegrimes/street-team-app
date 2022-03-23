@@ -8,6 +8,7 @@ type Artist
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -36,12 +37,14 @@ type ArtistIntegrations
     @auth(
       rules: [
         { allow: owner, operations: [create, read, update, delete] }
+        { allow: groups, groups: ["Admin"] }
       ]
     )
     @key(name: "byArtist", fields: ["artistID", "id"])
     @key(name: "byServiceAccountId", fields: ["serviceAccountId", "serviceName"])
     @key(name: "byServiceApiUrl", fields: ["serviceApiUrl", "serviceName"])
     @key(name: "byServiceApiKey", fields: ["serviceApiKey", "serviceName"])
+    @key(name: "byServiceName", fields: ["serviceName"])
     {
     """
     Artist User manages an Artist Type giving them permissions to access and edit that artists records
@@ -96,6 +99,7 @@ type ArtistUser
   @auth(
     rules: [
       { allow: owner, operations: [create, read, update, delete] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   @key(name: "byArtist", fields: ["artistID", "id"])
@@ -133,6 +137,7 @@ type ActionPage
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -164,6 +169,7 @@ type EnduserPageSubscription
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   @key(name: "byActionPage", fields: ["actionPageID"], queryField: "EnduserPageSubscriptionByActionPage")
@@ -205,6 +211,7 @@ type ActionPageButton
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -239,6 +246,7 @@ type EnduserPageSubscriptionCompletedActions
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   enduserPageSubscriptionID: ID!
@@ -259,6 +267,7 @@ type EnduserArtistSubscription
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   @key(name: "byArtist", fields: ["artistID"], queryField: "EnduserArtistSubscriptionsByArtist")
@@ -302,6 +311,7 @@ type Event @model
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   {
@@ -344,6 +354,7 @@ type EnduserTag @model
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   {
@@ -428,6 +439,7 @@ type Picture
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
