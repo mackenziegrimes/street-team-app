@@ -349,6 +349,7 @@ Tags are intended to be unique to each artist account, meaning tags are not shar
 """
 type EnduserTag @model 
   @key(name: "byArtist", fields: ["artistID"], queryField: "TagsByArtist")
+  @key(name: "byArtistAndTagName", fields: ["artistID","tagName"], queryField: "TagsByArtistAndTagName")
   @auth(
     rules: [
       { allow: owner, operations: [create, read, update, delete] }
@@ -359,7 +360,7 @@ type EnduserTag @model
   )
   {
   id: ID!
-  tag: String
+  tagName: String
   artistID: ID
   artist: [Artist] @connection(fields: ["artistID"])
   endusers: [TagEnduserConnector] @connection(keyName: "byTag",fields:["id"])
@@ -371,12 +372,27 @@ type EnduserTag @model
 type TagEnduserConnector
   @model(queries:null)
   @key(name:"byTag", fields: ["tagID", "enduserID"])
-  @key(name:"byEnduser", fields: ["enduserID", "tagID"]){
+  @key(name:"byEnduser", fields: ["enduserID", "tagID"])
+  @key(name:"byArtist", fields: ["artistID","enduserID"])
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  )
+  {
     id: ID!
     enduserID: ID!
     tagID: ID!
+    """
+    This is not a connection point, but just a filterable field 
+    """
+    artistID: ID
     enduser: Enduser @connection(fields: ["enduserID"])
     tag: EnduserTag @connection(fields: ["tagID"])
+    artist: Artist @connection(fields: ["artistID"])
   }
 
 type EnduserIntegrations
