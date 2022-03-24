@@ -44,7 +44,7 @@ export const useGetActionPage = () => {
         tags {
           items {
             id
-            tag
+            tagName
             artistID
             createdAt
             updatedAt
