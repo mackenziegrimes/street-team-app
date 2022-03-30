@@ -24,6 +24,13 @@ export const getAllSubscribersFromArtistUser = gql`
                   lastName
                   phone
                   profileName
+                  tags(filter: {artistID: {eq: $id}}) {
+                    items {
+                      tag {
+                        tagName
+                      }
+                    }
+                  }
                 }
                 createdAt
                 enduserPageSubscriptionCompletedActions {
