@@ -33,7 +33,7 @@ const formatTableData = (tableData, currentUserSubscription, userId) => {
           firstName,
           lastName,
           name: fullName,
-          phone: item?.enduser?.phoneNumber || '',
+          phone: item?.enduser?.phone || '',
           avatar: item?.profilePicture,
           completedActions: item?.enduserPageSubscriptionCompletedActions?.items,
           points: item?.enduserPageSubscriptionCompletedActions?.items.reduce(
