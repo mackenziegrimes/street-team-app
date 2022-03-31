@@ -22,7 +22,7 @@ type Artist
   "route is used to route to specific pages"
   route: String
   integrations: [ArtistIntegrations] @connection(keyName: "byArtist", fields:["id"])
-  summaryData: [StreetTeamSummaryData] @connection(keyName: "byArtist", fields:["id"])
+  summaryData: [StreetTeamSummaryData] @connection(keyName: "byArtistOnly", fields:["id"])
 }
 
 """
@@ -430,7 +430,9 @@ type StreetTeamSummaryData
       { allow: groups, groups: ["Admin"] }
     ]
   )
-  @key(name: "byArtist", fields: ["artistID","timeFrameStart", "timeFrameEnd"], queryField: "summaryDataByArtist"){
+  @key(name: "byArtist", fields: ["artistID","timeFrameStart", "timeFrameEnd"], queryField: "summaryDataByArtist")
+  @key(name: "byArtistOnly", fields: ["artistID"], queryField: "summaryDataByArtistOnly")
+  {
   """
   StreetTeam Summary Data for getting a high level understanding of StreetTeam related statstics and analytics
   """

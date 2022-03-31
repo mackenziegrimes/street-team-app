@@ -6096,6 +6096,58 @@ export const summaryDataByArtist = /* GraphQL */ `
     }
   }
 `;
+export const summaryDataByArtistOnly = /* GraphQL */ `
+  query SummaryDataByArtistOnly(
+    $artistID: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelStreetTeamSummaryDataFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    summaryDataByArtistOnly(
+      artistID: $artistID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        artistID
+        timeFrameStart
+        timeFrameEnd
+        type
+        properties
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          integrations {
+            nextToken
+          }
+          createdAt
+          updatedAt
+          owner
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getPicture = /* GraphQL */ `
   query GetPicture($id: ID!) {
     getPicture(id: $id) {
