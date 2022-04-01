@@ -35,8 +35,8 @@ export const ActionButtons = ({ data, state, handleAction, currentState, enduser
                 {...item} 
                 spotifyAuthToken={spotifyAuthToken} 
                 enduserId={enduserId} 
-                completedActions={state.find(x => x.id=item.id)?.completedActions}
-                remainingActions={5 - state.find(x => x.id=item.id)?.completedActions}
+                completedActions={state.find(x => x.id == item.id)?.completedActions}
+                remainingActions={5 - state.find(x => x.id == item.id)?.completedActions}
                 pageId={pageId}
               />
             </Col>

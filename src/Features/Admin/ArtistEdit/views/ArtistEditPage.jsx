@@ -8,6 +8,8 @@ import { NavBar } from '../../CreateActions/NavBar';
 import { TextField } from '../../../../Components/UI/TextField';
 import { Button } from '../../../../Components/UI/Button';
 import { getBackendApiUrl } from '../../../../utils/sharedUtils';
+import { Icon } from '../../../../Components/UI';
+import { toast, ToastContainer } from 'react-toastify';
 
 const RootContainer = styled(Container)({
   background: ({ theme }) => theme.colors.black,
@@ -20,6 +22,7 @@ const ArtistCard = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
   width: '100%',
   padding: ({ theme }) => theme.spacing.md,
+  color: ({ theme }) => theme.colors.white,
 });
 
 export const ArtistEdit = () => {
@@ -42,6 +45,13 @@ export const ArtistEdit = () => {
   } = useForm({
     defaultValues,
   });
+
+  const copyStreetTeamId = () => {
+    const streetTeamId = data?.id;
+    console.log(`copy ${streetTeamId}`);
+    navigator.clipboard.writeText(streetTeamId);
+    toast.success('Copied ID to clipboard!');
+  }
 
   useEffect(() => {
     if (data) {
@@ -91,6 +101,7 @@ export const ArtistEdit = () => {
     <React.Fragment>
       <NavBar headerText="Artist Info" artistId={artistId} integrations={integrations}/>
       <RootContainer fluid className="d-flex justify-content-center">
+      <ToastContainer autoClose={3000} />
         {/* <Image
           src={getValues('profilePicture')}
           roundedCircle
@@ -100,6 +111,12 @@ export const ArtistEdit = () => {
           <Row>
             <Col>
               <h1>Artist Profile</h1>
+            </Col>
+            <Col>
+            <Button onClick={copyStreetTeamId} color={`lightgray`}>
+              <Icon name="FaCopy" color={`gray`} size={20} style={{ marginRight: '5px'}} />
+              Copy StreetTeam ID
+            </Button>
             </Col>
           </Row>
           <Row>
