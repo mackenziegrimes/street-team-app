@@ -15,6 +15,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Color from 'color';
 import { ToastContainer, toast } from 'react-toastify';
 import { getBackendApiUrl } from '../../../../utils/sharedUtils';
+import { GiConsoleController } from 'react-icons/gi';
 
 const BACKGROUND_COLOR = '#6850ea';
 
@@ -317,6 +318,7 @@ Table.propTypes = {
 export const AudienceView = () => {
   const [searchValue, setSearchValue] = useState('');
   const [tableData, setTableData] = useState([]);
+  const [nextToken, setNextToken] = useState();
 
   const columns = React.useMemo(
     () => [
@@ -354,19 +356,38 @@ export const AudienceView = () => {
   } = useTable(columns, tableData);
 
   const { userId, idToken } = useCurrentAuthUser();
-  const { data, error, loading } = useQuery(getAllSubscribersFromArtistUser, {
+  const { data, error, loading, refetch} = useQuery(getAllSubscribersFromArtistUser, {
     variables: {
       id: userId,
+      limit: 100,
+      nextToken: nextToken
     },
   });
 
   useEffect(() => {
-    console.log('tableData', tableData);
-    if (data && !tableData.length) {
+    // get the next token id from the req
+    const nextTokenId = data?.getArtistUser?.artist?.actionPages?.items[0].subscribers.nextToken;
+
+    if (data) {
       const formattedData = formatTableData(data);
-      setTableData(formattedData);
+      setTableData(prevVal => [...prevVal, ...formattedData]);
     }
+
+    // if there is a next token, set it... it's still loading more data
+    if (nextTokenId) {
+      setNextToken(nextTokenId);
+    } else {
+      // means there is no more data to fetch
+      // should we set a state here?
+    }
+
   }, [data]);
+
+  useEffect(()=> {
+    if (nextToken) {
+      refetch()
+    }
+  },[nextToken])
 
   const onChangeSearch = e => {
     const value = e?.target?.value;

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const getAllSubscribersFromArtistUser = gql`
-  query getSubscriptionsFromArtistUser($id: ID!) {
+  query getSubscriptionsFromArtistUser($id: ID!, $limit: Int, $nextToken: String) {
     getArtistUser(id: $id) {
       artist {
         id
@@ -16,7 +16,8 @@ export const getAllSubscribersFromArtistUser = gql`
         }
         actionPages {
           items {
-            subscribers {
+            subscribers (limit: $limit, nextToken: $nextToken){
+              nextToken
               items {
                 enduser {
                   email

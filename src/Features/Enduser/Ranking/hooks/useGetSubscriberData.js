@@ -141,7 +141,7 @@ export const useGetSubscriberData = ({ artistRoute, pageRoute }) => {
             additionalProperties
           );
           tagInActiveCampaign('TRG - StreetTeam Joined', userId, artistId);
-          console.log(`newSubscription data is ${JSON.stringify(newSubscriptionData)}`);
+          // console.log(`newSubscription data is ${JSON.stringify(newSubscriptionData)}`);
           ////
           const newSubscriptionData = addSubscription({
             variables: {
