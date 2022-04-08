@@ -469,7 +469,8 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                 </Col>
               </Row>
             </CreateActionContainer>
-            <CreateActionContainer>
+            {/* ZOOM INTEGRATION FEATURE IS INCOMPLETE -- needs oauth fixed -SG 2022-04-08 */}
+            {/* <CreateActionContainer>
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
@@ -495,7 +496,7 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                   />
                 </Col>
               </Row>
-            </CreateActionContainer>
+            </CreateActionContainer> */}
             <Row style={{ marginTop: theme.spacing.lg }}>
               <Col>
                 <Button
