@@ -20,7 +20,7 @@ import {
   StyledPageContainer,
 } from '../../../../Components/Page';
 import anonymousId from 'anonymous-id';
-import { isLocal, trackInAmplitude } from '../../../../utils/sharedUtils';
+import { isLocal, trackInAmplitude, useQueryParams } from '../../../../utils/sharedUtils';
 import { StyledPageIcon } from '../../../../Components/SecureViewWrapper/SecureViewWrapper';
 import { PlayerContainer } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
 import { ContainerTriangle } from '../../../../Components/UI/Integrations/Spotify/SecureSpotifyPlayer';
@@ -41,6 +41,9 @@ export const LandingPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isButtonActive, setIsButtonActive] = useState(false);
   let history = useHistory();
+
+  const queryParams = useQueryParams();
+  const psid = queryParams.get("psid");
 
   const continueToNextStep = () => {
     //pull the root path from the location and push to the /secure path for that artist
@@ -139,8 +142,13 @@ export const LandingPage = () => {
   useEffect(() => {
     if (artistId) {
       //sets an anonymousId in the cookies (to be use for tracking purposes)
-      anonymousId();
-      console.log(anonymousId());
+      if(psid){
+        window.localStorage.setItem('psid', psid);
+        anonymousId(psid); //set anonymousId to be the parameter psid for tracking
+      }
+      else{
+        anonymousId();
+      }
       //track
       trackInAmplitude('Song Clicked', anonymousId(), null, artistId);
     }

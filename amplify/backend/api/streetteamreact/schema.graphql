@@ -8,6 +8,7 @@ type Artist
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -21,6 +22,7 @@ type Artist
   "route is used to route to specific pages"
   route: String
   integrations: [ArtistIntegrations] @connection(keyName: "byArtist", fields:["id"])
+  summaryData: [StreetTeamSummaryData] @connection(keyName: "byArtistOnly", fields:["id"])
 }
 
 """
@@ -35,11 +37,14 @@ type ArtistIntegrations
     @auth(
       rules: [
         { allow: owner, operations: [create, read, update, delete] }
+        { allow: groups, groups: ["Admin"] }
       ]
     )
     @key(name: "byArtist", fields: ["artistID", "id"])
     @key(name: "byServiceAccountId", fields: ["serviceAccountId", "serviceName"])
     @key(name: "byServiceApiUrl", fields: ["serviceApiUrl", "serviceName"])
+    @key(name: "byServiceApiKey", fields: ["serviceApiKey", "serviceName"])
+    @key(name: "byServiceName", fields: ["serviceName"])
     {
     """
     Artist User manages an Artist Type giving them permissions to access and edit that artists records
@@ -66,7 +71,8 @@ type Enduser
       { allow: groups, groups: ["everyone"], operations: [read] }
       { allow: groups, groups: ["Admin"] }
     ]
-  ) {
+  )
+  @key(name: "byEmail", fields: ["email"], queryField: "EnduserByEmail") {
   id: ID!
   username: String
   firstName: String
@@ -93,6 +99,7 @@ type ArtistUser
   @auth(
     rules: [
       { allow: owner, operations: [create, read, update, delete] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   @key(name: "byArtist", fields: ["artistID", "id"])
@@ -130,6 +137,7 @@ type ActionPage
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -161,11 +169,13 @@ type EnduserPageSubscription
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   @key(name: "byActionPage", fields: ["actionPageID"], queryField: "EnduserPageSubscriptionByActionPage")
   @key(name: "byEnduser", fields: ["enduserID"], queryField: "EnduserPageSubscriptionByEnduser")
   @key(name: "byFacebookPageScopedId", fields: ["facebookPageScopedId"], queryField: "EnduserPageSubscriptionByFacebookPageScopedId")
+  @key(name: "byAnonymousId", fields: ["anonymousID"], queryField: "EnduserPageSubscriptionByAnonymousID")
   @key(
     name: "byReferralEnduser",
     fields: ["referralEnduserID"], 
@@ -183,9 +193,12 @@ type EnduserPageSubscription
   enduser: Enduser! @connection(fields: ["enduserID"])
   referralEnduser: Enduser @connection(fields: ["referralEnduserID"])
   facebookPageScopedId: String
+  anonymousID: String
   enduserPageSubscriptionCompletedActions: [EnduserPageSubscriptionCompletedActions] @connection(keyName: "byEnduserPageSubscription", fields: ["id"])
   enduserTotalPoints: Int
   enduserRanking: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 type ActionPageButton
@@ -198,6 +211,7 @@ type ActionPageButton
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -232,6 +246,7 @@ type EnduserPageSubscriptionCompletedActions
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   enduserPageSubscriptionID: ID!
@@ -239,6 +254,8 @@ type EnduserPageSubscriptionCompletedActions
   actionID: ID!
   action: ActionPageButton @connection(fields: ["actionID"])
   isExpired: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 type EnduserArtistSubscription
@@ -250,10 +267,12 @@ type EnduserArtistSubscription
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   )
   @key(name: "byArtist", fields: ["artistID"], queryField: "EnduserArtistSubscriptionsByArtist")
   @key(name: "byEnduser", fields: ["enduserID"], queryField: "EnduserArtistSubscriptionsByEnduser")
+  @key(name: "byAnonymousId", fields: ["anonymousID"], queryField: "EnduserPageSubscriptionByAnonymousID")
   @key(
     name: "byReferralEnduser",
     fields: ["referralEnduserID"], 
@@ -266,34 +285,114 @@ type EnduserArtistSubscription
   artistID: ID!
   enduserID: ID!
   referralEnduserID: ID
+  facebookPageScopedId: String
+  anonymousID: String
   artist: Artist! @connection(fields: ["artistID"])
   enduser: Enduser! @connection(fields: ["enduserID"])
   referralEnduser: Enduser @connection(fields: ["referralEnduserID"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
+
+""" 
+Event Type
+Notes:  - Events can be associated with a specific ArtistSubscription (Fan) or PageSubscription 
+        - This is different than CompletedActions which can have a point value, events are simply a record of an event taking place
+"""
+type Event @model
+  @key(name: "byArtistSubscription", fields: ["artistSubscriptionID", "type"], queryField: "EventByArtistSubscription")
+  @key(name: "byPageSubscription", fields: ["pageSubscriptionID", "eventName"], queryField: "EventByPageSubscription")
+  @key(name: "byEnduser", fields: ["enduserID", "type"], queryField: "EventByEnduser")
+  @key(name: "byArtistUser", fields: ["artistUserID", "type"], queryField: "EventByArtistUser")
+  @key(name: "byArtist", fields: ["artistID","eventName"], queryField: "EventByArtist")
+  @key(name: "byPage", fields: ["pageID","type"], queryField: "EventByPage")
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  )
+  {
+    id: ID!
+    eventName: String!
+    artistSubscriptionID: ID
+    artistSubscription: [EnduserArtistSubscription] @connection(fields: ["artistSubscriptionID"])
+    pageSubscriptionID: ID
+    pageSubscription: [EnduserPageSubscription] @connection(fields: ["pageSubscriptionID"])
+    enduserID: ID
+    enduser: [Enduser] @connection(fields: ["enduserID"])
+    artistUserID: ID
+    artistUser: [ArtistUser] @connection(fields: ["artistUserID"])
+    artistID: ID
+    artist: [Artist] @connection(fields: ["artistID"])
+    pageID: ID
+    page: [EnduserPageSubscription] @connection(fields: ["pageID"])
+    friendlyName: String
+    source: String
+    platform: String
+    isExpired: String
+    revenue: String
+    """
+    type should probably eventually be it's own defined type set instead of open to any kind of string
+    """
+    type: String
+    properties: AWSJSON
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+  }
 
 """
 EnduserTags are a way for artists to track users based on any variety of metadata, likely to include a) specific actions they want to track b) tiers of fans c) location groupings etc
 Tags are intended to be unique to each artist account, meaning tags are not shared across accounts
 """
 type EnduserTag @model 
-  @key(name: "byArtist", fields: ["artistID"], queryField: "TagsByArtist"){
+  @key(name: "byArtist", fields: ["artistID"], queryField: "TagsByArtist")
+  @key(name: "byArtistAndTagName", fields: ["artistID","tagName"], queryField: "TagsByArtistAndTagName")
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  )
+  {
   id: ID!
-  tag: String
+  tagName: String
   artistID: ID
   artist: [Artist] @connection(fields: ["artistID"])
   endusers: [TagEnduserConnector] @connection(keyName: "byTag",fields:["id"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 "Many-To-Many Connector between tags & endusers"
 type TagEnduserConnector
   @model(queries:null)
   @key(name:"byTag", fields: ["tagID", "enduserID"])
-  @key(name:"byEnduser", fields: ["enduserID", "tagID"]){
+  @key(name:"byEnduser", fields: ["enduserID", "tagID"])
+  @key(name:"byArtist", fields: ["artistID","enduserID"])
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  )
+  {
     id: ID!
     enduserID: ID!
     tagID: ID!
+    """
+    This is not a connection point, but just a filterable field 
+    """
+    artistID: ID
     enduser: Enduser @connection(fields: ["enduserID"])
     tag: EnduserTag @connection(fields: ["tagID"])
+    artist: Artist @connection(fields: ["artistID"])
   }
 
 type EnduserIntegrations
@@ -320,6 +419,35 @@ type EnduserIntegrations
   serviceApiUrl: String
 }
 
+type StreetTeamSummaryData
+@model
+  @aws_cognito_user_pools
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: public, provider: iam, operations: [read] }
+      { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  )
+  @key(name: "byArtist", fields: ["artistID","timeFrameStart", "timeFrameEnd"], queryField: "summaryDataByArtist")
+  @key(name: "byArtistOnly", fields: ["artistID"], queryField: "summaryDataByArtistOnly")
+  {
+  """
+  StreetTeam Summary Data for getting a high level understanding of StreetTeam related statstics and analytics
+  """
+  id: ID!
+  artistID: ID!
+  artist: Artist @connection(fields: ["artistID"])
+  timeFrameStart: String
+  timeFrameEnd: String
+  """
+  type should probably eventually be it's own defined type set instead of open to any kind of string
+  right now this represents different types of data (Facebook, StreetTeam, external source, etc)
+  """
+  type: String 
+  properties: AWSJSON
+}
 type Picture
   @model
   @aws_iam
@@ -329,6 +457,7 @@ type Picture
       { allow: owner, operations: [create, read, update, delete] }
       { allow: public, provider: iam, operations: [read] }
       { allow: groups, groups: ["everyone"], operations: [read] }
+      { allow: groups, groups: ["Admin"] }
     ]
   ) {
   id: ID!
@@ -340,7 +469,8 @@ type Picture
   file: S3Object
 }
 
-type S3Object {
+type S3Object 
+{
   bucket: String!
   region: String!
   key: String!

@@ -11,6 +11,9 @@ import awsconfig from '../../aws-exports';
 import { useParams } from 'react-router-dom';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { handleSpotifyAuth } from '../UI/Integrations/Spotify/SpotifyAuth';
+import { handleZoomAuth } from '../UI/Integrations/Zoom/ZoomAuth';
+import { handleDiscordAuth } from '../UI/Integrations/Discord/DiscordAuth';
+
 
 Amplify.configure(awsconfig);
 
@@ -47,15 +50,33 @@ export const Login = () => {
       //spotify redirect handling
       // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
       const code = new URLSearchParams(window.location.search).get('code');
-      console.log(`code is ${code}`)
+      console.log(`spotify code is ${code}`)
       const spotifyResponse = handleSpotifyAuth(code).then(response => {
         //after we've handled the spotify auth, then we can set the route and redirect
         setRouteFromStorage();
       });
-    }
-    else{
-      if(!route){
-      setRouteFromStorage();
+    } else if (service?.includes('zoom')) {
+      //zoom redirect handling
+      // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
+      const code = new URLSearchParams(window.location.search).get('code');
+      console.log(`code is ${code}`);
+      const zoomResponse = handleZoomAuth(code,userId).then(response => {
+        console.log('zoomResponse', response);
+        //after we've handled the Zoom auth, then we can set the route and redirect
+        setRouteFromStorage();
+      });
+    } else if (service?.includes('discord')) {
+      //discord redirect handling
+      // 'URLSearchParams(window.location.search)' will get url string after the '?' & .get() will get the code value from the url
+      const code = new URLSearchParams(window.location.search).get('code');
+      console.log(`discord code is ${code}`);
+      const discordResponse = handleDiscordAuth(code).then(response => {
+        //after we've handled the Discord auth, then we can set the route and redirect
+        setRouteFromStorage();
+      });
+    } else {
+      if (!route) {
+        setRouteFromStorage();
       }
     }
 

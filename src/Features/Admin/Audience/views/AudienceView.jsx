@@ -15,7 +15,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Color from 'color';
 import { ToastContainer, toast } from 'react-toastify';
 import { getBackendApiUrl } from '../../../../utils/sharedUtils';
-import { GiConsoleController } from 'react-icons/gi';
+import { formatPhoneNumberIntl } from 'react-phone-number-input'
 
 const BACKGROUND_COLOR = '#6850ea';
 
@@ -221,10 +221,11 @@ const formatTableData = data => {
 
         return {
           email: item?.enduser?.email,
+          createdAt: item?.createdAt,
           firstName,
           lastName,
           name: `${firstName} ${lastName}`,
-          phone: item?.enduser?.phoneNumber || '',
+          phone: item?.enduser?.phone || '',
           tags: item?.enduser?.tags || '',
           points: item?.enduserPageSubscriptionCompletedActions?.items.reduce(
             (a, b) => {
@@ -333,11 +334,13 @@ export const AudienceView = () => {
       {
         Header: 'Phone',
         accessor: 'phone',
+        // assumes US no country code is provided
+        Cell: props => <div> {props.value ? formatPhoneNumberIntl(props.value) || formatPhoneNumberIntl(`+1${props.value}`) : '' } </div>
       },
-      {
-        Header: 'Tags',
-        accessor: 'tags',
-      },
+      // {
+      //   Header: 'Tags',
+      //   accessor: 'tags',
+      // },
       {
         Header: 'Points',
         accessor: 'points',
@@ -346,6 +349,11 @@ export const AudienceView = () => {
         Header: 'Rank',
         accessor: 'rankLabel',
       },
+      {
+        Header: 'Join Date',
+        accessor: 'createdAt',
+        Cell: props => <div> {props.value ? new Date(props.value).toISOString().split("T")[0] : '' } </div>
+      }
     ],
     []
   );

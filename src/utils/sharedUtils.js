@@ -1,3 +1,6 @@
+import React from "react";
+import { useLocation } from "react-router-dom";
+
 export const compareId = (key, order = 'asc') => {
   return function innerSort(a, b) {
     if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -36,7 +39,7 @@ export const isProduction = () => {
   const currentUrl = window.location.href;
   // gets the current url root from the href
   const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
-  if(frontEndUrl==='https://app.modern-musician.com'){
+  if(frontEndUrl==='https://app.modern-musician.com' || frontEndUrl==='https://platform.modern-musician.link'){
     return true;
   }
   else{
@@ -49,7 +52,20 @@ export const isDev = () => {
   const currentUrl = window.location.href;
   // gets the current url root from the href
   const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
-  if(frontEndUrl==='https://dev.modern-musician.com'){
+  if(frontEndUrl==='https://dev.modern-musician.com' || frontEndUrl==='https://dev-platform.modern-musician.link'){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+export const isTest = () => {
+  // build the current url to be used for oauth redirect (should probably use env variables... but this is quicker right now)
+  const currentUrl = window.location.href;
+  // gets the current url root from the href
+  const frontEndUrl = currentUrl.split('/').slice(0, 3).join('/');
+  if(frontEndUrl==='https://test.modern-musician.com' || frontEndUrl === 'https://test-platform.modern-musician.link'){
     return true;
   }
   else{
@@ -63,7 +79,8 @@ export const isLocal = isProduction() || isDev() ? false : true;
 export const getBackendApiUrl = () => {
   const devUrl = `https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev`;
   const productionUrl = `https://ntboexei3e.execute-api.us-east-1.amazonaws.com/production`;
-  return  isProduction() ? productionUrl  : devUrl;
+  const testUrl = `https://test.modern-musician.link`;
+  return  isProduction() ? productionUrl  : isTest() ? testUrl : devUrl;
 }
 
 const productionFacebookAppId = `1889301381171290`;
@@ -152,4 +169,11 @@ export const timeAgoHoursFromString = (timestampString ) => {
   var seconds = Math.floor((new Date() - timestamp) / 1000); //time since in seconds
   const hoursPast = (seconds)/3600;
   return hoursPast
+}
+
+  // A custom hook that builds on useLocation to parse
+// the query string for you.
+export const useQueryParams = () => {
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
 }

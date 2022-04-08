@@ -13,6 +13,8 @@ import { Button } from '../../../Components/UI/Button';
 import { Icon } from '../../../Components/UI/Icon';
 import { useTheme } from '../../../Hooks/useTheme';
 import { FacebookGrantAdPermissions, FacebookGrantPagePermissions } from '../../../Components/UI/Integrations/Facebook';
+import { ZoomGrantPermissions } from '../../../Components/UI/Integrations/Zoom/ZoomGrantPermissions';
+
 import { CreateStreetTeamApiKey } from '../../../Components/UI/Integrations/StreetTeam';
 import { facebookAppId, getBackendApiUrl } from '../../../utils/sharedUtils';
 import { v4 as uuidv4 } from 'uuid';
@@ -21,7 +23,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SelectList } from '../../../Components/UI/SelectList';
 
-const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi', 'FacebookAdAccount'];
+const INPUT_KEYS = ['Amplitude', 'ActiveCampaign', 'Facebook', 'Manychat', 'StreetTeamApi', 'FacebookAdAccount', 'GoogleSheets'];
 
 const ActionContainer = styled(Card)({
   background: ({ theme }) => theme.colors.gray2,
@@ -71,7 +73,9 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
     Facebook: { apiKey: '', apiAccountId: '', apiUrl: '' },
     FacebookAdAccount: { apiKey: '', apiAccountId: '', apiUrl: '' },
     Manychat: { apiKey: '', apiUrl: '' },
-    StreetTeamApi: {apiKey:''}
+    StreetTeamApi: { apiKey: '' },
+    GoogleSheets: { apiKey: '', apiFaUrl: '' },
+    Zoom: {apiKey: '', apiUrl: '', apiAccountId: ''},
   });
 
   const theme = useTheme();
@@ -442,11 +446,11 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
               <Row>
                 <Col xs={10}>
                   <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
-                    Facebook Custom Audiences
+                    Facebook Ad Account
                   </h3>
                   <p>
-                  Automatically create Lookalike and Custom targeting
-                  audiences based on your StreetTeam community members
+                    Automatically create Lookalike and Custom targeting
+                    audiences based on your StreetTeam community members
                   </p>
                 </Col>
                 <IconContainer>
@@ -458,11 +462,41 @@ export const SetupIntegration = ({ userId, artistId, actionPageId, idToken }) =>
                   <FacebookGrantAdPermissions
                     userId={userId}
                     artistId={artistId}
-                    facebookAdAccountId={formValue.FacebookAdAccount?.apiAccountId}
+                    facebookAdAccountId={
+                      formValue.FacebookAdAccount?.apiAccountId
+                    }
                   />
                 </Col>
               </Row>
             </CreateActionContainer>
+            {/* ZOOM INTEGRATION FEATURE IS INCOMPLETE -- needs oauth fixed -SG 2022-04-08 */}
+            {/* <CreateActionContainer>
+              <Row>
+                <Col xs={10}>
+                  <h3 style={{ fontWeight: theme.fontWeights.semibold }}>
+                    Zoom Integration
+                  </h3>
+                  <p>
+                    Integrate with Zoom for Artist Showcase tracking and
+                    reporting...
+                  </p>
+                </Col>
+                <IconContainer>
+                  <Icon name="IoVideocam" color="white" />
+                </IconContainer>
+              </Row>
+              <Row style={{ marginTop: theme.spacing.md }}>
+                <Col>
+                  <ZoomGrantPermissions
+                    userId={userId}
+                    artistId={artistId}
+                    zoomAccountId={
+                      formValue.ZoomAccount?.apiAccountId
+                    }
+                  />
+                </Col>
+              </Row>
+            </CreateActionContainer> */}
             <Row style={{ marginTop: theme.spacing.lg }}>
               <Col>
                 <Button

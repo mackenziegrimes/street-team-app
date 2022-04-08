@@ -1,6 +1,7 @@
 {
   "AppSyncApiName": "streetteamreact",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnablePointInTimeRecovery": "true",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
