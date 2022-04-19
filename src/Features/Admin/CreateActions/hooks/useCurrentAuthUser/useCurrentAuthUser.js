@@ -10,7 +10,7 @@ export const useCurrentAuthUser = () => {
     .then(user => {
       console.log(`current AuthenticatedUser response`,user)
       if(!artistUserDetails){
-        setArtistUserDetails({userId: user.username, artistName: user?.attributes?.name, idToken: user?.signInUserSession?.idToken?.jwtToken});
+        setArtistUserDetails({userId: user?.attributes?.sub, artistName: user?.attributes?.name, idToken: user?.signInUserSession?.idToken?.jwtToken});
       }
     })
     .catch(err => console.error(err));
