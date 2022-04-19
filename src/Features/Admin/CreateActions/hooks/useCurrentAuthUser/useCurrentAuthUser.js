@@ -10,7 +10,8 @@ export const useCurrentAuthUser = () => {
     .then(user => {
       console.log(`current AuthenticatedUser response`,user)
       if(!artistUserDetails){
-        setArtistUserDetails({userId: user?.attributes?.sub, artistName: user?.attributes?.name, idToken: user?.signInUserSession?.idToken?.jwtToken});
+        const userId = user?.username?.startsWith('Facebook_') ? user.username : user?.attributes?.sub; //right now all of our fb users data uses username instead of sub value
+        setArtistUserDetails({userId: userId, artistName: user?.attributes?.name, idToken: user?.signInUserSession?.idToken?.jwtToken});
       }
     })
     .catch(err => console.error(err));
