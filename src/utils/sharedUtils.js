@@ -77,7 +77,7 @@ export const isLocal = isProduction() || isDev() ? false : true;
 
 
 export const getBackendApiUrl = () => {
-  const devUrl = `https://qk9qdxpz3f.execute-api.us-east-1.amazonaws.com/dev`;
+  const devUrl = `https://dev.modern-musician.link`;
   const productionUrl = `https://ntboexei3e.execute-api.us-east-1.amazonaws.com/production`;
   const testUrl = `https://test.modern-musician.link`;
   return  isProduction() ? productionUrl  : isTest() ? testUrl : devUrl;

@@ -14,6 +14,7 @@ import { SpotifyPlayerWidget } from './Components/UI/Integrations/Spotify';
 import { AudienceView } from './Features/Admin/Audience/views/AudienceView';
 import { ArtistEdit } from './Features/Admin/ArtistEdit/views/ArtistEditPage';
 import { FanMagnetStep2 } from './Features/Enduser/Actions/views/FanMagnetStep2';
+import PasswordlessAuth from './Components/Login/PasswordlessAuth';
 /*
 While we're currently supporting backwards compatability, routing should follow these strategies:
 -Artist (Admin) pages should start with the route /artist, not use path parameters, be wrapped in <SecureViewWrapper userRole="admin">
@@ -24,8 +25,8 @@ export const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/test">
-          <SpotifyPlayerWidget />
+        <Route path="/test/:challenge?">
+          <PasswordlessAuth />
         </Route>
         <Route path="/login/:service?">
           <Login />

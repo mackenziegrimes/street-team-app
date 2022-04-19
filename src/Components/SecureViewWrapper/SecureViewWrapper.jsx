@@ -9,7 +9,7 @@ import {
 import Amplify, { Auth } from 'aws-amplify';
 import PropTypes from 'prop-types';
 import awsconfig from '../../aws-exports';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { Icon } from '../UI/Icon';
 import { PageContainer, PageHeader } from '../Page';
 import { FanMagnetButton } from '../UI';
@@ -17,6 +17,8 @@ import queryString from 'query-string';
 import { useContext } from 'react';
 import { SecureProvider } from '.';
 import { UserContext } from './SecureViewContext';
+import { GenerateMagicLink } from '../Login/GenerateMagicLink';
+import { useQueryParams } from '../../utils/sharedUtils';
 
 // here we're copying the constant config (aws-exports.js) because config is read only. -- then updating location.href
 var updatedConfig = awsconfig;
@@ -98,9 +100,13 @@ const Terms = styled.div`
 `;
 
 export const SecureViewWrapper = ({ userRole, children }) => {
+  let history = useHistory();
   let location = useLocation();
   const [authState, setAuthState] = useState();
   const [userId, setUserId] = useState();
+  const [redirectUrl, setRedirectUrl] = useState();
+  const [error, setError] = useState();
+
   const context = useContext(UserContext);
   console.log('hii', context);
   // const authState = context?.authState;
@@ -146,6 +152,30 @@ export const SecureViewWrapper = ({ userRole, children }) => {
   const federated = {
     facebookAppId: '1889301381171290', // login here https://developers.facebook.com/apps/
   };
+
+  const queryParams  = useQueryParams();
+  const location_id = queryParams.get('location_id')
+  console.log(`location_id is now`, location_id);
+
+  useEffect(async ()=> {
+  //if location_id is in the parameters, try getting a magic link
+  if(context.authState !== AuthState.SignedIn ){
+        console.log(`no one is signed in`);
+        if(location_id){
+          const newLink = await GenerateMagicLink(location_id);
+          if(newLink){
+           setRedirectUrl(newLink)
+          }
+        }
+    }
+  },[]);
+
+  useEffect(()=>{
+    if(redirectUrl){
+      const path = redirectUrl.split(`.com`)[1];
+      history.push(path)
+    };
+  },[redirectUrl])
 
   return context.authState === AuthState.SignedIn && context.userId ? (
     <div

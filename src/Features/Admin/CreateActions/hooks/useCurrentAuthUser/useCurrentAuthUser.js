@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Auth } from 'aws-amplify';
+import { GenerateMagicLink } from '../../../../../Components/Login/GenerateMagicLink';
 
 export const useCurrentAuthUser = () => {
   const [artistUserDetails, setArtistUserDetails] = useState();
