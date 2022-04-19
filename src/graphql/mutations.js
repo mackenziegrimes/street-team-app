@@ -48,6 +48,7 @@ export const createArtist = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -186,6 +187,7 @@ export const updateArtist = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -324,6 +326,7 @@ export const deleteArtist = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -677,6 +680,7 @@ export const createEnduser = /* GraphQL */ `
   ) {
     createEnduser(input: $input, condition: $condition) {
       id
+      globalId
       username
       firstName
       lastName
@@ -699,6 +703,7 @@ export const createEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -733,6 +738,7 @@ export const createEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -748,6 +754,7 @@ export const createEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -795,6 +802,7 @@ export const createEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -810,6 +818,7 @@ export const createEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -863,6 +872,7 @@ export const createEnduser = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -898,6 +908,7 @@ export const updateEnduser = /* GraphQL */ `
   ) {
     updateEnduser(input: $input, condition: $condition) {
       id
+      globalId
       username
       firstName
       lastName
@@ -920,6 +931,7 @@ export const updateEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -954,6 +966,7 @@ export const updateEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -969,6 +982,7 @@ export const updateEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1016,6 +1030,7 @@ export const updateEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1031,6 +1046,7 @@ export const updateEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1084,6 +1100,7 @@ export const updateEnduser = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1119,6 +1136,7 @@ export const deleteEnduser = /* GraphQL */ `
   ) {
     deleteEnduser(input: $input, condition: $condition) {
       id
+      globalId
       username
       firstName
       lastName
@@ -1141,6 +1159,7 @@ export const deleteEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1175,6 +1194,7 @@ export const deleteEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1190,6 +1210,7 @@ export const deleteEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1237,6 +1258,7 @@ export const deleteEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1252,6 +1274,7 @@ export const deleteEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1305,6 +1328,7 @@ export const deleteEnduser = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1341,6 +1365,7 @@ export const createArtistUser = /* GraphQL */ `
     createArtistUser(input: $input, condition: $condition) {
       id
       username
+      globalId
       firstName
       lastName
       email
@@ -1425,6 +1450,7 @@ export const createArtistUser = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -1483,6 +1509,7 @@ export const updateArtistUser = /* GraphQL */ `
     updateArtistUser(input: $input, condition: $condition) {
       id
       username
+      globalId
       firstName
       lastName
       email
@@ -1567,6 +1594,7 @@ export const updateArtistUser = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -1625,6 +1653,7 @@ export const deleteArtistUser = /* GraphQL */ `
     deleteArtistUser(input: $input, condition: $condition) {
       id
       username
+      globalId
       firstName
       lastName
       email
@@ -1709,6 +1738,7 @@ export const deleteArtistUser = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -1771,6 +1801,7 @@ export const createActionPage = /* GraphQL */ `
       creatorUser {
         id
         username
+        globalId
         firstName
         lastName
         email
@@ -1908,6 +1939,7 @@ export const createActionPage = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1923,6 +1955,7 @@ export const createActionPage = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -2020,6 +2053,7 @@ export const updateActionPage = /* GraphQL */ `
       creatorUser {
         id
         username
+        globalId
         firstName
         lastName
         email
@@ -2157,6 +2191,7 @@ export const updateActionPage = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -2172,6 +2207,7 @@ export const updateActionPage = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -2269,6 +2305,7 @@ export const deleteActionPage = /* GraphQL */ `
       creatorUser {
         id
         username
+        globalId
         firstName
         lastName
         email
@@ -2406,6 +2443,7 @@ export const deleteActionPage = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -2421,6 +2459,7 @@ export const deleteActionPage = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -2524,6 +2563,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -2598,6 +2638,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -2677,6 +2718,7 @@ export const createEnduserPageSubscription = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -2844,6 +2886,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -2918,6 +2961,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -2997,6 +3041,7 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -3164,6 +3209,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -3238,6 +3284,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -3317,6 +3364,7 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -3492,6 +3540,7 @@ export const createActionPageButton = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -3667,6 +3716,7 @@ export const updateActionPageButton = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -3842,6 +3892,7 @@ export const deleteActionPageButton = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -4019,6 +4070,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4046,6 +4098,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4078,6 +4131,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4158,6 +4212,7 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4249,6 +4304,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4276,6 +4332,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4308,6 +4365,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4388,6 +4446,7 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4479,6 +4538,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4506,6 +4566,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4538,6 +4599,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4618,6 +4680,7 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4763,6 +4826,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
       }
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -4837,6 +4901,7 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -4995,6 +5060,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
       }
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -5069,6 +5135,7 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -5227,6 +5294,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
       }
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -5301,6 +5369,7 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -5393,6 +5462,7 @@ export const createEvent = /* GraphQL */ `
         items {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -5458,6 +5528,7 @@ export const createEvent = /* GraphQL */ `
       enduser {
         items {
           id
+          globalId
           username
           firstName
           lastName
@@ -5499,6 +5570,7 @@ export const createEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5514,6 +5586,7 @@ export const createEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5561,6 +5634,7 @@ export const createEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5576,6 +5650,7 @@ export const createEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5631,6 +5706,7 @@ export const createEvent = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5646,6 +5722,7 @@ export const createEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5683,6 +5760,7 @@ export const updateEvent = /* GraphQL */ `
         items {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -5748,6 +5826,7 @@ export const updateEvent = /* GraphQL */ `
       enduser {
         items {
           id
+          globalId
           username
           firstName
           lastName
@@ -5789,6 +5868,7 @@ export const updateEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5804,6 +5884,7 @@ export const updateEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5851,6 +5932,7 @@ export const updateEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5866,6 +5948,7 @@ export const updateEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5921,6 +6004,7 @@ export const updateEvent = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5936,6 +6020,7 @@ export const updateEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -5973,6 +6058,7 @@ export const deleteEvent = /* GraphQL */ `
         items {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -6038,6 +6124,7 @@ export const deleteEvent = /* GraphQL */ `
       enduser {
         items {
           id
+          globalId
           username
           firstName
           lastName
@@ -6079,6 +6166,7 @@ export const deleteEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6094,6 +6182,7 @@ export const deleteEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6141,6 +6230,7 @@ export const deleteEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6156,6 +6246,7 @@ export const deleteEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6211,6 +6302,7 @@ export const deleteEvent = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6226,6 +6318,7 @@ export const deleteEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6304,6 +6397,7 @@ export const createEnduserTag = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6389,6 +6483,7 @@ export const updateEnduserTag = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6474,6 +6569,7 @@ export const deleteEnduserTag = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -6582,6 +6678,7 @@ export const createTagEnduserConnector = /* GraphQL */ `
       }
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -6771,6 +6868,7 @@ export const updateTagEnduserConnector = /* GraphQL */ `
       }
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -6960,6 +7058,7 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
       }
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -7086,6 +7185,7 @@ export const createEnduserIntegrations = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -7179,6 +7279,7 @@ export const updateEnduserIntegrations = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -7272,6 +7373,7 @@ export const deleteEnduserIntegrations = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName

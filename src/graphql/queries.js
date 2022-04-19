@@ -137,6 +137,7 @@ export const getArtistUser = /* GraphQL */ `
     getArtistUser(id: $id) {
       id
       username
+      globalId
       firstName
       lastName
       email
@@ -221,6 +222,7 @@ export const getArtistUser = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -281,6 +283,7 @@ export const listArtistUsers = /* GraphQL */ `
       items {
         id
         username
+        globalId
         firstName
         lastName
         email
@@ -348,6 +351,7 @@ export const getEnduserIntegrations = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -447,6 +451,7 @@ export const listEnduserIntegrationss = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -505,6 +510,7 @@ export const enduserIntegrationsByEnduser = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -580,6 +586,7 @@ export const getArtist = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -837,6 +844,7 @@ export const getEnduser = /* GraphQL */ `
   query GetEnduser($id: ID!) {
     getEnduser(id: $id) {
       id
+      globalId
       username
       firstName
       lastName
@@ -859,6 +867,7 @@ export const getEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -893,6 +902,7 @@ export const getEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -908,6 +918,7 @@ export const getEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -955,6 +966,7 @@ export const getEnduser = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -970,6 +982,7 @@ export const getEnduser = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1023,6 +1036,7 @@ export const getEnduser = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1060,6 +1074,7 @@ export const listEndusers = /* GraphQL */ `
     listEndusers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        globalId
         username
         firstName
         lastName
@@ -1153,6 +1168,101 @@ export const enduserByEmail = /* GraphQL */ `
     ) {
       items {
         id
+        globalId
+        username
+        firstName
+        lastName
+        email
+        phone
+        profileName
+        profilePicture
+        profileDescription
+        profileSocialLink
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+        EnduserPageSubscription {
+          items {
+            id
+            actionPageID
+            enduserID
+            referralEnduserID
+            facebookPageScopedId
+            anonymousID
+            enduserTotalPoints
+            enduserRanking
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        referredSubscribers {
+          items {
+            id
+            actionPageID
+            enduserID
+            referralEnduserID
+            facebookPageScopedId
+            anonymousID
+            enduserTotalPoints
+            enduserRanking
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        tags {
+          items {
+            id
+            enduserID
+            tagID
+            artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const enduserByGlobalId = /* GraphQL */ `
+  query EnduserByGlobalId(
+    $globalId: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelEnduserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    EnduserByGlobalId(
+      globalId: $globalId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        globalId
         username
         firstName
         lastName
@@ -1238,6 +1348,7 @@ export const getActionPage = /* GraphQL */ `
       creatorUser {
         id
         username
+        globalId
         firstName
         lastName
         email
@@ -1375,6 +1486,7 @@ export const getActionPage = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1390,6 +1502,7 @@ export const getActionPage = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -1489,6 +1602,7 @@ export const listActionPages = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -1621,6 +1735,7 @@ export const actionPagesByArtist = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -1751,6 +1866,7 @@ export const actionPagesByRoute = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -1874,6 +1990,7 @@ export const getEnduserPageSubscription = /* GraphQL */ `
       updatedAt
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -1948,6 +2065,7 @@ export const getEnduserPageSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -2027,6 +2145,7 @@ export const getEnduserPageSubscription = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -2200,6 +2319,7 @@ export const listEnduserPageSubscriptions = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2227,6 +2347,7 @@ export const listEnduserPageSubscriptions = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2259,6 +2380,7 @@ export const listEnduserPageSubscriptions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -2350,6 +2472,7 @@ export const enduserPageSubscriptionByActionPage = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2377,6 +2500,7 @@ export const enduserPageSubscriptionByActionPage = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2409,6 +2533,7 @@ export const enduserPageSubscriptionByActionPage = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -2500,6 +2625,7 @@ export const enduserPageSubscriptionByEnduser = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2527,6 +2653,7 @@ export const enduserPageSubscriptionByEnduser = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2559,6 +2686,7 @@ export const enduserPageSubscriptionByEnduser = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -2650,6 +2778,7 @@ export const enduserPageSubscriptionByFacebookPageScopedId = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2677,6 +2806,7 @@ export const enduserPageSubscriptionByFacebookPageScopedId = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -2709,6 +2839,7 @@ export const enduserPageSubscriptionByFacebookPageScopedId = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -2795,6 +2926,7 @@ export const getActionPageButton = /* GraphQL */ `
         creatorUser {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -2976,6 +3108,7 @@ export const listActionPageButtons = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -3061,6 +3194,7 @@ export const getEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -3088,6 +3222,7 @@ export const getEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -3120,6 +3255,7 @@ export const getEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -3200,6 +3336,7 @@ export const getEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -3294,6 +3431,7 @@ export const listEnduserPageSubscriptionCompletedActionss = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -3309,6 +3447,7 @@ export const listEnduserPageSubscriptionCompletedActionss = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -3413,6 +3552,7 @@ export const enduserCompletedActionsByActionButton = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -3428,6 +3568,7 @@ export const enduserCompletedActionsByActionButton = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -3532,6 +3673,7 @@ export const enduserCompletedActionsByEnduserPageSubscription = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -3547,6 +3689,7 @@ export const enduserCompletedActionsByEnduserPageSubscription = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -3695,6 +3838,7 @@ export const getEnduserArtistSubscription = /* GraphQL */ `
       }
       enduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -3769,6 +3913,7 @@ export const getEnduserArtistSubscription = /* GraphQL */ `
       }
       referralEnduser {
         id
+        globalId
         username
         firstName
         lastName
@@ -3889,6 +4034,7 @@ export const listEnduserArtistSubscriptions = /* GraphQL */ `
         }
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -3916,6 +4062,7 @@ export const listEnduserArtistSubscriptions = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -3995,6 +4142,7 @@ export const enduserArtistSubscriptionsByArtist = /* GraphQL */ `
         }
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4022,6 +4170,7 @@ export const enduserArtistSubscriptionsByArtist = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4101,6 +4250,7 @@ export const enduserArtistSubscriptionsByEnduser = /* GraphQL */ `
         }
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4128,6 +4278,7 @@ export const enduserArtistSubscriptionsByEnduser = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4187,6 +4338,7 @@ export const enduserPageSubscriptionByAnonymousId = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4214,6 +4366,7 @@ export const enduserPageSubscriptionByAnonymousId = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4246,6 +4399,7 @@ export const enduserPageSubscriptionByAnonymousId = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4337,6 +4491,7 @@ export const enduserPageSubscriptionByReferralEnduser = /* GraphQL */ `
         updatedAt
         enduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4364,6 +4519,7 @@ export const enduserPageSubscriptionByReferralEnduser = /* GraphQL */ `
         }
         referralEnduser {
           id
+          globalId
           username
           firstName
           lastName
@@ -4396,6 +4552,7 @@ export const enduserPageSubscriptionByReferralEnduser = /* GraphQL */ `
           creatorUser {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4472,6 +4629,7 @@ export const getEvent = /* GraphQL */ `
         items {
           id
           username
+          globalId
           firstName
           lastName
           email
@@ -4537,6 +4695,7 @@ export const getEvent = /* GraphQL */ `
       enduser {
         items {
           id
+          globalId
           username
           firstName
           lastName
@@ -4578,6 +4737,7 @@ export const getEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -4593,6 +4753,7 @@ export const getEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -4640,6 +4801,7 @@ export const getEvent = /* GraphQL */ `
           updatedAt
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -4655,6 +4817,7 @@ export const getEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -4710,6 +4873,7 @@ export const getEvent = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -4725,6 +4889,7 @@ export const getEvent = /* GraphQL */ `
           }
           referralEnduser {
             id
+            globalId
             username
             firstName
             lastName
@@ -4764,6 +4929,7 @@ export const listEvents = /* GraphQL */ `
           items {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4804,6 +4970,7 @@ export const listEvents = /* GraphQL */ `
         enduser {
           items {
             id
+            globalId
             username
             firstName
             lastName
@@ -4899,6 +5066,7 @@ export const eventByArtistSubscription = /* GraphQL */ `
           items {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -4939,6 +5107,7 @@ export const eventByArtistSubscription = /* GraphQL */ `
         enduser {
           items {
             id
+            globalId
             username
             firstName
             lastName
@@ -5034,6 +5203,7 @@ export const eventByPageSubscription = /* GraphQL */ `
           items {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -5074,6 +5244,7 @@ export const eventByPageSubscription = /* GraphQL */ `
         enduser {
           items {
             id
+            globalId
             username
             firstName
             lastName
@@ -5169,6 +5340,7 @@ export const eventByEnduser = /* GraphQL */ `
           items {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -5209,6 +5381,7 @@ export const eventByEnduser = /* GraphQL */ `
         enduser {
           items {
             id
+            globalId
             username
             firstName
             lastName
@@ -5304,6 +5477,7 @@ export const eventByArtistUser = /* GraphQL */ `
           items {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -5344,6 +5518,7 @@ export const eventByArtistUser = /* GraphQL */ `
         enduser {
           items {
             id
+            globalId
             username
             firstName
             lastName
@@ -5439,6 +5614,7 @@ export const eventByArtist = /* GraphQL */ `
           items {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -5479,6 +5655,7 @@ export const eventByArtist = /* GraphQL */ `
         enduser {
           items {
             id
+            globalId
             username
             firstName
             lastName
@@ -5574,6 +5751,7 @@ export const eventByPage = /* GraphQL */ `
           items {
             id
             username
+            globalId
             firstName
             lastName
             email
@@ -5614,6 +5792,7 @@ export const eventByPage = /* GraphQL */ `
         enduser {
           items {
             id
+            globalId
             username
             firstName
             lastName
@@ -5735,6 +5914,7 @@ export const getEnduserTag = /* GraphQL */ `
           }
           enduser {
             id
+            globalId
             username
             firstName
             lastName

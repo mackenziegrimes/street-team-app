@@ -72,8 +72,10 @@ type Enduser
       { allow: groups, groups: ["Admin"] }
     ]
   )
-  @key(name: "byEmail", fields: ["email"], queryField: "EnduserByEmail") {
+  @key(name: "byEmail", fields: ["email"], queryField: "EnduserByEmail")
+  @key(name: "byGlobalId", fields: ["globalId"], queryField: "EnduserByGlobalId") {
   id: ID!
+  globalId: String
   username: String
   firstName: String
   lastName: String
@@ -104,6 +106,7 @@ type ArtistUser
   )
   @key(name: "byArtist", fields: ["artistID", "id"])
   @key(name: "byFacebookUserID", fields: ["facebookUserID", "id"])
+  @key(name: "byEmail", fields:["email"])
   {
   """
   Artist User manages an Artist Type giving them permissions to access and edit that artists records
@@ -113,6 +116,7 @@ type ArtistUser
   """
   id: ID!
   username: String
+  globalId: String  
   firstName: String
   lastName: String
   email: String
