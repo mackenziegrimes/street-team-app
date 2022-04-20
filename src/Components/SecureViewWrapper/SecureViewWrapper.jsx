@@ -18,7 +18,7 @@ import { useContext } from 'react';
 import { SecureProvider } from '.';
 import { UserContext } from './SecureViewContext';
 import { GenerateMagicLink } from '../Login/GenerateMagicLink';
-import { useQueryParams } from '../../utils/sharedUtils';
+import { currentLocationDomainUrl, useQueryParams } from '../../utils/sharedUtils';
 
 // here we're copying the constant config (aws-exports.js) because config is read only. -- then updating location.href
 var updatedConfig = awsconfig;
@@ -172,7 +172,7 @@ export const SecureViewWrapper = ({ userRole, children }) => {
 
   useEffect(()=>{
     if(redirectUrl){
-      const path = redirectUrl.split(`.com`)[1];
+      const path = redirectUrl.split(currentLocationDomainUrl)[1];
       history.push(path)
     };
   },[redirectUrl])

@@ -34,6 +34,8 @@ export const cleanUrl = urlString => {
   return link;
 };
 
+export const currentLocationDomainUrl = window.location.href.split('/').slice(0, 3).join('/');
+
 export const isProduction = () => {
   // build the current url to be used for oauth redirect (should probably use env variables... but this is quicker right now)
   const currentUrl = window.location.href;
