@@ -338,6 +338,7 @@ type Event @model
     platform: String
     isExpired: String
     revenue: String
+    points: Int
     """
     type should probably eventually be it's own defined type set instead of open to any kind of string
     """

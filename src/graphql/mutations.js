@@ -12,6 +12,9 @@ export const createArtist = /* GraphQL */ `
       genre
       profilePicture
       route
+      createdAt
+      updatedAt
+      owner
       integrations {
         items {
           id
@@ -37,29 +40,11 @@ export const createArtist = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
-      owner
       actionPages {
         items {
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -73,6 +58,21 @@ export const createArtist = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -151,6 +151,9 @@ export const updateArtist = /* GraphQL */ `
       genre
       profilePicture
       route
+      createdAt
+      updatedAt
+      owner
       integrations {
         items {
           id
@@ -176,29 +179,11 @@ export const updateArtist = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
-      owner
       actionPages {
         items {
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -212,6 +197,21 @@ export const updateArtist = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -290,6 +290,9 @@ export const deleteArtist = /* GraphQL */ `
       genre
       profilePicture
       route
+      createdAt
+      updatedAt
+      owner
       integrations {
         items {
           id
@@ -315,29 +318,11 @@ export const deleteArtist = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
-      owner
       actionPages {
         items {
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -351,6 +336,21 @@ export const deleteArtist = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -439,6 +439,9 @@ export const createArtistIntegrations = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -454,9 +457,6 @@ export const createArtistIntegrations = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -524,6 +524,9 @@ export const updateArtistIntegrations = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -539,9 +542,6 @@ export const updateArtistIntegrations = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -609,6 +609,9 @@ export const deleteArtistIntegrations = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -624,9 +627,6 @@ export const deleteArtistIntegrations = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -690,37 +690,6 @@ export const createEnduser = /* GraphQL */ `
       profilePicture
       profileDescription
       profileSocialLink
-      integrations {
-        items {
-          id
-          enduserID
-          serviceName
-          serviceApiKey
-          serviceAccountId
-          serviceAccountFriendlyName
-          serviceApiUrl
-          createdAt
-          updatedAt
-          enduser {
-            id
-            globalId
-            username
-            firstName
-            lastName
-            email
-            phone
-            profileName
-            profilePicture
-            profileDescription
-            profileSocialLink
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
       owner
@@ -890,6 +859,37 @@ export const createEnduser = /* GraphQL */ `
             id
             tagName
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+      integrations {
+        items {
+          id
+          enduserID
+          serviceName
+          serviceApiKey
+          serviceAccountId
+          serviceAccountFriendlyName
+          serviceApiUrl
+          createdAt
+          updatedAt
+          enduser {
+            id
+            globalId
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
             createdAt
             updatedAt
             owner
@@ -918,37 +918,6 @@ export const updateEnduser = /* GraphQL */ `
       profilePicture
       profileDescription
       profileSocialLink
-      integrations {
-        items {
-          id
-          enduserID
-          serviceName
-          serviceApiKey
-          serviceAccountId
-          serviceAccountFriendlyName
-          serviceApiUrl
-          createdAt
-          updatedAt
-          enduser {
-            id
-            globalId
-            username
-            firstName
-            lastName
-            email
-            phone
-            profileName
-            profilePicture
-            profileDescription
-            profileSocialLink
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
       owner
@@ -1118,6 +1087,37 @@ export const updateEnduser = /* GraphQL */ `
             id
             tagName
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+      integrations {
+        items {
+          id
+          enduserID
+          serviceName
+          serviceApiKey
+          serviceAccountId
+          serviceAccountFriendlyName
+          serviceApiUrl
+          createdAt
+          updatedAt
+          enduser {
+            id
+            globalId
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
             createdAt
             updatedAt
             owner
@@ -1146,37 +1146,6 @@ export const deleteEnduser = /* GraphQL */ `
       profilePicture
       profileDescription
       profileSocialLink
-      integrations {
-        items {
-          id
-          enduserID
-          serviceName
-          serviceApiKey
-          serviceAccountId
-          serviceAccountFriendlyName
-          serviceApiUrl
-          createdAt
-          updatedAt
-          enduser {
-            id
-            globalId
-            username
-            firstName
-            lastName
-            email
-            phone
-            profileName
-            profilePicture
-            profileDescription
-            profileSocialLink
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
       owner
@@ -1346,6 +1315,37 @@ export const deleteEnduser = /* GraphQL */ `
             id
             tagName
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+      integrations {
+        items {
+          id
+          enduserID
+          serviceName
+          serviceApiKey
+          serviceAccountId
+          serviceAccountFriendlyName
+          serviceApiUrl
+          createdAt
+          updatedAt
+          enduser {
+            id
+            globalId
+            username
+            firstName
+            lastName
+            email
+            phone
+            profileName
+            profilePicture
+            profileDescription
+            profileSocialLink
             createdAt
             updatedAt
             owner
@@ -1381,6 +1381,9 @@ export const createArtistUser = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -1396,9 +1399,6 @@ export const createArtistUser = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -1447,21 +1447,6 @@ export const createArtistUser = /* GraphQL */ `
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -1475,6 +1460,21 @@ export const createArtistUser = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -1525,6 +1525,9 @@ export const updateArtistUser = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -1540,9 +1543,6 @@ export const updateArtistUser = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -1591,21 +1591,6 @@ export const updateArtistUser = /* GraphQL */ `
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -1619,6 +1604,21 @@ export const updateArtistUser = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -1669,6 +1669,9 @@ export const deleteArtistUser = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -1684,9 +1687,6 @@ export const deleteArtistUser = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -1735,21 +1735,6 @@ export const deleteArtistUser = /* GraphQL */ `
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -1763,6 +1748,21 @@ export const deleteArtistUser = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -1798,59 +1798,6 @@ export const createActionPage = /* GraphQL */ `
       id
       artistID
       creatorUserID
-      creatorUser {
-        id
-        username
-        globalId
-        firstName
-        lastName
-        email
-        phoneNumber
-        artistID
-        facebookUserID
-        facebookLongLivedUserAccessToken
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
-            nextToken
-          }
-        }
-        owner
-        actionPages {
-          items {
-            id
-            artistID
-            creatorUserID
-            pictureID
-            pageTitle
-            heading
-            subheading
-            pageRoute
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-      }
       pictureID
       pageTitle
       heading
@@ -1864,6 +1811,9 @@ export const createActionPage = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -1879,9 +1829,6 @@ export const createActionPage = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -1917,6 +1864,59 @@ export const createActionPage = /* GraphQL */ `
             timeFrameEnd
             type
             properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      creatorUser {
+        id
+        username
+        globalId
+        firstName
+        lastName
+        email
+        phoneNumber
+        artistID
+        facebookUserID
+        facebookLongLivedUserAccessToken
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        owner
+        actionPages {
+          items {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
             createdAt
             updatedAt
             owner
@@ -2050,59 +2050,6 @@ export const updateActionPage = /* GraphQL */ `
       id
       artistID
       creatorUserID
-      creatorUser {
-        id
-        username
-        globalId
-        firstName
-        lastName
-        email
-        phoneNumber
-        artistID
-        facebookUserID
-        facebookLongLivedUserAccessToken
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
-            nextToken
-          }
-        }
-        owner
-        actionPages {
-          items {
-            id
-            artistID
-            creatorUserID
-            pictureID
-            pageTitle
-            heading
-            subheading
-            pageRoute
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-      }
       pictureID
       pageTitle
       heading
@@ -2116,6 +2063,9 @@ export const updateActionPage = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -2131,9 +2081,6 @@ export const updateActionPage = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -2169,6 +2116,59 @@ export const updateActionPage = /* GraphQL */ `
             timeFrameEnd
             type
             properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      creatorUser {
+        id
+        username
+        globalId
+        firstName
+        lastName
+        email
+        phoneNumber
+        artistID
+        facebookUserID
+        facebookLongLivedUserAccessToken
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        owner
+        actionPages {
+          items {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
             createdAt
             updatedAt
             owner
@@ -2302,59 +2302,6 @@ export const deleteActionPage = /* GraphQL */ `
       id
       artistID
       creatorUserID
-      creatorUser {
-        id
-        username
-        globalId
-        firstName
-        lastName
-        email
-        phoneNumber
-        artistID
-        facebookUserID
-        facebookLongLivedUserAccessToken
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
-            nextToken
-          }
-        }
-        owner
-        actionPages {
-          items {
-            id
-            artistID
-            creatorUserID
-            pictureID
-            pageTitle
-            heading
-            subheading
-            pageRoute
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-      }
       pictureID
       pageTitle
       heading
@@ -2368,6 +2315,9 @@ export const deleteActionPage = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -2383,9 +2333,6 @@ export const deleteActionPage = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -2421,6 +2368,59 @@ export const deleteActionPage = /* GraphQL */ `
             timeFrameEnd
             type
             properties
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      creatorUser {
+        id
+        username
+        globalId
+        firstName
+        lastName
+        email
+        phoneNumber
+        artistID
+        facebookUserID
+        facebookLongLivedUserAccessToken
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        owner
+        actionPages {
+          items {
+            id
+            artistID
+            creatorUserID
+            pictureID
+            pageTitle
+            heading
+            subheading
+            pageRoute
             createdAt
             updatedAt
             owner
@@ -2573,21 +2573,6 @@ export const createEnduserPageSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -2629,6 +2614,21 @@ export const createEnduserPageSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -2648,21 +2648,6 @@ export const createEnduserPageSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -2710,11 +2695,55 @@ export const createEnduserPageSubscription = /* GraphQL */ `
           }
           nextToken
         }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       actionPage {
         id
         artistID
         creatorUserID
+        pictureID
+        pageTitle
+        heading
+        subheading
+        pageRoute
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
         creatorUser {
           id
           username
@@ -2740,35 +2769,6 @@ export const createEnduserPageSubscription = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        pictureID
-        pageTitle
-        heading
-        subheading
-        pageRoute
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
             nextToken
           }
         }
@@ -2896,21 +2896,6 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -2952,6 +2937,21 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -2971,21 +2971,6 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -3033,11 +3018,55 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
           }
           nextToken
         }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       actionPage {
         id
         artistID
         creatorUserID
+        pictureID
+        pageTitle
+        heading
+        subheading
+        pageRoute
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
         creatorUser {
           id
           username
@@ -3063,35 +3092,6 @@ export const updateEnduserPageSubscription = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        pictureID
-        pageTitle
-        heading
-        subheading
-        pageRoute
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
             nextToken
           }
         }
@@ -3219,21 +3219,6 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -3275,6 +3260,21 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -3294,21 +3294,6 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -3356,11 +3341,55 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
           }
           nextToken
         }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       actionPage {
         id
         artistID
         creatorUserID
+        pictureID
+        pageTitle
+        heading
+        subheading
+        pageRoute
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
         creatorUser {
           id
           username
@@ -3386,35 +3415,6 @@ export const deleteEnduserPageSubscription = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        pictureID
-        pageTitle
-        heading
-        subheading
-        pageRoute
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
             nextToken
           }
         }
@@ -3537,6 +3537,35 @@ export const createActionPageButton = /* GraphQL */ `
         id
         artistID
         creatorUserID
+        pictureID
+        pageTitle
+        heading
+        subheading
+        pageRoute
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
         creatorUser {
           id
           username
@@ -3562,35 +3591,6 @@ export const createActionPageButton = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        pictureID
-        pageTitle
-        heading
-        subheading
-        pageRoute
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
             nextToken
           }
         }
@@ -3713,6 +3713,35 @@ export const updateActionPageButton = /* GraphQL */ `
         id
         artistID
         creatorUserID
+        pictureID
+        pageTitle
+        heading
+        subheading
+        pageRoute
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
         creatorUser {
           id
           username
@@ -3738,35 +3767,6 @@ export const updateActionPageButton = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        pictureID
-        pageTitle
-        heading
-        subheading
-        pageRoute
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
             nextToken
           }
         }
@@ -3889,6 +3889,35 @@ export const deleteActionPageButton = /* GraphQL */ `
         id
         artistID
         creatorUserID
+        pictureID
+        pageTitle
+        heading
+        subheading
+        pageRoute
+        createdAt
+        updatedAt
+        artist {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
         creatorUser {
           id
           username
@@ -3914,35 +3943,6 @@ export const deleteActionPageButton = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        pictureID
-        pageTitle
-        heading
-        subheading
-        pageRoute
-        createdAt
-        updatedAt
-        artist {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
             nextToken
           }
         }
@@ -4080,9 +4080,6 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           profilePicture
           profileDescription
           profileSocialLink
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
@@ -4093,6 +4090,9 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             nextToken
           }
           tags {
+            nextToken
+          }
+          integrations {
             nextToken
           }
         }
@@ -4108,9 +4108,6 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           profilePicture
           profileDescription
           profileSocialLink
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
@@ -4123,26 +4120,14 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           tags {
             nextToken
           }
+          integrations {
+            nextToken
+          }
         }
         actionPage {
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -4156,6 +4141,21 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -4209,21 +4209,6 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -4237,6 +4222,21 @@ export const createEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -4314,9 +4314,6 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           profilePicture
           profileDescription
           profileSocialLink
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
@@ -4327,6 +4324,9 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             nextToken
           }
           tags {
+            nextToken
+          }
+          integrations {
             nextToken
           }
         }
@@ -4342,9 +4342,6 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           profilePicture
           profileDescription
           profileSocialLink
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
@@ -4357,26 +4354,14 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           tags {
             nextToken
           }
+          integrations {
+            nextToken
+          }
         }
         actionPage {
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -4390,6 +4375,21 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -4443,21 +4443,6 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -4471,6 +4456,21 @@ export const updateEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -4548,9 +4548,6 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           profilePicture
           profileDescription
           profileSocialLink
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
@@ -4561,6 +4558,9 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             nextToken
           }
           tags {
+            nextToken
+          }
+          integrations {
             nextToken
           }
         }
@@ -4576,9 +4576,6 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           profilePicture
           profileDescription
           profileSocialLink
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
@@ -4591,26 +4588,14 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           tags {
             nextToken
           }
+          integrations {
+            nextToken
+          }
         }
         actionPage {
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -4624,6 +4609,21 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -4677,21 +4677,6 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
           id
           artistID
           creatorUserID
-          creatorUser {
-            id
-            username
-            globalId
-            firstName
-            lastName
-            email
-            phoneNumber
-            artistID
-            facebookUserID
-            facebookLongLivedUserAccessToken
-            createdAt
-            updatedAt
-            owner
-          }
           pictureID
           pageTitle
           heading
@@ -4705,6 +4690,21 @@ export const deleteEnduserPageSubscriptionCompletedActions = /* GraphQL */ `
             genre
             profilePicture
             route
+            createdAt
+            updatedAt
+            owner
+          }
+          creatorUser {
+            id
+            username
+            globalId
+            firstName
+            lastName
+            email
+            phoneNumber
+            artistID
+            facebookUserID
+            facebookLongLivedUserAccessToken
             createdAt
             updatedAt
             owner
@@ -4764,6 +4764,9 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -4779,9 +4782,6 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -4836,21 +4836,6 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -4892,6 +4877,21 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -4911,21 +4911,6 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -4967,6 +4952,21 @@ export const createEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -4998,6 +4998,9 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -5013,9 +5016,6 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -5070,21 +5070,6 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -5126,6 +5111,21 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -5145,21 +5145,6 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -5201,6 +5186,21 @@ export const updateEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -5232,6 +5232,9 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -5247,9 +5250,6 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -5304,21 +5304,6 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -5360,6 +5345,21 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -5379,21 +5379,6 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -5435,6 +5420,21 @@ export const deleteEnduserArtistSubscription = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -5458,6 +5458,74 @@ export const createEvent = /* GraphQL */ `
       pageSubscriptionID
       enduserID
       artistUserID
+      artistID
+      pageID
+      friendlyName
+      source
+      platform
+      isExpired
+      revenue
+      points
+      type
+      properties
+      createdAt
+      updatedAt
+      artist {
+        items {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      enduser {
+        items {
+          id
+          globalId
+          username
+          firstName
+          lastName
+          email
+          phone
+          profileName
+          profilePicture
+          profileDescription
+          profileSocialLink
+          createdAt
+          updatedAt
+          owner
+          EnduserPageSubscription {
+            nextToken
+          }
+          referredSubscribers {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          integrations {
+            nextToken
+          }
+        }
+        nextToken
+      }
       artistUser {
         items {
           id
@@ -5484,73 +5552,6 @@ export const createEvent = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        nextToken
-      }
-      artistID
-      pageID
-      friendlyName
-      source
-      platform
-      isExpired
-      revenue
-      type
-      properties
-      createdAt
-      updatedAt
-      artist {
-        items {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
-            nextToken
-          }
-        }
-        nextToken
-      }
-      enduser {
-        items {
-          id
-          globalId
-          username
-          firstName
-          lastName
-          email
-          phone
-          profileName
-          profilePicture
-          profileDescription
-          profileSocialLink
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          EnduserPageSubscription {
-            nextToken
-          }
-          referredSubscribers {
-            nextToken
-          }
-          tags {
             nextToken
           }
         }
@@ -5756,6 +5757,74 @@ export const updateEvent = /* GraphQL */ `
       pageSubscriptionID
       enduserID
       artistUserID
+      artistID
+      pageID
+      friendlyName
+      source
+      platform
+      isExpired
+      revenue
+      points
+      type
+      properties
+      createdAt
+      updatedAt
+      artist {
+        items {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      enduser {
+        items {
+          id
+          globalId
+          username
+          firstName
+          lastName
+          email
+          phone
+          profileName
+          profilePicture
+          profileDescription
+          profileSocialLink
+          createdAt
+          updatedAt
+          owner
+          EnduserPageSubscription {
+            nextToken
+          }
+          referredSubscribers {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          integrations {
+            nextToken
+          }
+        }
+        nextToken
+      }
       artistUser {
         items {
           id
@@ -5782,73 +5851,6 @@ export const updateEvent = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        nextToken
-      }
-      artistID
-      pageID
-      friendlyName
-      source
-      platform
-      isExpired
-      revenue
-      type
-      properties
-      createdAt
-      updatedAt
-      artist {
-        items {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
-            nextToken
-          }
-        }
-        nextToken
-      }
-      enduser {
-        items {
-          id
-          globalId
-          username
-          firstName
-          lastName
-          email
-          phone
-          profileName
-          profilePicture
-          profileDescription
-          profileSocialLink
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          EnduserPageSubscription {
-            nextToken
-          }
-          referredSubscribers {
-            nextToken
-          }
-          tags {
             nextToken
           }
         }
@@ -6054,6 +6056,74 @@ export const deleteEvent = /* GraphQL */ `
       pageSubscriptionID
       enduserID
       artistUserID
+      artistID
+      pageID
+      friendlyName
+      source
+      platform
+      isExpired
+      revenue
+      points
+      type
+      properties
+      createdAt
+      updatedAt
+      artist {
+        items {
+          id
+          artistName
+          genre
+          profilePicture
+          route
+          createdAt
+          updatedAt
+          owner
+          integrations {
+            nextToken
+          }
+          actionPages {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          summaryData {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      enduser {
+        items {
+          id
+          globalId
+          username
+          firstName
+          lastName
+          email
+          phone
+          profileName
+          profilePicture
+          profileDescription
+          profileSocialLink
+          createdAt
+          updatedAt
+          owner
+          EnduserPageSubscription {
+            nextToken
+          }
+          referredSubscribers {
+            nextToken
+          }
+          tags {
+            nextToken
+          }
+          integrations {
+            nextToken
+          }
+        }
+        nextToken
+      }
       artistUser {
         items {
           id
@@ -6080,73 +6150,6 @@ export const deleteEvent = /* GraphQL */ `
           }
           owner
           actionPages {
-            nextToken
-          }
-        }
-        nextToken
-      }
-      artistID
-      pageID
-      friendlyName
-      source
-      platform
-      isExpired
-      revenue
-      type
-      properties
-      createdAt
-      updatedAt
-      artist {
-        items {
-          id
-          artistName
-          genre
-          profilePicture
-          route
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          actionPages {
-            nextToken
-          }
-          tags {
-            nextToken
-          }
-          summaryData {
-            nextToken
-          }
-        }
-        nextToken
-      }
-      enduser {
-        items {
-          id
-          globalId
-          username
-          firstName
-          lastName
-          email
-          phone
-          profileName
-          profilePicture
-          profileDescription
-          profileSocialLink
-          integrations {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-          EnduserPageSubscription {
-            nextToken
-          }
-          referredSubscribers {
-            nextToken
-          }
-          tags {
             nextToken
           }
         }
@@ -6358,12 +6361,12 @@ export const createEnduserTag = /* GraphQL */ `
           genre
           profilePicture
           route
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
+          integrations {
+            nextToken
+          }
           actionPages {
             nextToken
           }
@@ -6444,12 +6447,12 @@ export const updateEnduserTag = /* GraphQL */ `
           genre
           profilePicture
           route
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
+          integrations {
+            nextToken
+          }
           actionPages {
             nextToken
           }
@@ -6530,12 +6533,12 @@ export const deleteEnduserTag = /* GraphQL */ `
           genre
           profilePicture
           route
-          integrations {
-            nextToken
-          }
           createdAt
           updatedAt
           owner
+          integrations {
+            nextToken
+          }
           actionPages {
             nextToken
           }
@@ -6616,6 +6619,9 @@ export const createTagEnduserConnector = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -6631,9 +6637,6 @@ export const createTagEnduserConnector = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -6688,21 +6691,6 @@ export const createTagEnduserConnector = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -6744,6 +6732,21 @@ export const createTagEnduserConnector = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -6806,6 +6809,9 @@ export const updateTagEnduserConnector = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -6821,9 +6827,6 @@ export const updateTagEnduserConnector = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -6878,21 +6881,6 @@ export const updateTagEnduserConnector = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -6934,6 +6922,21 @@ export const updateTagEnduserConnector = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -6996,6 +6999,9 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -7011,9 +7017,6 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -7068,21 +7071,6 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -7124,6 +7112,21 @@ export const deleteTagEnduserConnector = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -7195,21 +7198,6 @@ export const createEnduserIntegrations = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -7251,6 +7239,21 @@ export const createEnduserIntegrations = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -7289,21 +7292,6 @@ export const updateEnduserIntegrations = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -7345,6 +7333,21 @@ export const updateEnduserIntegrations = /* GraphQL */ `
             enduserID
             tagID
             artistID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
             createdAt
             updatedAt
             owner
@@ -7383,21 +7386,6 @@ export const deleteEnduserIntegrations = /* GraphQL */ `
         profilePicture
         profileDescription
         profileSocialLink
-        integrations {
-          items {
-            id
-            enduserID
-            serviceName
-            serviceApiKey
-            serviceAccountId
-            serviceAccountFriendlyName
-            serviceApiUrl
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
         createdAt
         updatedAt
         owner
@@ -7445,6 +7433,21 @@ export const deleteEnduserIntegrations = /* GraphQL */ `
           }
           nextToken
         }
+        integrations {
+          items {
+            id
+            enduserID
+            serviceName
+            serviceApiKey
+            serviceAccountId
+            serviceAccountFriendlyName
+            serviceApiUrl
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       owner
     }
@@ -7470,6 +7473,9 @@ export const createStreetTeamSummaryData = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -7485,9 +7491,6 @@ export const createStreetTeamSummaryData = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -7554,6 +7557,9 @@ export const updateStreetTeamSummaryData = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -7569,9 +7575,6 @@ export const updateStreetTeamSummaryData = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
@@ -7638,6 +7641,9 @@ export const deleteStreetTeamSummaryData = /* GraphQL */ `
         genre
         profilePicture
         route
+        createdAt
+        updatedAt
+        owner
         integrations {
           items {
             id
@@ -7653,9 +7659,6 @@ export const deleteStreetTeamSummaryData = /* GraphQL */ `
           }
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
         actionPages {
           items {
             id
