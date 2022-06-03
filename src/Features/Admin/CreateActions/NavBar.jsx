@@ -165,19 +165,6 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
       showItem: true,
     },
     {
-      label: 'Your Audience',
-      icon: 'FaUsers',
-      href: '/artist/audience',
-      showItem: true,
-    },
-    {
-      label: 'Your Reports',
-      icon: 'IoAnalyticsOutline',
-      href: 'https://analytics.amplitude.com/',
-      target: '_blank',
-      showItem: true,
-    },
-    {
       label: 'Your Integrations',
       icon: 'FaCogs',
       href: '/admin/integration',
@@ -281,12 +268,6 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
       </NavGroup>
       {/* Artist Profile Menu */}
       <NavGroup>
-        <Link href="https://modernmusician.typeform.com/to/b1MILDjf">
-          <Icon name="FaQuestionCircle" color="gray" />
-        </Link>
-        <Link href="notion://www.notion.so/StreetTeam-Updates-4af35f77dbd54ebfa587d272c6932fb4">
-          <Icon name="FaBell" color="gray" />
-        </Link>
         <ArtistProfileDropdown menuItems={renderArtistProfileItems()} />
       </NavGroup>
     </NavBarContainer>
