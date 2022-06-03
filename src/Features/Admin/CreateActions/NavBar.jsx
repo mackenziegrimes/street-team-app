@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Navbar, Dropdown } from 'react-bootstrap';
+import { Navbar, Dropdown, Button } from 'react-bootstrap';
 import { matchPath } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { Icon } from '../../../Components/UI/Icon';
@@ -268,6 +268,12 @@ export const NavBar = ({ headerText, artistId, integrations, artistName }) => {
       </NavGroup>
       {/* Artist Profile Menu */}
       <NavGroup>
+        <Button
+          onClick={() => window.open('https://app.streetteam.me')}
+          style={{ marginRight: 10 }}
+        >
+          StreetTeam CRM
+        </Button>
         <ArtistProfileDropdown menuItems={renderArtistProfileItems()} />
       </NavGroup>
     </NavBarContainer>
