@@ -1,0 +1,1 @@
+export { FanMagnetButton } from './FanMagnetButton';

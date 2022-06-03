@@ -1,4 +1,9 @@
 {
     "Version": 5,
-    "ElasticsearchWarning": true
+    "ElasticsearchWarning": true,
+    "StackMapping": {
+        "QueryEnduserCompletedActionsByActionButtonResolver": "EnduserCompletedActions",
+        "QueryEnduserPageSubscriptionByReferralEnduserResolver": "EnduserPageSubscription",
+        "QueryEnduserByGlobalIdResolver": "ArtistUser"
+    }
 }

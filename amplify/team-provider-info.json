@@ -8,7 +8,7 @@
       "DeploymentBucketName": "amplify-streetteamreact-dev-235234-deployment",
       "UnauthRoleName": "amplify-streetteamreact-dev-235234-unauthRole",
       "StackName": "amplify-streetteamreact-dev-235234",
-      "StackId": "arn:aws:cloudformation:us-east-1:479344151713:stack/amplify-streetteamreact-dev-235234/c12a0b10-8c5c-11eb-9341-12843ea8a65b",
+      "StackId": "arn:aws:cloudformation:us-east-1:479344151713:stack/amplify-streetteamreact-dev-235234/49b20410-b4bb-11ec-82ca-12be458795f7",
       "AmplifyAppId": "dqjvw0jz66awx"
     },
     "categories": {
@@ -21,34 +21,7 @@
       "function": {
         "streetteamreact935863abPostConfirmation": {
           "deploymentBucketName": "amplify-streetteamreact-dev-235234-deployment",
-          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-7178684768513457354a-build.zip"
-        }
-      }
-    }
-  },
-  "prod": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-streetteamreact-prod-92157-authRole",
-      "UnauthRoleArn": "arn:aws:iam::479344151713:role/amplify-streetteamreact-prod-92157-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::479344151713:role/amplify-streetteamreact-prod-92157-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-streetteamreact-prod-92157-deployment",
-      "UnauthRoleName": "amplify-streetteamreact-prod-92157-unauthRole",
-      "StackName": "amplify-streetteamreact-prod-92157",
-      "StackId": "arn:aws:cloudformation:us-east-1:479344151713:stack/amplify-streetteamreact-prod-92157/0e65b170-c477-11eb-b01d-0e6b672d4ae7",
-      "AmplifyAppId": "dqjvw0jz66awx"
-    },
-    "categories": {
-      "auth": {
-        "streetteamreact935863ab": {
-          "facebookAppId": "1889301381171290"
-        },
-        "userPoolGroups": {}
-      },
-      "function": {
-        "streetteamreact935863abPostConfirmation": {
-          "deploymentBucketName": "amplify-streetteamreact-prod-92157-deployment",
-          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-7178684768513457354a-build.zip",
+          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-6b61704f625676544750-build.zip",
           "GROUP": "everyone"
         }
       }
@@ -77,8 +50,36 @@
         "streetteamreact935863abPostConfirmation": {
           "GROUP": "everyone",
           "deploymentBucketName": "amplify-streetteamreact-production-153439-deployment",
-          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-7178684768513457354a-build.zip"
+          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-6b61704f625676544750-build.zip"
         }
+      }
+    }
+  },
+  "test": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-streetteamreact-test-15256-authRole",
+      "UnauthRoleArn": "arn:aws:iam::479344151713:role/amplify-streetteamreact-test-15256-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::479344151713:role/amplify-streetteamreact-test-15256-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-streetteamreact-test-15256-deployment",
+      "UnauthRoleName": "amplify-streetteamreact-test-15256-unauthRole",
+      "StackName": "amplify-streetteamreact-test-15256",
+      "StackId": "arn:aws:cloudformation:us-east-1:479344151713:stack/amplify-streetteamreact-test-15256/8c34ce70-a42c-11ec-ba84-0abd1eb2ab5b",
+      "AmplifyAppId": "dqjvw0jz66awx"
+    },
+    "categories": {
+      "function": {
+        "streetteamreact935863abPostConfirmation": {
+          "GROUP": "everyone",
+          "deploymentBucketName": "amplify-streetteamreact-test-15256-deployment",
+          "s3Key": "amplify-builds/streetteamreact935863abPostConfirmation-6b61704f625676544750-build.zip"
+        }
+      },
+      "auth": {
+        "streetteamreact935863ab": {
+          "facebookAppId": "1889301381171290"
+        },
+        "userPoolGroups": {}
       }
     }
   }

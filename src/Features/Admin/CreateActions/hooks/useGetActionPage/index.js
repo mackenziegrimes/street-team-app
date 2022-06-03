@@ -1,0 +1,1 @@
+export { useGetActionPage } from './useGetActionPage';

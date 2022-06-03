@@ -3,9 +3,9 @@ see https://docs.amplify.aws/cli/graphql-transformer/overview
 
 ## Data Types:
 Artists - object that contains artist details and connects to contests <br />
-Contests - artist contests for their specific fanbase <br />
-ContestAction - ties actions to contests <br />
-ContestSubscription - ties endusers to contests <br />
+ActionPage - page configuration for hosting action page button <br />
+ActionPageButton - actions an enduser can take on a specific ActionPage <br />
+ActionPageSubscriptions - ties endusers to action pages <br />
 Enduser - record of users who can take contest actions* <br />
 EnduserAction - ties endusers to actions <br />
 ActionType - ENUM of types of actions (initially: follow-on-spotify, join-street-team) <br />
